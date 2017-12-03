@@ -44,6 +44,18 @@ public final class PropertyFileReader {
 		return properties;
 	}
 	
+	public static Properties loadProperties(String path) {	
+		File file = getFile(path);
+		Properties properties = new Properties();
+		try(InputStream is = new FileInputStream(file)){
+			properties.load(is);
+		}	
+		catch (IOException ex) { // The exception FileNotFoundException is already caught by the alternative IOException
+			return null;
+		}
+		return properties;
+	}
+	
 	/* Returns File object which is linked to the file you want to read/write to */
 	private static File getFile(String path)
 	{		
