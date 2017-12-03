@@ -1,7 +1,17 @@
 package model.dataobjects;
 
-public class Adres {
+import java.io.Serializable;
 
+public class Adres implements Serializable{
+
+	public Adres(String street, String number, int postalCode, String city, String country) {
+		super();
+		this.street = street;
+		this.number = number;
+		this.postalCode = postalCode;
+		this.city = city;
+		this.country = country;
+	}
 	private int id;
 	private String street;
 	private String number;
