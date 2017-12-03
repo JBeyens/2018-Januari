@@ -14,11 +14,4 @@
 	<natures>
 		<nature>org.eclipse.jdt.core.javanature</nature>
 	</natures>
-	<linkedResources>
-		<link>
-			<name>mysql-connector-java-5.1.44-bin.jar</name>
-			<type>1</type>
-			<location>E:/Google Drive/git/2018-Januari/8-Afstandsbedieningen/8-Afstandsbediening/mysql-connector-java-5.1.44-bin.jar</location>
-		</link>
-	</linkedResources>
 </projectDescription>
