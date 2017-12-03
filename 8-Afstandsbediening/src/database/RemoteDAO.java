@@ -2,9 +2,15 @@ package database;
 
 import java.util.List;
 
+import javax.sql.DataSource;
+
 import model.dataobjects.Remote;
 
-public class RemoteDAO implements GenericDAO<Remote>{
+public class RemoteDAO extends AbstractDAO implements GenericDAO<Remote>{
+
+	public RemoteDAO(DataSource datasource) {
+		super(datasource);
+	}
 
 	@Override
 	public List<Remote> findAll() {

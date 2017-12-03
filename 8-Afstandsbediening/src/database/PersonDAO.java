@@ -2,9 +2,15 @@ package database;
 
 import java.util.List;
 
+import javax.sql.DataSource;
+
 import model.dataobjects.Person;
 
-public class PersonDAO implements GenericDAO<Person>{
+public class PersonDAO extends AbstractDAO implements GenericDAO<Person>{
+
+	public PersonDAO(DataSource datasource) {
+		super(datasource);
+	}
 
 	@Override
 	public List<Person> findAll() {
