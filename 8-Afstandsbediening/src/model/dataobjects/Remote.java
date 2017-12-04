@@ -2,9 +2,15 @@ package model.dataobjects;
 
 public class Remote {
 	private int id;
-	private int serialNumber;
+	private String serialNumber;
 	private long frequency;
 	private int bewoner;
+	
+	public Remote(String serialNumber, long frequency) {
+		super();
+		this.serialNumber = serialNumber;
+		this.frequency = frequency;
+	}
 	
 	/** Getter & Setter for 'id' **/
 	public int getId() {
@@ -13,9 +19,9 @@ public class Remote {
 		this.id = id;	}
 	
 	/** Getter & Setter for 'serialNumber' **/
-	public int getSerialNumber() {
+	public String getSerialNumber() {
 		return serialNumber;	}
-	public void setSerialNumber(int serialNumber) {
+	public void setSerialNumber(String serialNumber) {
 		this.serialNumber = serialNumber;	}
 	
 	/** Getter & Setter for 'frequency' **/
