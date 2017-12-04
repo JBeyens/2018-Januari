@@ -4,6 +4,11 @@ import java.io.Serializable;
 
 public class Adres implements Serializable{
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+
 	public Adres(String street, String number, int postalCode, String city, String country) {
 		super();
 		this.street = street;
