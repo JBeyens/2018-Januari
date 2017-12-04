@@ -33,10 +33,13 @@ public class GenerateDummyData {
 		Adres address = new Adres("Bondgenotenlaan", "24", 3000, "Leuven", "België");
 		
 		connection = datasource.getConnection();
-		pstmt = connection.prepareStatement(StatementsMySql.write_Object.getValue());
+		pstmt = connection.prepareStatement(StatementsMySql.write_Object_Address.getValue());
 		
-		pstmt.setString(1, address.getClass().getName());
-		pstmt.setObject(2, address);
+		pstmt.setString(1, address.getStreet());
+		pstmt.setString(2, address.getNumber());
+		pstmt.setInt(3, address.getPostalCode());
+		pstmt.setString(4, address.getCity());
+		pstmt.setString(5, address.getCountry());
 		pstmt.executeUpdate();
 		
 		pstmt.close();
