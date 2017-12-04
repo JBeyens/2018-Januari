@@ -2,6 +2,7 @@ package test.database;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.Iterator;
 import java.util.UUID;
@@ -13,6 +14,7 @@ import org.fluttercode.datafactory.impl.DataFactory;
 
 import database.DataSourceFactory;
 import model.dataobjects.Adres;
+import model.dataobjects.Person;
 import model.dataobjects.Remote;
 import values.StatementsMySql;
 
@@ -59,8 +61,7 @@ public class GenerateDummyData {
 		pstmt = connection.prepareStatement(StatementsMySql.write_Object_Remote.getValue());
 		
 		for (int i = 0; i < 20; i++) {
-			String serial = UUID.randomUUID().toString();
-			Remote remote = new Remote(serial, (long)ThreadLocalRandom.current().nextLong(100000, 10000000));
+			Remote remote = new Remote(UUID.randomUUID().toString(), (long)ThreadLocalRandom.current().nextLong(100000, 10000000));
 				
 			try {
 				pstmt.setString(1, remote.getSerialNumber());
@@ -75,23 +76,22 @@ public class GenerateDummyData {
 		connection.close();
 	}
 	
-	private static void createPerson() throws SQLException{
+	private static void createPerson() throws Exception{
 		connection = datasource.getConnection();
-		pstmt = connection.prepareStatement(StatementsMySql.write_Object_Remote.getValue());
+		pstmt = connection.prepareStatement(StatementsMySql.read_Objects_RemoteID_No_Person_Assigned.getValue());
 		
-		for (int i = 0; i < 20; i++) {
-			String serial = UUID.randomUUID().toString();
-			Remote remote = new Remote(serial, (long)ThreadLocalRandom.current().nextLong(100000, 10000000));
+		try(ResultSet rs = pstmt.executeQuery()){
+			if(rs.next()){
+				pstmt.close();
+				pstmt = connection.prepareStatement(StatementsMySql.write_Object_Person.getValue());
 				
-			try {
-				pstmt.setString(1, remote.getSerialNumber());
-				pstmt.setLong(2, remote.getFrequency());
-				pstmt.setNull(3,  java.sql.Types.INTEGER);
-				pstmt.executeUpdate();				
-			} catch (SQLException e) {
-				e.printStackTrace();
-			} 
+				Person person = new Person(datafactory.getFirstName(), datafactory.getLastName(), , , null);
 			}
+			else{
+				throw new Exception("Er zijn geen beschikare Remotes");
+			}
+		}
+		
 		pstmt.close();
 		connection.close();
 	}
