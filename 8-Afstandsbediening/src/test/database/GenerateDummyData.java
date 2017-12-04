@@ -31,7 +31,7 @@ public class GenerateDummyData {
 	
 	private static void createAddress() throws SQLException{
 		Adres address = new Adres("Bondgenotenlaan", "24", 3000, "Leuven", "België");
-		
+
 		connection = datasource.getConnection();
 		pstmt = connection.prepareStatement(StatementsMySql.write_Object_Address.getValue());
 		
@@ -44,6 +44,10 @@ public class GenerateDummyData {
 		
 		pstmt.close();
 		connection.close();
+	}
+	
+	private static void createPerson(){
+		
 	}
 
 }
