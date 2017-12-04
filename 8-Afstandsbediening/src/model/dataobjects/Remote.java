@@ -4,7 +4,6 @@ public class Remote {
 	private int id;
 	private String serialNumber;
 	private long frequency;
-	private int bewoner;
 	
 	public Remote(String serialNumber, long frequency) {
 		super();
@@ -30,9 +29,4 @@ public class Remote {
 	public void setFrequency(long frequency) {
 		this.frequency = frequency;	}
 	
-	/** Getter & Setter for 'bewoner' **/
-	public int getBewoner() {
-		return bewoner;	}
-	public void setBewoner(int bewoner) {
-		this.bewoner = bewoner;	}
 }

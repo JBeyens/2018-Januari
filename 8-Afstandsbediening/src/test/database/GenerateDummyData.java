@@ -24,7 +24,7 @@ public class GenerateDummyData {
 
 	public static void main(String[] args) {				
 		try {
-			//createAddress();
+			createAddress();
 			createAfstandsbediening();
 		} catch (SQLException e) {
 			e.printStackTrace();
@@ -65,7 +65,6 @@ public class GenerateDummyData {
 			try {
 				pstmt.setString(1, remote.getSerialNumber());
 				pstmt.setLong(2, remote.getFrequency());
-				pstmt.setNull(3, java.sql.Types.INTEGER);
 				pstmt.executeUpdate();				
 			} catch (SQLException e) {
 				e.printStackTrace();
