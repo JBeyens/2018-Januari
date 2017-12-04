@@ -6,50 +6,65 @@ public class Person {
 	private int id;
 	private String firstname;
 	private String lastname;
-	private int adress;
-	private boolean isOwner;
+	private Adres adress;
 	private Date endOfContract;
 	private String email;
 	
-	/** Getter & Setter for 'id' **/
+	public Person(String firstname, String lastname, Adres adress, Date endOfContract, String email) {
+		super();
+		this.firstname = firstname;
+		this.lastname = lastname;
+		this.adress = adress;
+		this.endOfContract = endOfContract;
+		this.email = email;
+	}
+
 	public int getId() {
-		return id; 	}
+		return id;
+	}
+
 	public void setId(int id) {
-		this.id = id; 	}
-	
-	/** Getter & Setter for 'firstname' **/
+		this.id = id;
+	}
+
 	public String getFirstname() {
-		return firstname; }
+		return firstname;
+	}
+
 	public void setFirstname(String firstname) {
-		this.firstname = firstname;	}
-		
-	/** Getter & Setter for 'lastname' **/
+		this.firstname = firstname;
+	}
+
 	public String getLastname() {
-		return lastname; }
+		return lastname;
+	}
+
 	public void setLastname(String lastname) {
-		this.lastname = lastname; }
-	
-	/** Getter & Setter for 'adress' **/
-	public int getAdress() {
-		return adress;	}
-	public void setAdress(int adress) {
-		this.adress = adress; }
-	
-	/** Getter & Setter for 'isOwner' **/
-	public boolean isOwner() {
-		return isOwner;	}
-	public void setOwner(boolean isOwner) {
-		this.isOwner = isOwner; }
-	
-	/** Getter & Setter for 'endOfContract' **/
+		this.lastname = lastname;
+	}
+
+	public Adres getAdress() {
+		return adress;
+	}
+
+	public void setAdress(Adres adress) {
+		this.adress = adress;
+	}
+
 	public Date getEndOfContract() {
-		return endOfContract;	}
+		return endOfContract;
+	}
+
 	public void setEndOfContract(Date endOfContract) {
-		this.endOfContract = endOfContract;	}
-	
-	/** Getter & Setter for 'email' **/
+		this.endOfContract = endOfContract;
+	}
+
 	public String getEmail() {
-		return email;	}
+		return email;
+	}
+
 	public void setEmail(String email) {
-		this.email = email;	}
+		this.email = email;
+	}
+	
 }

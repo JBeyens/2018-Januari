@@ -25,7 +25,7 @@ public class GenerateDummyData {
 	public static void main(String[] args) {				
 		try {
 			createAddress();
-			createAfstandsbediening();
+			createRemote();
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}		
@@ -54,9 +54,9 @@ public class GenerateDummyData {
 		}	
 	}
 	
-	private static void createAfstandsbediening() throws SQLException{
+	private static void createRemote() throws SQLException{
 		connection = datasource.getConnection();
-		pstmt = connection.prepareStatement(StatementsMySql.write_Object_Afstandsbediening.getValue());
+		pstmt = connection.prepareStatement(StatementsMySql.write_Object_Remote.getValue());
 		
 		for (int i = 0; i < 20; i++) {
 			String serial = UUID.randomUUID().toString();
@@ -65,6 +65,28 @@ public class GenerateDummyData {
 			try {
 				pstmt.setString(1, remote.getSerialNumber());
 				pstmt.setLong(2, remote.getFrequency());
+				pstmt.setNull(3,  java.sql.Types.INTEGER);
+				pstmt.executeUpdate();				
+			} catch (SQLException e) {
+				e.printStackTrace();
+			} 
+			}
+		pstmt.close();
+		connection.close();
+	}
+	
+	private static void createPerson() throws SQLException{
+		connection = datasource.getConnection();
+		pstmt = connection.prepareStatement(StatementsMySql.write_Object_Remote.getValue());
+		
+		for (int i = 0; i < 20; i++) {
+			String serial = UUID.randomUUID().toString();
+			Remote remote = new Remote(serial, (long)ThreadLocalRandom.current().nextLong(100000, 10000000));
+				
+			try {
+				pstmt.setString(1, remote.getSerialNumber());
+				pstmt.setLong(2, remote.getFrequency());
+				pstmt.setNull(3,  java.sql.Types.INTEGER);
 				pstmt.executeUpdate();				
 			} catch (SQLException e) {
 				e.printStackTrace();
