@@ -5,6 +5,7 @@ import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
 import org.hibernate.cfg.Configuration;
+import org.hibernate.mapping.List;
 
 import modelPersistent.Remote;
 
@@ -36,8 +37,24 @@ public class RemoteDAO{
 		}
 	}
 	
-	public void DeleteRemote(){
+	public void DeleteRemote(Integer remoteID){
+		session = factory.openSession();
 		
+		try {
+			transaction = session.beginTransaction();
+			
+			Remote remote = (Remote) session.load(Remote.class, remoteID);
+			session.delete(remote);
+			session.flush();
+			transaction.commit();
+		} catch (HibernateException e) {
+			if (transaction != null)
+				transaction.rollback();
+			
+			e.printStackTrace();
+		} finally{
+			session.close();
+		}
 	}
 	
 	public void UpdateRemote(){
@@ -48,5 +65,8 @@ public class RemoteDAO{
 		return null;
 	}
 
+	public List ReadAll(){
+		return null;
+	}
 	
 }

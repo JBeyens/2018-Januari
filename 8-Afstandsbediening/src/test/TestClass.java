@@ -8,7 +8,9 @@ public class TestClass {
 	public static void main(String[] args){
 		RemoteDAO mgr = new RemoteDAO();
 		
-		mgr.AddRemote("Test", 123456789);
+		//mgr.AddRemote("Test", 123456789);
+		
+		mgr.DeleteRemote(3);
 		
 		
 
