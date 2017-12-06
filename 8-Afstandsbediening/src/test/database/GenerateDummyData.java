@@ -36,24 +36,24 @@ public class GenerateDummyData {
 	
 	
 	private static void createAddress() throws SQLException{
-		Adres address = new Adres("Bondgenotenlaan", "24", 3000, "Leuven", "België");
-
-		try {
-			connection = datasource.getConnection();
-			pstmt = connection.prepareStatement(StatementsMySql.write_Object_Address.getValue());
-			
-			pstmt.setString(1, address.getStreet());
-			pstmt.setString(2, address.getNumber());
-			pstmt.setInt(3, address.getPostalCode());
-			pstmt.setString(4, address.getCity());
-			pstmt.setString(5, address.getCountry());
-			pstmt.executeUpdate();
-		} catch (Exception e) {
-			e.printStackTrace();
-		} finally{
-			pstmt.close();
-			connection.close();
-		}	
+//		Adres address = new Adres("Bondgenotenlaan", 24, 3000, "Leuven", "België");
+//
+//		try {
+//			connection = datasource.getConnection();
+//			pstmt = connection.prepareStatement(StatementsMySql.write_Object_Address.getValue());
+//			
+//			pstmt.setString(1, address.getStreet());
+//			pstmt.setInt(2, address.getNumber());
+//			pstmt.setInt(3, address.getPostalCode());
+//			pstmt.setString(4, address.getCity());
+//			pstmt.setString(5, address.getCountry());
+//			pstmt.executeUpdate();
+//		} catch (Exception e) {
+//			e.printStackTrace();
+//		} finally{
+//			pstmt.close();
+//			connection.close();
+//		}	
 	}
 	
 	private static void createRemote() throws SQLException{
