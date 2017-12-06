@@ -15,7 +15,7 @@
       <!-- Assume test is the database name -->
       
       <property name = "hibernate.connection.url">
-         jdbc:mysql://localhost::3306/DbAfstandsbediening
+         jdbc:mysql://localhost:3306/DbAfstandsbediening
       </property>
       
       <property name = "hibernate.connection.username">
@@ -27,8 +27,8 @@
       </property>
       
       <!-- List of XML mapping files -->
-      <mapping resource = "remote.hibernate.xml"/>
-      <mapping resource = "adres.hibernate.xml"/>
+      <mapping resource = "remote.hbm.xml"/>
+
 
       
    </session-factory>

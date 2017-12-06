@@ -1,4 +1,4 @@
-package model.dataobjects;
+package modelPersistent;
 
 public class Remote {
 	private int id;

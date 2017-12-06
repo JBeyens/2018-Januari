@@ -4,8 +4,8 @@
  "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">  
   
  <hibernate-mapping>  
-  <class name="model.dataobject.Remote" table="Remote">  
-    <id name="id">  
+  <class name="modelPersistent.Remote" table="Remote">  
+    <id name="id" type = "int" column= "id">  
      <generator class="assigned"></generator>  
     </id>  
             

@@ -6,7 +6,7 @@ import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
 import org.hibernate.cfg.Configuration;
 
-import model.dataobjects.Remote;
+import modelPersistent.Remote;
 import values.DefaultSettings;
 
 public class RemoteDAO{
@@ -15,7 +15,7 @@ public class RemoteDAO{
 	private Transaction transaction;
 	
 	public RemoteDAO(){
-		factory = new Configuration().configure(DefaultSettings.hibernateConfigPath.getValue()).buildSessionFactory();
+		factory = new Configuration().configure().addResource("remote.hbm.xml").buildSessionFactory();
 	}
 
 	public void AddRemote(String serialNumber, long frequency){
@@ -25,6 +25,7 @@ public class RemoteDAO{
 			transaction = session.beginTransaction();
 			
 			Remote remote = new Remote(serialNumber, frequency);
+			session.save(remote);
 			transaction.commit();
 		} catch (HibernateException e) {
 			if (transaction != null)

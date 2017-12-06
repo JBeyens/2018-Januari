@@ -9,7 +9,7 @@ package values;
 
 public enum DefaultSettings {
 	propertiesPath("resources/config.properties"),
-	hibernateConfigPath("resources/hibernate.config.xml");
+	hibernateConfigPath("/resources/hibernate.config.xml");
 
 	private final String name;
 	

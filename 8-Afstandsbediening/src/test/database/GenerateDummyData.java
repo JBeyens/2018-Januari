@@ -13,9 +13,9 @@ import javax.sql.DataSource;
 import org.fluttercode.datafactory.impl.DataFactory;
 
 import database.DataSourceFactory;
-import model.dataobjects.Adres;
-import model.dataobjects.Person;
-import model.dataobjects.Remote;
+import modelPersistent.Adres;
+import modelPersistent.Person;
+import modelPersistent.Remote;
 import values.StatementsMySql;
 
 public class GenerateDummyData {

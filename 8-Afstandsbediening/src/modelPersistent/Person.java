@@ -1,4 +1,4 @@
-package model.dataobjects;
+package modelPersistent;
 
 import java.util.Date;
 
