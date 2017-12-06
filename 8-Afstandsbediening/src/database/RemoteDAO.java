@@ -7,7 +7,6 @@ import org.hibernate.Transaction;
 import org.hibernate.cfg.Configuration;
 
 import modelPersistent.Remote;
-import values.DefaultSettings;
 
 public class RemoteDAO{
 	private SessionFactory factory;
@@ -48,5 +47,6 @@ public class RemoteDAO{
 	public Remote ReadRemoteByID(int id){
 		return null;
 	}
+
 	
 }
