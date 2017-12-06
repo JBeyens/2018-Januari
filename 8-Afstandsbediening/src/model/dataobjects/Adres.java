@@ -9,54 +9,84 @@ public class Adres implements Serializable{
 	 */
 	private static final long serialVersionUID = 1L;
 
-	public Adres(String street, String number, int postalCode, String city, String country) {
+	private int id;
+	
+	private String street;
+	private int number;
+	private int mailBox;
+	private int postalCode;
+	private String city;
+	private String country;
+	
+	public Adres(){
+		
+	}
+	
+	public Adres(String street, int number, int mailBox, int postalCode, String city, String country) {
 		super();
 		this.street = street;
 		this.number = number;
+		this.mailBox = mailBox;
 		this.postalCode = postalCode;
 		this.city = city;
 		this.country = country;
 	}
-	private int id;
-	private String street;
-	private String number;
-	private int postalCode;
-	private String city;
-	private String country;
 
-	/** Getter & Setter for 'id' **/
 	public int getId() {
-		return id; }
+		return id;
+	}
+
 	public void setId(int id) {
-		this.id = id; }
+		this.id = id;
+	}
 
-	/** Getter & Setter for 'street' **/
 	public String getStreet() {
-		return street; }
+		return street;
+	}
+
 	public void setStreet(String street) {
-		this.street = street; }
+		this.street = street;
+	}
 
-	/** Getter & Setter for 'number' **/
-	public String getNumber() {
-		return number; }
-	public void setNumber(String number) {
-		this.number = number; }
+	public int getNumber() {
+		return number;
+	}
 
-	/** Getter & Setter for 'postalCode' **/
+	public void setNumber(int number) {
+		this.number = number;
+	}
+
+	public int getMailBox() {
+		return mailBox;
+	}
+
+	public void setMailBox(int mailBox) {
+		this.mailBox = mailBox;
+	}
+
 	public int getPostalCode() {
-		return postalCode; }
+		return postalCode;
+	}
+
 	public void setPostalCode(int postalCode) {
-		this.postalCode = postalCode; }
+		this.postalCode = postalCode;
+	}
 
-	/** Getter & Setter for 'city' **/
 	public String getCity() {
-		return city; }
-	public void setCity(String city) {
-		this.city = city; }
+		return city;
+	}
 
-	/** Getter & Setter for 'country' **/
+	public void setCity(String city) {
+		this.city = city;
+	}
+
 	public String getCountry() {
-		return country; }
+		return country;
+	}
+
 	public void setCountry(String country) {
-		this.country = country; }
+		this.country = country;
+	}
+
+	
 }
