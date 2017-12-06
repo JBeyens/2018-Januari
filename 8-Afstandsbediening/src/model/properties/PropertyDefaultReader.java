@@ -27,6 +27,6 @@ public final class PropertyDefaultReader {
 	
 	/* Method to retrieve the default file path */
 	public static String getDefaultPath() {
-		return DefaultSettings.stringPath.getValue();
+		return DefaultSettings.propertiesPath.getValue();
 	} 
 }

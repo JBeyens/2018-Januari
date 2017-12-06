@@ -1,15 +1,14 @@
 package test;
 
-import org.fluttercode.datafactory.impl.DataFactory;
+
+import database.RemoteDAO;
 
 public class TestClass {
 
 	public static void main(String[] args){
-		DataFactory f = new DataFactory();
+		RemoteDAO mgr = new RemoteDAO();
 		
-		String name = f.getFirstName();
-		
-		System.out.println(name);
+		mgr.AddRemote("Test", 123456789);
 		
 		
 
