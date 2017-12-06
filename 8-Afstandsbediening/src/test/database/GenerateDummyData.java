@@ -77,23 +77,23 @@ public class GenerateDummyData {
 	}
 	
 	private static void createPerson() throws Exception{
-		connection = datasource.getConnection();
-		pstmt = connection.prepareStatement(StatementsMySql.read_Objects_RemoteID_No_Person_Assigned.getValue());
-		
-		try(ResultSet rs = pstmt.executeQuery()){
-			if(rs.next()){
-				pstmt.close();
-				pstmt = connection.prepareStatement(StatementsMySql.write_Object_Person.getValue());
-				
-				Person person = new Person(datafactory.getFirstName(), datafactory.getLastName(), , , null);
-			}
-			else{
-				throw new Exception("Er zijn geen beschikare Remotes");
-			}
-		}
-		
-		pstmt.close();
-		connection.close();
+//		connection = datasource.getConnection();
+//		pstmt = connection.prepareStatement(StatementsMySql.read_Objects_RemoteID_No_Person_Assigned.getValue());
+//		
+//		try(ResultSet rs = pstmt.executeQuery()){
+//			if(rs.next()){
+//				pstmt.close();
+//				pstmt = connection.prepareStatement(StatementsMySql.write_Object_Person.getValue());
+//				
+//				Person person = new Person(datafactory.getFirstName(), datafactory.getLastName(), , , null);
+//			}
+//			else{
+//				throw new Exception("Er zijn geen beschikare Remotes");
+//			}
+//		}
+//		
+//		pstmt.close();
+//		connection.close();
 	}
 
 }

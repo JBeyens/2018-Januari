@@ -11,6 +11,10 @@ public class Remote {
 		this.frequency = frequency;
 	}
 	
+	public Remote(){
+		
+	}
+	
 	/** Getter & Setter for 'id' **/
 	public int getId() {
 		return id;	}
