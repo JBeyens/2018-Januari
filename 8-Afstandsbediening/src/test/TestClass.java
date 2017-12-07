@@ -2,31 +2,18 @@ package test;
 
 import java.util.List;
 
+import database.AbstractDAO;
 import database.RemoteDAO;
 import modelPersistent.Remote;
 
 public class TestClass {
 
 	public static void main(String[] args){
-		RemoteDAO mgr = new RemoteDAO();
+		AbstractDAO mgr = new RemoteDAO();
 		
-		//mgr.AddRemote("Test", 123456789);
+		Remote remote = (Remote) mgr.findOne(8);
 		
-		//mgr.DeleteRemote(9);
-		
-		//mgr.UpdateRemoteFrequency(10, 000000000);
-		
-		//Remote remote = mgr.ReadRemoteByID(10);
-		
-		//System.out.println(remote.getFrequency());
-		Remote remote;
-		
-		List<Remote> list = mgr.ReadAll();
-		
-		for (int i = 0; i < list.size(); i++) {
-			remote = list.get(i);
-			System.out.println(remote.getSerialNumber());
-		}
+		System.out.println(remote.getFrequency());
 		
 		
 

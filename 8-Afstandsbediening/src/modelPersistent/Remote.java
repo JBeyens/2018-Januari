@@ -1,6 +1,8 @@
 package modelPersistent;
 
-public class Remote {
+import java.io.Serializable;
+
+public class Remote implements Serializable{
 	private int id;
 	private String serialNumber;
 	private long frequency;

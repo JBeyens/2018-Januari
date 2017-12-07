@@ -9,10 +9,10 @@ import org.hibernate.cfg.Configuration;
 import modelPersistent.Remote;
 import values.DefaultSettings;
 
-public class RemoteDAO extends AbstractDAO{
+public class RemoteDAO extends AbstractDAO<Remote>{
 
 	public RemoteDAO(){
-		super();
+		super(Remote.class);
 		factory = new Configuration().configure().addResource(DefaultSettings.resourceRemote.getValue()).buildSessionFactory();
 	}
 
