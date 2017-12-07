@@ -2,7 +2,7 @@ package modelPersistent;
 
 import java.io.Serializable;
 
-public class Adres implements Serializable{
+public class Address implements Serializable{
 
 	/**
 	 * 
@@ -18,11 +18,11 @@ public class Adres implements Serializable{
 	private String city;
 	private String country;
 	
-	public Adres(){
+	public Address(){
 		
 	}
 	
-	public Adres(String street, int number, int mailBox, int postalCode, String city, String country) {
+	public Address(String street, int number, int mailBox, int postalCode, String city, String country) {
 		super();
 		this.street = street;
 		this.number = number;

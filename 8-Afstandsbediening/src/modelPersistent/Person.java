@@ -6,11 +6,11 @@ public class Person {
 	private int id;
 	private String firstname;
 	private String lastname;
-	private Adres adress;
+	private Address adress;
 	private Date endOfContract;
 	private String email;
 	
-	public Person(String firstname, String lastname, Adres adress, Date endOfContract, String email) {
+	public Person(String firstname, String lastname, Address adress, Date endOfContract, String email) {
 		super();
 		this.firstname = firstname;
 		this.lastname = lastname;
@@ -43,11 +43,11 @@ public class Person {
 		this.lastname = lastname;
 	}
 
-	public Adres getAdress() {
+	public Address getAdress() {
 		return adress;
 	}
 
-	public void setAdress(Adres adress) {
+	public void setAdress(Address adress) {
 		this.adress = adress;
 	}
 

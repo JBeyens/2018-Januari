@@ -4,20 +4,15 @@ import java.util.List;
 
 import org.hibernate.Hibernate;
 import org.hibernate.HibernateException;
-import org.hibernate.Session;
-import org.hibernate.SessionFactory;
-import org.hibernate.Transaction;
 import org.hibernate.cfg.Configuration;
 
 import modelPersistent.Remote;
 import values.DefaultSettings;
 
-public class RemoteDAO{
-	private SessionFactory factory;
-	private Session session;
-	private Transaction transaction;
-	
+public class RemoteDAO extends AbstractDAO{
+
 	public RemoteDAO(){
+		super();
 		factory = new Configuration().configure().addResource(DefaultSettings.resourceRemote.getValue()).buildSessionFactory();
 	}
 
