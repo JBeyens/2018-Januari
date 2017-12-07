@@ -1,13 +1,16 @@
 package database;
 
+import java.util.List;
+
+import org.hibernate.Hibernate;
 import org.hibernate.HibernateException;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
 import org.hibernate.cfg.Configuration;
-import org.hibernate.mapping.List;
 
 import modelPersistent.Remote;
+import values.DefaultSettings;
 
 public class RemoteDAO{
 	private SessionFactory factory;
@@ -15,7 +18,7 @@ public class RemoteDAO{
 	private Transaction transaction;
 	
 	public RemoteDAO(){
-		factory = new Configuration().configure().addResource("remote.hbm.xml").buildSessionFactory();
+		factory = new Configuration().configure().addResource(DefaultSettings.resourceRemote.getValue()).buildSessionFactory();
 	}
 
 	public void AddRemote(String serialNumber, long frequency){
@@ -57,16 +60,56 @@ public class RemoteDAO{
 		}
 	}
 	
-	public void UpdateRemote(){
-		
+	public void UpdateRemoteFrequency(Integer remoteID, long frequency){
+		session = factory.openSession();
+	      
+	      try {
+	         transaction = session.beginTransaction();
+	         Remote remote = (Remote)session.get(Remote.class, remoteID); 
+	         remote.setFrequency(frequency);
+			 session.update(remote); 
+	         transaction.commit();
+	      } catch (HibernateException e) {
+	         if (transaction!=null) 
+	        	 transaction.rollback();
+	         
+	         e.printStackTrace(); 
+	      } finally {
+	         session.close(); 
+	      }	
 	}
 	
-	public Remote ReadRemoteByID(int id){
-		return null;
+	public Remote ReadRemoteByID(Integer remoteID){
+		session = factory.openSession();
+	    Remote remote = null;
+	      try {
+	         remote = (Remote)session.load(Remote.class, remoteID);
+	         Hibernate.initialize(remote);
+	      } catch (HibernateException e) {	         
+	         e.printStackTrace(); 
+	      } finally {
+	         session.close(); 
+	      }
+		return remote;
 	}
 
-	public List ReadAll(){
-		return null;
+	@SuppressWarnings("unchecked")
+	public List<Remote> ReadAll(){
+		session = factory.openSession();
+		transaction = null;
+	    List<Remote> list = null;
+	      try {
+	         transaction = session.beginTransaction();
+	         
+	         list = (List<Remote>) session.createQuery("FROM Remote").list();
+	         
+	         transaction.commit();
+	      } catch (HibernateException e) {	         
+	         e.printStackTrace(); 
+	      } finally {
+	         session.close(); 
+	      }
+		return list;
 	}
 	
 }
