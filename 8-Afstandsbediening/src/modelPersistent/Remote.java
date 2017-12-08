@@ -3,6 +3,10 @@ package modelPersistent;
 import java.io.Serializable;
 
 public class Remote implements Serializable{
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	private int id;
 	private String serialNumber;
 	private long frequency;

@@ -5,7 +5,6 @@ import org.hibernate.HibernateException;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
-import org.hibernate.cfg.Configuration;
 
 public class GenericDAO<T> {
 	protected SessionFactory factory;
@@ -16,10 +15,11 @@ public class GenericDAO<T> {
 
 	public GenericDAO(Class<T> genericClass) {
 		this.genericClass = genericClass;
-		factory = new Configuration().configure().addResource(ResourceHibernateFactory.getResourceFile(genericClass)).buildSessionFactory();
+		
+		factory = HibernateUtil.buildSessionFactory(ResourceHibernateFactory.getResourceFile(genericClass));
 	}
 	
-	
+	@SuppressWarnings("unchecked")
 	public T findOne(final int id) {
 		session = factory.openSession();
 	    Object obj = null;
@@ -33,6 +33,7 @@ public class GenericDAO<T> {
 		return (T) obj;
 	}
 
+	@SuppressWarnings("unchecked")
 	public List<T> findAll() {
 		session = factory.openSession();
 		transaction = null;
@@ -105,6 +106,7 @@ public class GenericDAO<T> {
 		}
 	}
 
+	@SuppressWarnings("unchecked")
 	public void deleteById(final int entityId) {
 		session = factory.openSession();
 		Object obj = null;

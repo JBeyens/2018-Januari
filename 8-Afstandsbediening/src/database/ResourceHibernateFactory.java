@@ -4,7 +4,7 @@ import values.DefaultSettings;
 
 public class ResourceHibernateFactory {
 
-	public static String getResourceFile(Class clazz) {
+	public static String getResourceFile(Class<?> clazz) {
 		String resourceFile = null;
 
 		switch (clazz.getSimpleName()) {
