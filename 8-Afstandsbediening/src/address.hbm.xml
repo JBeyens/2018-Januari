@@ -10,7 +10,7 @@
     </id>  
             
     <property name="street" column = "street" type = "string"></property>  
-    <property name="number" column = "numbr" type = "int"></property>
+    <property name="number" column = "nr" type = "int"></property>
     <property name="mailBox" column = "mailBox" type = "int"></property> 
     <property name="postalCode" column = "postalCode" type = "int"></property> 
     <property name="city" column = "city" type = "string"></property> 
