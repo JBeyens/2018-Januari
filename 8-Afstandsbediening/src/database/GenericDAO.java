@@ -2,6 +2,8 @@ package database;
 
 import java.util.List;
 
+import javax.persistence.EntityManagerFactory;
+
 import org.hibernate.HibernateException;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
@@ -9,7 +11,7 @@ import org.hibernate.Transaction;
 
 
 public class GenericDAO<T> {
-	protected SessionFactory factory;
+	protected EntityManagerFactory factory;
 	protected Session session;
 	protected Transaction transaction;
 	
@@ -17,6 +19,8 @@ public class GenericDAO<T> {
 
 	public GenericDAO(Class<T> genericClass) {
 		this.genericClass = genericClass;
+		
+		factory = EntityMgrFactory.getFactory(genericClass.getSimpleName());
 	}
 	
 	@SuppressWarnings("unchecked")

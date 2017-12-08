@@ -18,14 +18,14 @@ public class TestClass {
 
 	public static void main(String[] args){
 		
+		Address remote;
 		
-		
-		EntityManagerFactory factory = Persistence.createEntityManagerFactory("Remote");
+		EntityManagerFactory factory = Persistence.createEntityManagerFactory(Address.class.getSimpleName());
 		EntityManager manager = factory.createEntityManager();
 		
 		manager.getTransaction().begin();
 		
-		Address remote = new Address("NieuwRemote", 12456789, 5, 6, "hh", "gg");
+		remote = new Address("NieuwRemote", 12456789, 5, 6, "hh", "gg");
 		
 		manager.persist(remote);
 		
