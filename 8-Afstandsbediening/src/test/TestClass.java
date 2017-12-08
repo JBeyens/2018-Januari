@@ -25,7 +25,7 @@ public class TestClass {
 		
 		manager.getTransaction().begin();
 		
-		Remote remote = new Remote("NieuwRemote", 12456789);
+		Address remote = new Address("NieuwRemote", 12456789, 5, 6, "hh", "gg");
 		
 		manager.persist(remote);
 		

@@ -2,6 +2,15 @@ package modelPersistent;
 
 import java.io.Serializable;
 
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.Table;
+
+@Entity
+@Table(name = "Address")
 public class Address implements Serializable{
 
 	/**
@@ -9,10 +18,13 @@ public class Address implements Serializable{
 	 */
 	private static final long serialVersionUID = 1L;
 
+	@Id
+	@Column(name = "id")
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private int id;
 	
 	private String street;
-	private int number;
+	private int nr;
 	private int mailBox;
 	private int postalCode;
 	private String city;
@@ -25,7 +37,7 @@ public class Address implements Serializable{
 	public Address(String street, int number, int mailBox, int postalCode, String city, String country) {
 		super();
 		this.street = street;
-		this.number = number;
+		this.nr = number;
 		this.mailBox = mailBox;
 		this.postalCode = postalCode;
 		this.city = city;
@@ -49,11 +61,11 @@ public class Address implements Serializable{
 	}
 
 	public int getNumber() {
-		return number;
+		return nr;
 	}
 
 	public void setNumber(int number) {
-		this.number = number;
+		this.nr = number;
 	}
 
 	public int getMailBox() {

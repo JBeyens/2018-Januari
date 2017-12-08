@@ -17,8 +17,6 @@ public class GenericDAO<T> {
 
 	public GenericDAO(Class<T> genericClass) {
 		this.genericClass = genericClass;
-		
-		factory = HibernateUtil.getSessionFactory(ResourceHibernateFactory.getResourceFile(genericClass));
 	}
 	
 	@SuppressWarnings("unchecked")
