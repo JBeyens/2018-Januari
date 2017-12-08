@@ -1,5 +1,6 @@
 package database;
 
+import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.boot.registry.StandardServiceRegistry;
 import org.hibernate.boot.registry.StandardServiceRegistryBuilder;
@@ -12,7 +13,7 @@ public class HibernateUtil {
 	private static SessionFactory sessionFactory;
 
 
-	public static SessionFactory buildSessionFactory(String resourcePath) {
+	public static SessionFactory getSessionFactory(String resourcePath) {
 		if (sessionFactory == null) {
 			try {
 				Configuration cfg = new Configuration().configure().addResource(resourcePath);

@@ -1,10 +1,12 @@
 package database;
 
 import java.util.List;
+
 import org.hibernate.HibernateException;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
+
 
 public class GenericDAO<T> {
 	protected SessionFactory factory;
@@ -16,7 +18,7 @@ public class GenericDAO<T> {
 	public GenericDAO(Class<T> genericClass) {
 		this.genericClass = genericClass;
 		
-		factory = HibernateUtil.buildSessionFactory(ResourceHibernateFactory.getResourceFile(genericClass));
+		factory = HibernateUtil.getSessionFactory(ResourceHibernateFactory.getResourceFile(genericClass));
 	}
 	
 	@SuppressWarnings("unchecked")
@@ -28,7 +30,7 @@ public class GenericDAO<T> {
 	      } catch (HibernateException e) {	         
 	         e.printStackTrace(); 
 	      } finally {
-	         session.close(); 
+	         session.clear(); 
 	      }
 		return (T) obj;
 	}
@@ -47,13 +49,14 @@ public class GenericDAO<T> {
 	      } catch (HibernateException e) {	         
 	         e.printStackTrace(); 
 	      } finally {
-	         session.close(); 
+	         session.clear(); 
 	      }
 		return list;
 	}
 
 	public void create(final T entity) {
-		session = factory.openSession();
+		
+		Session session = factory.openSession();
 		
 		try {
 			transaction = session.beginTransaction();
@@ -65,8 +68,8 @@ public class GenericDAO<T> {
 				transaction.rollback();
 			
 			e.printStackTrace();
-		} finally{
-			session.close();
+		} finally {
+			session.clear();
 		}
 	}
 
@@ -83,7 +86,7 @@ public class GenericDAO<T> {
 	         
 	         e.printStackTrace(); 
 	      } finally {
-	         session.close(); 
+	         session.clear(); 
 	      }
 	}
 
@@ -102,7 +105,7 @@ public class GenericDAO<T> {
 			
 			e.printStackTrace();
 		} finally{
-			session.close();
+			session.clear();
 		}
 	}
 
@@ -123,7 +126,7 @@ public class GenericDAO<T> {
 			
 			e.printStackTrace();
 		} finally{
-			session.close();
+			session.clear();
 		}
 		
 	}

@@ -10,7 +10,7 @@ public class TestClass {
 		GenericDAO<Address> mgr = new GenericDAO<>(Address.class);
 		
 		
-		Address adres = new Address("ssssdddddddddst", 10, 5, 3000, "Leuven", "België");
+		Address adres = new Address("cssssssssc", 10, 5, 3000, "Leuven", "België");
 		
 		mgr.create(adres);
 
