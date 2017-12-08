@@ -7,14 +7,16 @@ public class Person {
 	private String firstname;
 	private String lastname;
 	private Address adress;
+	private Remote remote;
 	private Date endOfContract;
 	private String email;
 	
-	public Person(String firstname, String lastname, Address adress, Date endOfContract, String email) {
+	public Person(String firstname, String lastname, Address adress, Remote remote, Date endOfContract, String email) {
 		super();
 		this.firstname = firstname;
 		this.lastname = lastname;
 		this.adress = adress;
+		this.remote = remote;
 		this.endOfContract = endOfContract;
 		this.email = email;
 	}
@@ -45,6 +47,14 @@ public class Person {
 
 	public Address getAdress() {
 		return adress;
+	}
+	
+	public Remote getRemote() {
+		return remote;
+	}
+
+	public void setRemote(Remote remote) {
+		this.remote = remote;
 	}
 
 	public void setAdress(Address adress) {
