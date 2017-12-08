@@ -14,10 +14,10 @@
     <property name="email" column = "email" type = "string"></property> 
     <property name="endOfContract" column = "endOfContract" type = "date"></property>
     
-    <many-to-one name="address" class="modelPersistent.Address" column="address"
+    <many-to-one name="address" class="modelPersistent.Address" column="addressId"
     not-null= "true" cascade="save-update"></many-to-one>
     
-    <many-to-one name="remote" class="modelPersistent.Remote" column="remote"
+    <many-to-one name="remote" class="modelPersistent.Remote" column="remoteId"
     not-null="true" cascade="save-update"></many-to-one> 
             
   </class>  
