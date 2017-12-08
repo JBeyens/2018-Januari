@@ -5,8 +5,9 @@ import org.hibernate.HibernateException;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
+import org.hibernate.cfg.Configuration;
 
-public abstract class AbstractDAO<T> {
+public class AbstractDAO<T> {
 	protected SessionFactory factory;
 	protected Session session;
 	protected Transaction transaction;
@@ -15,6 +16,7 @@ public abstract class AbstractDAO<T> {
 
 	public AbstractDAO(Class<T> genericClass) {
 		this.genericClass = genericClass;
+		factory = new Configuration().configure().addResource(ResourceHibernateFactory.getResourceFile(genericClass)).buildSessionFactory();
 	}
 	
 	

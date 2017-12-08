@@ -1,18 +1,13 @@
 package database;
-
-import java.util.List;
-
 import org.hibernate.HibernateException;
-import org.hibernate.cfg.Configuration;
 
 import modelPersistent.Remote;
-import values.DefaultSettings;
+
 
 public class RemoteDAO extends AbstractDAO<Remote>{
 
 	public RemoteDAO(){
 		super(Remote.class);
-		factory = new Configuration().configure().addResource(DefaultSettings.resourceRemote.getValue()).buildSessionFactory();
 	}
 
 	public void create(String serialNumber, long frequency){

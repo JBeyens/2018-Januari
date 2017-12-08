@@ -5,18 +5,18 @@ import java.util.List;
 
 import database.AbstractDAO;
 import database.RemoteDAO;
+import modelPersistent.Address;
 import modelPersistent.Remote;
 
 public class TestClass {
 
 	public static void main(String[] args){
-		AbstractDAO mgr = new RemoteDAO();
+		AbstractDAO mgr = new AbstractDAO<>(Remote.class);
 		
 		
 		
 		Remote remote = (Remote) mgr.findOne(1);
-		remote.setSerialNumber("Bennie");
-		mgr.update(remote);
+		System.out.println(remote.getFrequency());
 
 	}
 
