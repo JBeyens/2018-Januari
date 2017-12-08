@@ -14,7 +14,8 @@ public class ResourceHibernateFactory {
 		case "Address":
 			resourceFile = DefaultSettings.resourceAddress.getValue();
 			break;
-
+		case "Person":
+			resourceFile = DefaultSettings.resourcePerson.getValue();
 		}
 		return resourceFile;
 	}

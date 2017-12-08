@@ -1,12 +1,17 @@
 package modelPersistent;
 
+import java.io.Serializable;
 import java.util.Date;
 
-public class Person {
+public class Person implements Serializable {
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	private int id;
 	private String firstname;
 	private String lastname;
-	private Address adress;
+	private Address address;
 	private Remote remote;
 	private Date endOfContract;
 	private String email;
@@ -15,7 +20,7 @@ public class Person {
 		super();
 		this.firstname = firstname;
 		this.lastname = lastname;
-		this.adress = adress;
+		this.address = adress;
 		this.remote = remote;
 		this.endOfContract = endOfContract;
 		this.email = email;
@@ -46,7 +51,7 @@ public class Person {
 	}
 
 	public Address getAdress() {
-		return adress;
+		return address;
 	}
 	
 	public Remote getRemote() {
@@ -58,7 +63,7 @@ public class Person {
 	}
 
 	public void setAdress(Address adress) {
-		this.adress = adress;
+		this.address = adress;
 	}
 
 	public Date getEndOfContract() {

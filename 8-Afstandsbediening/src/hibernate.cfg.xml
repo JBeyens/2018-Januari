@@ -12,8 +12,6 @@
          com.mysql.jdbc.Driver
       </property>
       
-      <!-- Assume test is the database name -->
-      
       <property name = "hibernate.connection.url">
          jdbc:mysql://localhost:3306/DbAfstandsbediening
       </property>
@@ -29,8 +27,8 @@
       <!-- List of XML mapping files -->
       <mapping resource = "remote.hbm.xml"/>
       <mapping resource = "address.hbm.xml"/>
-
-
+	  <mapping resource = "person.hbm.xml"/>
+ 
       
    </session-factory>
 </hibernate-configuration> 

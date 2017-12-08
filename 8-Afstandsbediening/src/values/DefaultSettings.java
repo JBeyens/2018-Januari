@@ -10,7 +10,8 @@ package values;
 public enum DefaultSettings {
 	propertiesPath("resources/config.properties"),
 	resourceRemote("remote.hbm.xml"),
-	resourceAddress("address.hbm.xml");
+	resourceAddress("address.hbm.xml"),
+	resourcePerson("person.hbm.xml");
 
 	private final String name;
 	

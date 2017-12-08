@@ -12,7 +12,13 @@
     <property name="firstName" column = "firstName" type = "string"></property>  
     <property name="lastName" column = "lastName" type = "string"></property>
     <property name="email" column = "email" type = "string"></property> 
-    <property name="endOfContract" column = "endOfContract" type = "date"></property>   
+    <property name="endOfContract" column = "endOfContract" type = "date"></property>
+    
+    <many-to-one name="address" class="modelPersistent.Address" column="address"
+    not-null= "true" cascade="save-update"></many-to-one>
+    
+    <many-to-one name="remote" class="modelPersistent.Remote" column="remote"
+    not-null="true" cascade="save-update"></many-to-one> 
             
   </class>  
             
