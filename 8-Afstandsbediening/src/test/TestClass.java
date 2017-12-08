@@ -13,7 +13,7 @@ public class TestClass {
 		GenericDAO mgr = new GenericDAO<>(Address.class);
 		
 		
-		Address adres = new Address("Test", 10, 5, 3000, "Leuven", "België");
+		Address adres = new Address("TestTest", 10, 5, 3000, "Leuven", "België");
 		
 		mgr.create(adres);
 
