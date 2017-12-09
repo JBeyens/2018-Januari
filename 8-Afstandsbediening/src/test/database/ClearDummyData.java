@@ -1,23 +1,15 @@
 package test.database;
 
-import java.util.Iterator;
-import java.util.List;
-
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
 
-import database.GenericDAO;
 import modelPersistent.Address;
 import modelPersistent.Person;
 import modelPersistent.Remote;
 
 public class ClearDummyData {
-	private static GenericDAO<Remote> remoteDAO = new GenericDAO<>(Remote.class);
-	private static GenericDAO<Address> addressDAO = new GenericDAO<>(Address.class);
-	private static GenericDAO<Person> personDAO = new GenericDAO<>(Person.class);
 	
-	private static Iterator iterator;
 	
 	public static void main(String[] args) {
 		try {
