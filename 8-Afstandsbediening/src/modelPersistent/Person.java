@@ -42,14 +42,12 @@ public class Person implements Serializable {
 	@JoinColumn(name= "remoteId", nullable=false)
 	private Remote remote;
 	private Date endOfContract;
-	private String email;
 	
-	public Person(String firstname, String lastname, Date endOfContract, String email) {
+	public Person(String firstname, String lastname, Date endOfContract) {
 		super();
 		this.firstname = firstname;
 		this.lastname = lastname;
 		this.endOfContract = endOfContract;
-		this.email = email;
 	}
 	
 	public Person(){
@@ -104,12 +102,4 @@ public class Person implements Serializable {
 		this.endOfContract = endOfContract;
 	}
 
-	public String getEmail() {
-		return email;
-	}
-
-	public void setEmail(String email) {
-		this.email = email;
-	}
-	
 }
