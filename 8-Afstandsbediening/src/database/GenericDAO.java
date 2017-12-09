@@ -2,20 +2,17 @@ package database;
 
 import java.util.List;
 
+import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
+import javax.persistence.EntityTransaction;
 
 import org.hibernate.HibernateException;
-import org.hibernate.Session;
-import org.hibernate.SessionFactory;
-import org.hibernate.Transaction;
+
 
 
 public class GenericDAO<T> {
 	protected EntityManagerFactory factory;
-	protected Session session;
-	protected Transaction transaction;
-	
-	private Class<T> genericClass;
+	protected Class<T> genericClass;
 
 	public GenericDAO(Class<T> genericClass) {
 		this.genericClass = genericClass;
@@ -25,45 +22,49 @@ public class GenericDAO<T> {
 	
 	@SuppressWarnings("unchecked")
 	public T findOne(final int id) {
-		session = factory.openSession();
+		EntityManager manager = factory.createEntityManager();
+		EntityTransaction transaction = manager.getTransaction();
 	    Object obj = null;
+	    
 	      try {
-	         obj = (T)session.get(genericClass, id);
+	    	  transaction.begin();
+	          obj = (T) manager.find(genericClass, id);
+	          transaction.commit();
 	      } catch (HibernateException e) {	         
 	         e.printStackTrace(); 
 	      } finally {
-	         session.clear(); 
+	         manager.close(); 
 	      }
 		return (T) obj;
 	}
 
 	@SuppressWarnings("unchecked")
 	public List<T> findAll() {
-		session = factory.openSession();
-		transaction = null;
+		EntityManager manager = factory.createEntityManager();
+		EntityTransaction transaction = manager.getTransaction();
 	    List<T> list = null;
 	      try {
-	         transaction = session.beginTransaction();
+	         transaction.begin();
 	         
-	         list = (List<T>) session.createQuery("FROM " + genericClass.getName()).list();
+	         list = (List<T>) manager.createQuery("FROM " + genericClass.getName()).getResultList();
 	         
 	         transaction.commit();
 	      } catch (HibernateException e) {	         
 	         e.printStackTrace(); 
 	      } finally {
-	         session.clear(); 
+	         manager.close(); 
 	      }
 		return list;
 	}
 
 	public void create(final T entity) {
-		
-		Session session = factory.openSession();
+		EntityManager manager = factory.createEntityManager();
+		EntityTransaction transaction = manager.getTransaction();
 		
 		try {
-			transaction = session.beginTransaction();
+			transaction.begin();
 			
-			session.save(entity);
+			manager.persist(entity);
 			transaction.commit();
 		} catch (HibernateException e) {
 			if (transaction != null)
@@ -71,16 +72,17 @@ public class GenericDAO<T> {
 			
 			e.printStackTrace();
 		} finally {
-			session.clear();
+			manager.clear();
 		}
 	}
 
 	public void update(final T entity) {
-		session = factory.openSession();
+		EntityManager manager = factory.createEntityManager();
+		EntityTransaction transaction = manager.getTransaction();
 	      
 	      try {
-	         transaction = session.beginTransaction();
-			 session.update(entity); 
+	         transaction.begin();
+			 manager.merge(entity);
 	         transaction.commit();
 	      } catch (HibernateException e) {
 	         if (transaction!=null) 
@@ -88,18 +90,19 @@ public class GenericDAO<T> {
 	         
 	         e.printStackTrace(); 
 	      } finally {
-	         session.clear(); 
+	         manager.clear(); 
 	      }
 	}
 
 	public void delete(final T entity) {
-		session = factory.openSession();
+		EntityManager manager = factory.createEntityManager();
+		EntityTransaction transaction = manager.getTransaction();
+		Object obj = null;
 		
 		try {
-			transaction = session.beginTransaction();
-			
-			session.delete(entity);
-			session.flush();
+			transaction.begin();
+			obj = (T) manager.merge(entity);
+			manager.remove(obj);
 			transaction.commit();
 		} catch (HibernateException e) {
 			if (transaction != null)
@@ -107,20 +110,20 @@ public class GenericDAO<T> {
 			
 			e.printStackTrace();
 		} finally{
-			session.clear();
+			manager.clear();
 		}
 	}
 
-	@SuppressWarnings("unchecked")
 	public void deleteById(final int entityId) {
-		session = factory.openSession();
+		EntityManager manager = factory.createEntityManager();
+		EntityTransaction transaction = manager.getTransaction();
 		Object obj = null;
 		try {
-			transaction = session.beginTransaction();
+			transaction.begin();
 			
-			obj = (T)session.load(genericClass, entityId);
-			session.delete(obj);
-			session.flush();
+			obj = (T)manager.find(genericClass, entityId);
+			manager.remove(obj);
+			
 			transaction.commit();
 		} catch (HibernateException e) {
 			if (transaction != null)
@@ -128,7 +131,7 @@ public class GenericDAO<T> {
 			
 			e.printStackTrace();
 		} finally{
-			session.clear();
+			manager.clear();
 		}
 		
 	}
