@@ -3,27 +3,49 @@ package modelPersistent;
 import java.io.Serializable;
 import java.util.Date;
 
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+import javax.persistence.Table;
+
+@Entity
+@Table(name ="Person")
 public class Person implements Serializable {
 	/**
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
+	
+	@Id
+	@Column(name = "id")
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private int id;
 	private String firstname;
 	private String lastname;
+	
+	@ManyToOne
+	@JoinColumn(name = "addressId", nullable=false)
 	private Address address;
+	@ManyToOne
+	@JoinColumn(name= "remoteId", nullable=false)
 	private Remote remote;
 	private Date endOfContract;
 	private String email;
 	
-	public Person(String firstname, String lastname, Address adress, Remote remote, Date endOfContract, String email) {
+	public Person(String firstname, String lastname, Date endOfContract, String email) {
 		super();
 		this.firstname = firstname;
 		this.lastname = lastname;
-		this.address = adress;
-		this.remote = remote;
 		this.endOfContract = endOfContract;
 		this.email = email;
+	}
+	
+	public Person(){
+		
 	}
 
 	public int getId() {

@@ -16,6 +16,20 @@
 
  </persistence-unit>
  
+  <persistence-unit name="Person" transaction-type="RESOURCE_LOCAL">
+        <class>modelPersistent.Person</class>
+
+ <properties>
+  <property name="javax.persistence.jdbc.driver" value="com.mysql.jdbc.Driver" />
+  <property name="javax.persistence.jdbc.url"
+    value="jdbc:mysql://localhost:3306/DbAfstandsbediening" />
+  <property name="javax.persistence.jdbc.user" value="userDB" />
+  <property name="javax.persistence.jdbc.password" value="userDB" />
+
+ </properties>
+
+ </persistence-unit>
+ 
  <persistence-unit name="Address" transaction-type="RESOURCE_LOCAL">
         <class>modelPersistent.Address</class>
 
