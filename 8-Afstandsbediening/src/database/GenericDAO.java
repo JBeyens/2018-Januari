@@ -10,6 +10,13 @@ import javax.persistence.Persistence;
 import org.hibernate.HibernateException;
 
 
+/**
+ * 	@Author Ben Vandevorst & Jef Beyens
+	@Datum 09/12/2017
+	@Project Afstandsbediening
+	@Doel Generic DAO class to handle database operations. Can be extended if additional 
+		methods are required
+ */
 
 public class GenericDAO<T> {
 	protected EntityManagerFactory factory;

@@ -12,6 +12,14 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
+
+/**
+ * 	@Author Ben Vandevorst & Jef Beyens
+	@Datum 09/12/2017
+	@Project Afstandsbediening
+	@Doel JPA annotated POJO for database mapping
+ */
+
 @Entity
 @Table(name ="Person")
 public class Person implements Serializable {
