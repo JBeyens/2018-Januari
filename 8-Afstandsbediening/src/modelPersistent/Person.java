@@ -3,8 +3,10 @@ package modelPersistent;
 import java.io.Serializable;
 import java.util.Date;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -35,10 +37,10 @@ public class Person implements Serializable {
 	private String firstname;
 	private String lastname;
 	
-	@ManyToOne
+	@ManyToOne(fetch = FetchType.EAGER, cascade=CascadeType.ALL)
 	@JoinColumn(name = "addressId", nullable=false)
 	private Address address;
-	@ManyToOne
+	@ManyToOne(fetch = FetchType.EAGER, cascade=CascadeType.ALL)
 	@JoinColumn(name= "remoteId", nullable=false)
 	private Remote remote;
 	private Date endOfContract;
