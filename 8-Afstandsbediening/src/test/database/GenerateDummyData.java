@@ -14,15 +14,16 @@ public class GenerateDummyData {
 	private static Address address;
 	private static Person person;
 	
-	private static GenericDAO<Remote> remoteDAO = new GenericDAO<>(Remote.class);;
-	private static GenericDAO<Address> addressDAO = new GenericDAO<>(Address.class);;
-	private static GenericDAO<Person> PersonDAO = new GenericDAO<>(Person.class);;
+	private static GenericDAO<Remote> remoteDAO = new GenericDAO<>(Remote.class);
+	private static GenericDAO<Address> addressDAO = new GenericDAO<>(Address.class);
+	private static GenericDAO<Person> PersonDAO = new GenericDAO<>(Person.class);
 	
 	private static Random random;
 	
 	public static void main(String[] args) {
 		try {
 			createRemote();
+			createAddress();
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -36,6 +37,13 @@ public class GenerateDummyData {
 			remote = new Remote(serialNumber, frequency);
 			
 			remoteDAO.create(remote);
+		}
+	}
+	
+	private static void createAddress(){
+		for (int i = 1; i < 31; i++) {
+			address = new Address("Bondgenotenlaan", 150, i, 3000, "Leuven", "België");
+			addressDAO.create(address);
 		}
 	}
 

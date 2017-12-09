@@ -22,7 +22,7 @@
  <properties>
   <property name="javax.persistence.jdbc.driver" value="com.mysql.jdbc.Driver" />
   <property name="javax.persistence.jdbc.url"
-    value="jdbc:mysql://localhost:3306/DbAfstandsbediening" />
+    value="jdbc:mysql://localhost:3306/DbRemote" />
   <property name="javax.persistence.jdbc.user" value="userDB" />
   <property name="javax.persistence.jdbc.password" value="userDB" />
 
@@ -36,7 +36,7 @@
  <properties>
   <property name="javax.persistence.jdbc.driver" value="com.mysql.jdbc.Driver" />
   <property name="javax.persistence.jdbc.url"
-    value="jdbc:mysql://localhost:3306/DbAfstandsbediening" />
+    value="jdbc:mysql://localhost:3306/DbRemote" />
   <property name="javax.persistence.jdbc.user" value="userDB" />
   <property name="javax.persistence.jdbc.password" value="userDB" />
 
