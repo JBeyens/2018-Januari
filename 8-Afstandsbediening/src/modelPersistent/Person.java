@@ -38,10 +38,10 @@ public class Person implements Serializable {
 	private String lastname;
 	
 	@ManyToOne(fetch = FetchType.EAGER, cascade=CascadeType.ALL)
-	@JoinColumn(name = "addressId", nullable=false)
+	@JoinColumn(name = "addressId")
 	private Address address;
 	@ManyToOne(fetch = FetchType.EAGER, cascade=CascadeType.ALL)
-	@JoinColumn(name= "remoteId", nullable=false)
+	@JoinColumn(name= "remoteId")
 	private Remote remote;
 	private Date endOfContract;
 	
