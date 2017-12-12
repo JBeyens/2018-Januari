@@ -19,6 +19,10 @@ import org.hibernate.HibernateException;
  */
 
 public class GenericDAO<T> {
+	/*
+	 * EntityManagerFactory thread safe/heavy resource
+	 * Only 1 creating
+	 */
 	protected EntityManagerFactory factory;
 	protected Class<T> genericClass;
 
@@ -27,6 +31,12 @@ public class GenericDAO<T> {
 		
 		factory = Persistence.createEntityManagerFactory(genericClass.getSimpleName());
 	}
+	
+	
+	/*
+	 * EntityManager not thread safe
+	 * Creating/Closing needed with every call
+	 */
 	
 	@SuppressWarnings("unchecked")
 	public T findOne(final int id) {
