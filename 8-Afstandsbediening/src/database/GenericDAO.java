@@ -48,7 +48,9 @@ public class GenericDAO<T> {
 	    	  transaction.begin();
 	          obj = (T) manager.find(genericClass, id);
 	          transaction.commit();
-	      } catch (HibernateException e) {	         
+	      } catch (HibernateException e) {
+	    	  if(transaction != null)
+	    		  transaction.rollback();
 	         e.printStackTrace(); 
 	      } finally {
 	         manager.close(); 
@@ -67,7 +69,9 @@ public class GenericDAO<T> {
 	         list = (List<T>) manager.createQuery("FROM " + genericClass.getName()).getResultList();
 	         
 	         transaction.commit();
-	      } catch (HibernateException e) {	         
+	      } catch (HibernateException e) {
+	    	  if(transaction != null)
+	    		  transaction.rollback();
 	         e.printStackTrace(); 
 	      } finally {
 	         manager.close(); 
@@ -86,8 +90,7 @@ public class GenericDAO<T> {
 			transaction.commit();
 		} catch (HibernateException e) {
 			if (transaction != null)
-				transaction.rollback();
-			
+				transaction.rollback();		
 			e.printStackTrace();
 		} finally {
 			manager.clear();
@@ -104,8 +107,7 @@ public class GenericDAO<T> {
 	         transaction.commit();
 	      } catch (HibernateException e) {
 	         if (transaction!=null) 
-	        	 transaction.rollback();
-	         
+	        	 transaction.rollback();      
 	         e.printStackTrace(); 
 	      } finally {
 	         manager.clear(); 
@@ -124,8 +126,7 @@ public class GenericDAO<T> {
 			transaction.commit();
 		} catch (HibernateException e) {
 			if (transaction != null)
-				transaction.rollback();
-			
+				transaction.rollback();	
 			e.printStackTrace();
 		} finally{
 			manager.clear();
