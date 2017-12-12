@@ -8,6 +8,14 @@ import modelPersistent.Address;
 import modelPersistent.Person;
 import modelPersistent.Remote;
 
+
+/**
+ * 	@Author Ben Vandevorst & Jef Beyens
+	@Datum 03/12/2017
+	@Project Afstandsbediening
+	@Doel Clears all data from Database
+ */
+
 public class ClearDummyData {
 	
 	

@@ -12,6 +12,14 @@ import modelPersistent.Address;
 import modelPersistent.Person;
 import modelPersistent.Remote;
 
+
+/**
+ * 	@Author Ben Vandevorst & Jef Beyens
+	@Datum 03/12/2017
+	@Project Afstandsbediening
+	@Doel Generates dummy data for database
+ */
+
 public class GenerateDummyData {
 	private static Remote remote;
 	private static Address address;
