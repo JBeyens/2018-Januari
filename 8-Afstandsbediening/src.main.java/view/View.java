@@ -12,10 +12,10 @@ import javax.swing.ImageIcon;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
-import javax.swing.JScrollPane;
 import javax.swing.JTabbedPane;
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
+import javax.swing.table.JTableHeader;
 
 import modelPersistent.Person;
 import javax.swing.JButton;
@@ -98,6 +98,8 @@ public class View extends JFrame{
 			}
 		));
 		
+		JTableHeader header = table.getTableHeader();
+		
 		btnRefresh = new JButton("Update");
 		
 		URL uRefresh = getClass().getResource("refresh.png");
@@ -106,6 +108,7 @@ public class View extends JFrame{
 		btnRefresh.setIcon(new ImageIcon(getScaledImage(iconRefresh.getImage(), 20, 20)));
 		
 		overView.add(btnRefresh);
+		overView.add(header);
 		overView.add(table);
 	}
 	
