@@ -3,15 +3,18 @@ package view;
 import java.awt.Graphics2D;
 import java.awt.Image;
 import java.awt.RenderingHints;
-import java.awt.Toolkit;
 import java.awt.image.BufferedImage;
 import java.net.URL;
+import java.util.ArrayList;
 
-import javax.swing.Icon;
 import javax.swing.ImageIcon;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.JTabbedPane;
+import javax.swing.JTable;
+import javax.swing.table.DefaultTableModel;
+
+import modelPersistent.Person;
 
 public class View extends JFrame{
 	/**
@@ -22,10 +25,30 @@ public class View extends JFrame{
 	private JPanel addPersonPanel;
 	private JPanel overView;
 	private JPanel simulateGate;
+	private JTable table;
 	
 	public View(){
-		setUpTabbedPane();
 		this.setTitle("Gate Administration");
+		setUpTabbedPane();
+	}
+	
+	public void setOverview(ArrayList<Person> list){
+		DefaultTableModel model = (DefaultTableModel) table.getModel();
+		
+		Object[] row = new Object[9];
+		
+		for (int i = 0; i < list.size(); i++) {
+			row[0] = list.get(i).getId();
+			row[1] = list.get(i).getFirstname();
+			row[2] = list.get(i).getLastname();
+			row[3] = list.get(i).getEndOfContract();
+			row[4] = list.get(i).getRemote().getId();
+			row[5] = list.get(i).getRemote().getSerialNumber();
+			row[6] = list.get(i).getAdress().getStreet();
+			row[7] = list.get(i).getAdress().getNumber();
+			row[8] = list.get(i).getAdress().getMailBox();
+			model.addRow(row);
+		}
 	}
 	
 	private void setUpTabbedPane(){
@@ -33,6 +56,8 @@ public class View extends JFrame{
 		addPersonPanel = new JPanel();
 		overView = new JPanel();
 		simulateGate = new JPanel();
+		
+		setUpOverView();
 		
 		URL uAdd = getClass().getResource("add.png");
 		ImageIcon iconAdd = new ImageIcon(uAdd);
@@ -48,6 +73,18 @@ public class View extends JFrame{
 		tabbedPane.addTab("Overview", new ImageIcon(getScaledImage(iconPlane.getImage(), 30, 30)), overView, "Overview inhabitants");
 
 		getContentPane().add(tabbedPane);
+	}
+	
+	private void setUpOverView(){
+		table = new JTable();
+		table.setModel(new DefaultTableModel(
+			new Object[][] {
+			},
+			new String[] {
+				"PersonId", "FirstName", "LastName", "EndOfContract", "RemoteId", "SerialNumber", "Street", "Nr", "MailBox"
+			}
+		));
+		overView.add(table);
 	}
 	
 	private Image getScaledImage(Image srcImg, int w, int h){
