@@ -20,6 +20,14 @@ import javax.swing.table.JTableHeader;
 import modelPersistent.Person;
 import javax.swing.JButton;
 
+
+/**
+ * 	@Author Ben Vandevorst & Jef Beyens
+	@Datum 15/12/2017
+	@Project Afstandsbediening
+	@Doel View with TabPanel to show different functionalities
+ */
+
 public class View extends JFrame{
 	/**
 	 * 
@@ -64,6 +72,11 @@ public class View extends JFrame{
 		}
 	}
 	
+	
+	private void setUpAddPerson(){
+		
+	}
+	
 	private void setUpTabbedPane(){
 		tabbedPane = new JTabbedPane();
 		addPersonPanel = new JPanel();
@@ -71,6 +84,7 @@ public class View extends JFrame{
 		simulateGate = new JPanel();
 		
 		setUpOverView();
+		setUpAddPerson();
 		
 		URL uAdd = getClass().getResource("add.png");
 		ImageIcon iconAdd = new ImageIcon(uAdd);

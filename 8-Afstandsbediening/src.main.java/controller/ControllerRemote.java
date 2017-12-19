@@ -12,6 +12,14 @@ import modelPersistent.Person;
 import modelPersistent.Remote;
 import view.View;
 
+
+/**
+ * 	@Author Ben Vandevorst & Jef Beyens
+	@Datum 15/12/2017
+	@Project Afstandsbediening
+	@Doel Single controller for handling interaction model<>view
+ */
+
 public class ControllerRemote {
 	private View view;
 	private GenericDAO<Person> personDAO;
