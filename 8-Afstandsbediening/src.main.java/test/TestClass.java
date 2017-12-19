@@ -20,7 +20,7 @@ public class TestClass {
 		
 		Person person = new Person("Ben", "Vdv", contractDate);
 		person.setAdress(address);
-		person.setRemote(remote);
+		person.setRemote(remote);		
 		
 		GenericDAO<Person> dao = new GenericDAO<>(Person.class);
 		dao.create(person);

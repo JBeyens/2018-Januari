@@ -30,12 +30,14 @@ public class Remote implements Serializable{
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private int id;
 	private String serialNumber;
+	private Boolean isActive;
 	private long frequency;
 	
 	public Remote(String serialNumber, long frequency) {
 		super();
 		this.serialNumber = serialNumber;
 		this.frequency = frequency;
+		this.isActive = false;
 	}
 	
 	public Remote(){
@@ -59,5 +61,13 @@ public class Remote implements Serializable{
 		return frequency;	}
 	public void setFrequency(long frequency) {
 		this.frequency = frequency;	}
+
+	/** Getter & Setter for 'isActive' **/
+	public Boolean getIsActive() {
+		return isActive;}
+	public void setIsActive(Boolean isActive) {
+		this.isActive = isActive;}
+	
+	
 	
 }
