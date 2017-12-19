@@ -3,18 +3,22 @@ package view;
 import java.awt.Graphics2D;
 import java.awt.Image;
 import java.awt.RenderingHints;
+import java.awt.event.ActionListener;
 import java.awt.image.BufferedImage;
 import java.net.URL;
 import java.util.ArrayList;
 
 import javax.swing.ImageIcon;
 import javax.swing.JFrame;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
+import javax.swing.JScrollPane;
 import javax.swing.JTabbedPane;
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
 
 import modelPersistent.Person;
+import javax.swing.JButton;
 
 public class View extends JFrame{
 	/**
@@ -26,10 +30,19 @@ public class View extends JFrame{
 	private JPanel overView;
 	private JPanel simulateGate;
 	private JTable table;
+	private JButton btnRefresh;
 	
 	public View(){
 		this.setTitle("Gate Administration");
 		setUpTabbedPane();
+	}
+	
+	public void showMessage(String message){
+		JOptionPane.showMessageDialog(null, message);
+	}
+	
+	public void addOVerViewUpdateListener(ActionListener e){
+		this.btnRefresh.addActionListener(e);
 	}
 	
 	public void setOverview(ArrayList<Person> list){
@@ -84,8 +97,18 @@ public class View extends JFrame{
 				"PersonId", "FirstName", "LastName", "EndOfContract", "RemoteId", "SerialNumber", "Street", "Nr", "MailBox"
 			}
 		));
+		
+		btnRefresh = new JButton("Update");
+		
+		URL uRefresh = getClass().getResource("refresh.png");
+		ImageIcon iconRefresh = new ImageIcon(uRefresh);
+		
+		btnRefresh.setIcon(new ImageIcon(getScaledImage(iconRefresh.getImage(), 20, 20)));
+		
+		overView.add(btnRefresh);
 		overView.add(table);
 	}
+	
 	
 	private Image getScaledImage(Image srcImg, int w, int h){
 	    BufferedImage resizedImg = new BufferedImage(w, h, BufferedImage.TYPE_INT_ARGB);

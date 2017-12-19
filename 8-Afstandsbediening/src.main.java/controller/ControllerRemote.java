@@ -1,5 +1,7 @@
 package controller;
 
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.util.ArrayList;
 
 import javax.swing.JFrame;
@@ -22,7 +24,8 @@ public class ControllerRemote {
 		addressDAO = new GenericDAO<>(Address.class);
 		remoteDAO = new GenericDAO<>(Remote.class);
 		
-		setOverView();
+		view.addOVerViewUpdateListener(new RefreshOverViewListener());
+		
 	}
 	
 	public void start(){
@@ -32,7 +35,19 @@ public class ControllerRemote {
 		this.view.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 	}
 	
-	public void setOverView(){
+	private void setOverView(){
 		view.setOverview((ArrayList<Person>)personDAO.findAll());
 	} 
+	
+	private class RefreshOverViewListener implements ActionListener{
+		@Override
+		public void actionPerformed(ActionEvent e) {
+			try {
+				setOverView();
+			} catch (Exception e1) {
+				e1.printStackTrace();
+				view.showMessage("Loading from database failed!");
+			}
+		}	
+	}
 }
