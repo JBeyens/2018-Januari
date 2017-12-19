@@ -43,6 +43,10 @@ public class ControllerRemote {
 		this.view.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 	}
 	
+	private void setInactiveRemote(){
+		
+	}
+	
 	private void setOverView(){
 		view.setOverview((ArrayList<Person>)personDAO.findAll());
 	} 

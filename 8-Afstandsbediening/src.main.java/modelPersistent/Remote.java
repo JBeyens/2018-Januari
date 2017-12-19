@@ -67,7 +67,10 @@ public class Remote implements Serializable{
 		return isActive;}
 	public void setIsActive(Boolean isActive) {
 		this.isActive = isActive;}
-	
-	
+
+	@Override
+	public String toString() {
+		return "Id=" + id + " / serialNumber=" + serialNumber;
+	}
 	
 }

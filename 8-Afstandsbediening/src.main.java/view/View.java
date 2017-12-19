@@ -8,6 +8,7 @@ import java.awt.image.BufferedImage;
 import java.net.URL;
 import java.util.ArrayList;
 
+import javax.swing.DefaultListModel;
 import javax.swing.ImageIcon;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
@@ -18,7 +19,10 @@ import javax.swing.table.DefaultTableModel;
 import javax.swing.table.JTableHeader;
 
 import modelPersistent.Person;
+import modelPersistent.Remote;
+
 import javax.swing.JButton;
+import javax.swing.JList;
 
 
 /**
@@ -39,6 +43,7 @@ public class View extends JFrame{
 	private JPanel simulateGate;
 	private JTable table;
 	private JButton btnRefresh;
+	private JList<Remote> listInactiveRemote;
 	
 	public View(){
 		this.setTitle("Gate Administration");
@@ -51,6 +56,15 @@ public class View extends JFrame{
 	
 	public void addOVerViewUpdateListener(ActionListener e){
 		this.btnRefresh.addActionListener(e);
+	}
+	
+	public void setInactiveRemote(ArrayList<Remote> list){
+		DefaultListModel<Remote> model = new DefaultListModel<>();
+		
+		for (Remote remote : list)
+			model.addElement(remote);
+		
+		listInactiveRemote = new JList<>(model);
 	}
 	
 	public void setOverview(ArrayList<Person> list){
@@ -74,7 +88,8 @@ public class View extends JFrame{
 	
 	
 	private void setUpAddPerson(){
-		
+		listInactiveRemote = new JList<Remote>();
+		addPersonPanel.add(listInactiveRemote);
 	}
 	
 	private void setUpTabbedPane(){
@@ -97,6 +112,7 @@ public class View extends JFrame{
 		
 		tabbedPane.addTab("Request entrance", new ImageIcon(getScaledImage(iconGate.getImage(), 30, 30)), simulateGate, "Simulates request from inhabitant");
 		tabbedPane.addTab("Add", new ImageIcon(getScaledImage(iconAdd.getImage(), 30, 30)), addPersonPanel, "Add a new person");
+
 		tabbedPane.addTab("Overview", new ImageIcon(getScaledImage(iconPlane.getImage(), 30, 30)), overView, "Overview inhabitants");
 
 		getContentPane().add(tabbedPane);
