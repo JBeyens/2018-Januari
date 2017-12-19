@@ -26,19 +26,23 @@ public class GenerateDummyData {
 	private static Person person;
 	
 	private static GenericDAO<Person> personDAO = new GenericDAO<>(Person.class);
+	private static GenericDAO<Remote> remoteDAO = new GenericDAO<>(Remote.class);
+	private static GenericDAO<Address> addressDAO = new GenericDAO<>(Address.class);
 	
 	private static DataFactory factory = new DataFactory();
 	
 	public static void main(String[] args) {
 		try {;
-			createDate();
+			createActivePerson();
+			createInActiveRemote();
+			createInActiveAddress();
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
 
 	}
 
-	private static void createDate(){
+	private static void createActivePerson(){
 		LocalDate date  = LocalDate.now();
 		date.plusYears(2);		
 		Date contractDate = Date.valueOf(date);
@@ -50,8 +54,25 @@ public class GenerateDummyData {
 			
 			person.setAdress(address);
 			person.setRemote(remote);
+			person.getRemote().setIsActive(true);
 			
 			personDAO.create(person);
+		}
+	}
+	
+	private static void createInActiveRemote(){
+		for (int i = 0; i < 10; i++) {
+			remote = new Remote(UUID.randomUUID().toString(), ThreadLocalRandom.current().nextLong(10000, 1000000));
+			
+			remoteDAO.create(remote);
+		}
+	}
+	
+	private static void createInActiveAddress(){
+		for (int i = 0; i < 10; i++) {
+			address = new Address("Bondgenotenlaan", 150, i+31, 3000, "Leuven", "België");
+			
+			addressDAO.create(address);
 		}
 	}
 }
