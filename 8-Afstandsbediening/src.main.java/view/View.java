@@ -61,18 +61,31 @@ public class View extends JFrame{
 		setUpTabbedPane();
 	}
 	
+	/*
+	 * To display any message to the User
+	 */
 	public void showMessage(String message){
 		JOptionPane.showMessageDialog(null, message);
 	}
 	
+	/*
+	 * Controller subscribes to this button
+	 */
 	public void addOVerViewUpdateListener(ActionListener e){
 		this.btnRefresh.addActionListener(e);
 	}
 	
+	/*
+	 * Controller subscribes to this button
+	 */
 	public void addAddPersonListener(ActionListener e){
 		this.btnAddPerson.addActionListener(e);
 	}
 	
+	/*
+	 * Controller sends inactive remotes through DAO
+	 * List set as model
+	 */
 	public void setInactiveRemote(ArrayList<Remote> list){
 		DefaultListModel<Remote> model = new DefaultListModel<>();
 		
@@ -82,6 +95,10 @@ public class View extends JFrame{
 		listInactiveRemote.setModel(model);;;
 	}
 	
+	/*
+	 * Controller sends all inhabitants information through DAO
+	 * List display in table
+	 */
 	public void setOverview(ArrayList<Person> list){
 		DefaultTableModel model = (DefaultTableModel) table.getModel();
 		
@@ -101,7 +118,9 @@ public class View extends JFrame{
 		}
 	}
 	
-	
+	/*
+	 * Components setup for AddPerson tab
+	 */
 	private void setUpAddPerson(){
 		addPersonPanel.setLayout(null);
 		
@@ -148,6 +167,9 @@ public class View extends JFrame{
 		addPersonPanel.add(lblContract);
 	}
 	
+	/*
+	 * Component setup for parent TabPanel
+	 */
 	private void setUpTabbedPane(){
 		tabbedPane = new JTabbedPane();
 		addPersonPanel = new JPanel();
@@ -174,6 +196,9 @@ public class View extends JFrame{
 		getContentPane().add(tabbedPane);
 	}
 	
+	/*
+	 * Component setup for overview tab
+	 */
 	private void setUpOverView(){
 		table = new JTable();
 		table.setModel(new DefaultTableModel(
@@ -203,7 +228,9 @@ public class View extends JFrame{
 
 	}
 	
-	
+	/*
+	 * function to scale image to appropriate size
+	 */
 	private Image getScaledImage(Image srcImg, int w, int h){
 	    BufferedImage resizedImg = new BufferedImage(w, h, BufferedImage.TYPE_INT_ARGB);
 	    Graphics2D g2 = resizedImg.createGraphics();
