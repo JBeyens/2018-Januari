@@ -31,5 +31,6 @@
 	<classpathentry kind="lib" path="lib/eclipselink.jar"/>
 	<classpathentry kind="lib" path="lib/javax.persistence-3.0-prelude-embedded-m2-sources.jar"/>
 	<classpathentry kind="con" path="org.eclipse.jdt.junit.JUNIT_CONTAINER/4"/>
+	<classpathentry kind="lib" path="lib/jcalendar-1.4.jar"/>
 	<classpathentry kind="output" path="target/classes"/>
 </classpath>
