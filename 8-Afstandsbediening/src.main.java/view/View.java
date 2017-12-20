@@ -27,6 +27,7 @@ import javax.swing.JButton;
 import javax.swing.JList;
 import javax.swing.JLabel;
 import javax.swing.JTextField;
+import com.toedter.calendar.JDateChooser;
 
 
 /**
@@ -52,6 +53,7 @@ public class View extends JFrame{
 	private JTextField tfFirstName;
 	private JTextField tfLastName;
 	private JButton btnAddPerson;
+	private JDateChooser dateContract;
 	
 	public View(){
 		this.setTitle("Gate Administration");
@@ -136,6 +138,14 @@ public class View extends JFrame{
 		tfLastName.setBounds(93, 33, 86, 20);
 		addPersonPanel.add(tfLastName);
 		tfLastName.setColumns(10);
+		
+		dateContract = new JDateChooser();
+		dateContract.setBounds(93, 61, 86, 20);
+		addPersonPanel.add(dateContract);
+		
+		JLabel lblContract = new JLabel("Contract");
+		lblContract.setBounds(10, 61, 73, 14);
+		addPersonPanel.add(lblContract);
 	}
 	
 	private void setUpTabbedPane(){
