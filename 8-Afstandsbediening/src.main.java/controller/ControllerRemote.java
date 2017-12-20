@@ -33,18 +33,25 @@ public class ControllerRemote {
 		remoteDAO = new GenericDAO<>(Remote.class);
 		
 		view.addOVerViewUpdateListener(new RefreshOverViewListener());
-		
+		setInactiveRemote();
 	}
 	
 	public void start(){
-		this.view.setSize(700, 800);
+		this.view.setSize(600, 500);
 		this.view.setResizable(false);
 		this.view.setVisible(true);
 		this.view.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 	}
 	
 	private void setInactiveRemote(){
+		ArrayList<Remote> list = new ArrayList<>();
 		
+		for (Remote remote : remoteDAO.findAll()) {
+			if(!remote.getIsActive())
+				list.add(remote);
+		}
+
+		view.setInactiveRemote(list);
 	}
 	
 	private void setOverView(){

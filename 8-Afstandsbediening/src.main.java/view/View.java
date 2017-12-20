@@ -13,16 +13,20 @@ import javax.swing.ImageIcon;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
+import javax.swing.JScrollPane;
 import javax.swing.JTabbedPane;
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.JTableHeader;
 
+import modelPersistent.Address;
 import modelPersistent.Person;
 import modelPersistent.Remote;
 
 import javax.swing.JButton;
 import javax.swing.JList;
+import javax.swing.JLabel;
+import javax.swing.JTextField;
 
 
 /**
@@ -44,9 +48,14 @@ public class View extends JFrame{
 	private JTable table;
 	private JButton btnRefresh;
 	private JList<Remote> listInactiveRemote;
+	private JList<Address> listAddress;
+	private JTextField tfFirstName;
+	private JTextField tfLastName;
+	private JButton btnAddPerson;
 	
 	public View(){
 		this.setTitle("Gate Administration");
+		setExtendedState(JFrame.MAXIMIZED_BOTH);
 		setUpTabbedPane();
 	}
 	
@@ -58,13 +67,17 @@ public class View extends JFrame{
 		this.btnRefresh.addActionListener(e);
 	}
 	
+	public void addAddPersonListener(ActionListener e){
+		this.btnAddPerson.addActionListener(e);
+	}
+	
 	public void setInactiveRemote(ArrayList<Remote> list){
 		DefaultListModel<Remote> model = new DefaultListModel<>();
 		
 		for (Remote remote : list)
 			model.addElement(remote);
 		
-		listInactiveRemote = new JList<>(model);
+		listInactiveRemote.setModel(model);;;
 	}
 	
 	public void setOverview(ArrayList<Person> list){
@@ -88,8 +101,41 @@ public class View extends JFrame{
 	
 	
 	private void setUpAddPerson(){
+		addPersonPanel.setLayout(null);
+		
+		JScrollPane scrollRemote = new JScrollPane();
+		scrollRemote.setBounds(10, 92, 185, 130);
+		addPersonPanel.add(scrollRemote);
 		listInactiveRemote = new JList<Remote>();
-		addPersonPanel.add(listInactiveRemote);
+		scrollRemote.setViewportView(listInactiveRemote);
+		
+		JScrollPane scrollAddress = new JScrollPane();
+		scrollAddress.setBounds(234, 92, 185, 130);
+		addPersonPanel.add(scrollAddress);
+		listAddress = new JList<Address>();
+		scrollAddress.setViewportView(listAddress);
+		
+		btnAddPerson = new JButton("Add");
+		btnAddPerson.setBounds(200, 32, 89, 23);
+		addPersonPanel.add(btnAddPerson);
+		
+		JLabel lblFirstname = new JLabel("Firstname");
+		lblFirstname.setBounds(10, 11, 73, 14);
+		addPersonPanel.add(lblFirstname);
+		
+		JLabel lblLastname = new JLabel("Lastname");
+		lblLastname.setBounds(10, 36, 73, 14);
+		addPersonPanel.add(lblLastname);
+		
+		tfFirstName = new JTextField();
+		tfFirstName.setBounds(93, 8, 86, 20);
+		addPersonPanel.add(tfFirstName);
+		tfFirstName.setColumns(10);
+		
+		tfLastName = new JTextField();
+		tfLastName.setBounds(93, 33, 86, 20);
+		addPersonPanel.add(tfLastName);
+		tfLastName.setColumns(10);
 	}
 	
 	private void setUpTabbedPane(){
@@ -131,15 +177,20 @@ public class View extends JFrame{
 		JTableHeader header = table.getTableHeader();
 		
 		btnRefresh = new JButton("Update");
+		btnRefresh.setBounds(181, 5, 84, 23);
 		
-		URL uRefresh = getClass().getResource("refresh.png");
-		ImageIcon iconRefresh = new ImageIcon(uRefresh);
+		overView.setLayout(null);
 		
-		btnRefresh.setIcon(new ImageIcon(getScaledImage(iconRefresh.getImage(), 20, 20)));
+		btnRefresh.setIcon(null);
 		
 		overView.add(btnRefresh);
 		overView.add(header);
-		overView.add(table);
+		
+		JScrollPane scroll = new JScrollPane();
+		scroll.setBounds(25, 33, 550, 400);
+		scroll.setViewportView(table);
+		overView.add(scroll);
+
 	}
 	
 	

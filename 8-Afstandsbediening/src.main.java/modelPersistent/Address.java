@@ -108,5 +108,11 @@ public class Address implements Serializable{
 		this.country = country;
 	}
 
+	@Override
+	public String toString() {
+		return "Id=" + id + ", street=" + street + ", nr=" + nr + ", mailBox=" + mailBox + ", postalCode="
+				+ postalCode + ", city=" + city + ", country=" + country;
+	}
+
 	
 }
