@@ -56,6 +56,9 @@ public class ControllerRemote {
 		this.view.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 	}
 	
+	/*
+	 * Creates list of al inactive Remotes => not given to a inhabitant
+	 */
 	private void setInactiveRemote(){
 		ArrayList<Remote> list = new ArrayList<>();
 		
@@ -67,6 +70,9 @@ public class ControllerRemote {
 		view.setInactiveRemote(list);
 	}
 	
+	/*
+	 * JPA Namedquery (Address class) => unused Addresses returned
+	 */
 	private void setUnusedAddress(){
 		try {
 			EntityManager manager = emFactory.createEntityManager();
@@ -79,10 +85,16 @@ public class ControllerRemote {
 		}
 	}
 	
+	/*
+	 * Query list of all active inhabitants and pass them to view
+	 */
 	private void setOverView(){
 		view.setOverview((ArrayList<Person>)personDAO.findAll());
 	} 
 	
+	/*
+	 * Listeren for addPerson button (2nd tab)
+	 */
 	private class AddPersonListener implements ActionListener{
 		@Override
 		public void actionPerformed(ActionEvent e) {
@@ -100,12 +112,18 @@ public class ControllerRemote {
 				view.showMessage("Input parameters not correct!");
 			}
 			finally{
+				/*
+				 * Refresh lists after new person is added
+				 */
 				setInactiveRemote();
 				setUnusedAddress();
 			}
 		}	
 	}
 	
+	/*
+	 * Listener for update button (3rd tab)
+	 */
 	private class RefreshOverViewListener implements ActionListener{
 		@Override
 		public void actionPerformed(ActionEvent e) {
