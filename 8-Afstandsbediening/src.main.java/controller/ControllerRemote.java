@@ -27,8 +27,8 @@ public class ControllerRemote {
 	private View view;
 	private EntityManagerFactory emFactory;
 	private GenericDAO<Person> personDAO;
-	private GenericDAO<Address> addressDAO;
 	private GenericDAO<Remote> remoteDAO;
+	private GenericDAO<Address> addressDAO;
 	
 	public ControllerRemote(){
 		view = new View();
@@ -40,8 +40,8 @@ public class ControllerRemote {
 		emFactory = Persistence.createEntityManagerFactory("Afstandsbediening");
 		
 		personDAO = new GenericDAO<>(Person.class, emFactory);
-		addressDAO = new GenericDAO<>(Address.class, emFactory);
 		remoteDAO = new GenericDAO<>(Remote.class, emFactory);
+		addressDAO = new GenericDAO<>(Address.class, emFactory);
 		
 		view.addOVerViewUpdateListener(new RefreshOverViewListener());
 		view.addAddPersonListener(new AddPersonListener());
@@ -91,15 +91,18 @@ public class ControllerRemote {
 				person.setFirstname(view.getFirstName());
 				person.setLastname(view.getLastName());
 				person.setEndOfContract(view.getDate());
-				person.setAdress(view.getAddress());
-				person.setRemote(view.getRemote());
+				person.setAdress(addressDAO.findOne(view.getAddress().getId()));
+				person.setRemote(remoteDAO.findOne(view.getRemote().getId()));
 				
 				personDAO.create(person);
 			} catch (Exception e1) {
 				e1.printStackTrace();
 				view.showMessage("Input parameters not correct!");
 			}
-			
+			finally{
+				setInactiveRemote();
+				setUnusedAddress();
+			}
 		}	
 	}
 	

@@ -90,6 +90,10 @@ public class Person implements Serializable {
 
 	public void setRemote(Remote remote) {
 		this.remote = remote;
+		/*
+		 * Remote becomes active when given to person
+		 */
+		this.remote.setIsActive(true);
 	}
 
 	public void setAdress(Address adress) {

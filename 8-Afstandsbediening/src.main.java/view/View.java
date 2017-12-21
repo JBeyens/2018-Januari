@@ -178,18 +178,18 @@ public class View extends JFrame{
 		addPersonPanel.setLayout(null);
 		
 		JScrollPane scrollRemote = new JScrollPane();
-		scrollRemote.setBounds(10, 92, 185, 130);
+		scrollRemote.setBounds(10, 92, 200, 130);
 		addPersonPanel.add(scrollRemote);
 		listInactiveRemote = new JList<Remote>();
-		listInactiveRemote.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
 		scrollRemote.setViewportView(listInactiveRemote);
+		listInactiveRemote.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
 		
 		JScrollPane scrollAddress = new JScrollPane();
-		scrollAddress.setBounds(234, 92, 185, 130);
+		scrollAddress.setBounds(220, 92, 199, 130);
 		addPersonPanel.add(scrollAddress);
 		listAddress = new JList<Address>();
-		listAddress.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
 		scrollAddress.setViewportView(listAddress);
+		listAddress.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
 		
 		btnAddPerson = new JButton("Add");
 		btnAddPerson.setBounds(200, 32, 89, 23);
@@ -215,7 +215,7 @@ public class View extends JFrame{
 		
 		dateContract = new JDateChooser();
 		dateContract.setMinSelectableDate(new Date());
-		dateContract.setBounds(93, 61, 86, 20);
+		dateContract.setBounds(93, 61, 102, 20);
 		addPersonPanel.add(dateContract);
 		
 		JLabel lblContract = new JLabel("Contract");

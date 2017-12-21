@@ -81,7 +81,7 @@ public class GenericDAO<T> {
 		try {
 			transaction.begin();
 			
-			manager.persist(entity);
+			manager.merge(entity);
 			transaction.commit();
 		} catch (HibernateException e) {
 			if (transaction != null)
