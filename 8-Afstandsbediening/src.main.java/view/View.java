@@ -6,6 +6,7 @@ import java.awt.RenderingHints;
 import java.awt.event.ActionListener;
 import java.awt.image.BufferedImage;
 import java.net.URL;
+import java.util.Date;
 import java.util.ArrayList;
 
 import javax.swing.DefaultListModel;
@@ -96,11 +97,47 @@ public class View extends JFrame{
 	}
 	
 	/*
+	 * Returns date choosen by user
+	 */
+	public Date getDate(){
+		return dateContract.getDate();
+	}
+	
+	/*
+	 * Returns user firstname
+	 */
+	public String getFirstName(){
+		return tfFirstName.getText();
+	}
+	
+	/*
+	 * Returns user lastname
+	 */
+	public String getLastName(){
+		return tfLastName.getText();
+	}
+	
+	/*
+	 * Returns user address
+	 */
+	public Address getAddress(){
+		return listAddress.getSelectedValue();
+	}
+	
+	/*
+	 * Returns user remote
+	 */
+	public Remote getRemote(){
+		return listInactiveRemote.getSelectedValue();
+	}
+	
+	/*
 	 * Controller sends all inhabitants information through DAO
 	 * List display in table
 	 */
 	public void setOverview(ArrayList<Person> list){
 		DefaultTableModel model = (DefaultTableModel) table.getModel();
+		model.setRowCount(0);
 		
 		Object[] row = new Object[9];
 		

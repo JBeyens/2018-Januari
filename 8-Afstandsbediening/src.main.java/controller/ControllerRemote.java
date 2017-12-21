@@ -33,6 +33,7 @@ public class ControllerRemote {
 		remoteDAO = new GenericDAO<>(Remote.class);
 		
 		view.addOVerViewUpdateListener(new RefreshOverViewListener());
+		view.addAddPersonListener(new AddPersonListener());
 		setInactiveRemote();
 	}
 	
@@ -57,6 +58,26 @@ public class ControllerRemote {
 	private void setOverView(){
 		view.setOverview((ArrayList<Person>)personDAO.findAll());
 	} 
+	
+	private class AddPersonListener implements ActionListener{
+		@Override
+		public void actionPerformed(ActionEvent e) {
+			try {
+				Person person = new Person();
+				person.setFirstname(view.getFirstName());
+				person.setLastname(view.getLastName());
+				person.setEndOfContract(view.getDate());
+				person.setAdress(view.getAddress());
+				person.setRemote(view.getRemote());
+				
+				personDAO.create(person);
+			} catch (Exception e1) {
+				e1.printStackTrace();
+				view.showMessage("Input parameters not correct!");
+			}
+			
+		}	
+	}
 	
 	private class RefreshOverViewListener implements ActionListener{
 		@Override
