@@ -2,35 +2,9 @@
 <persistence xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
     xsi:schemaLocation="http://java.sun.com/xml/ns/persistence http://java.sun.com/xml/ns/persistence/persistence_2_0.xsd"
     version="2.0" xmlns="http://java.sun.com/xml/ns/persistence">
- <persistence-unit name="Remote" transaction-type="RESOURCE_LOCAL">
+ <persistence-unit name="Afstandsbediening" transaction-type="RESOURCE_LOCAL">
         <class>modelPersistent.Remote</class>
-
- <properties>
-  <property name="javax.persistence.jdbc.driver" value="com.mysql.jdbc.Driver" />
-  <property name="javax.persistence.jdbc.url"
-    value="jdbc:mysql://localhost:3306/DbRemote" />
-  <property name="javax.persistence.jdbc.user" value="userDB" />
-  <property name="javax.persistence.jdbc.password" value="userDB" />
-
- </properties>
-
- </persistence-unit>
- 
-  <persistence-unit name="Person" transaction-type="RESOURCE_LOCAL">
         <class>modelPersistent.Person</class>
-
- <properties>
-  <property name="javax.persistence.jdbc.driver" value="com.mysql.jdbc.Driver" />
-  <property name="javax.persistence.jdbc.url"
-    value="jdbc:mysql://localhost:3306/DbRemote" />
-  <property name="javax.persistence.jdbc.user" value="userDB" />
-  <property name="javax.persistence.jdbc.password" value="userDB" />
-
- </properties>
-
- </persistence-unit>
- 
- <persistence-unit name="Address" transaction-type="RESOURCE_LOCAL">
         <class>modelPersistent.Address</class>
 
  <properties>

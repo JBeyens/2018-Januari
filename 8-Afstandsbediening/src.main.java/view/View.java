@@ -28,6 +28,8 @@ import javax.swing.JButton;
 import javax.swing.JList;
 import javax.swing.JLabel;
 import javax.swing.JTextField;
+import javax.swing.ListSelectionModel;
+
 import com.toedter.calendar.JDateChooser;
 
 
@@ -84,6 +86,20 @@ public class View extends JFrame{
 	}
 	
 	/*
+	 * Controller sends unused address through DAO
+	 * List set as model
+	 */
+	public void setUnusedAddress(ArrayList<Address> list){
+		DefaultListModel<Address> model = new DefaultListModel<>();
+		
+		for (Address address : list) {
+			model.addElement(address);
+		}
+		
+		listAddress.setModel(model);
+	}
+	
+	/*
 	 * Controller sends inactive remotes through DAO
 	 * List set as model
 	 */
@@ -93,7 +109,7 @@ public class View extends JFrame{
 		for (Remote remote : list)
 			model.addElement(remote);
 		
-		listInactiveRemote.setModel(model);;;
+		listInactiveRemote.setModel(model);
 	}
 	
 	/*
@@ -165,12 +181,14 @@ public class View extends JFrame{
 		scrollRemote.setBounds(10, 92, 185, 130);
 		addPersonPanel.add(scrollRemote);
 		listInactiveRemote = new JList<Remote>();
+		listInactiveRemote.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
 		scrollRemote.setViewportView(listInactiveRemote);
 		
 		JScrollPane scrollAddress = new JScrollPane();
 		scrollAddress.setBounds(234, 92, 185, 130);
 		addPersonPanel.add(scrollAddress);
 		listAddress = new JList<Address>();
+		listAddress.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
 		scrollAddress.setViewportView(listAddress);
 		
 		btnAddPerson = new JButton("Add");
@@ -196,6 +214,7 @@ public class View extends JFrame{
 		tfLastName.setColumns(10);
 		
 		dateContract = new JDateChooser();
+		dateContract.setMinSelectableDate(new Date());
 		dateContract.setBounds(93, 61, 86, 20);
 		addPersonPanel.add(dateContract);
 		

@@ -5,7 +5,6 @@ import java.util.List;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.EntityTransaction;
-import javax.persistence.Persistence;
 
 import org.hibernate.HibernateException;
 
@@ -19,17 +18,13 @@ import org.hibernate.HibernateException;
  */
 
 public class GenericDAO<T> {
-	/*
-	 * EntityManagerFactory thread safe/heavy resource
-	 * Only 1 creating
-	 */
 	protected EntityManagerFactory factory;
 	protected Class<T> genericClass;
 
-	public GenericDAO(Class<T> genericClass) {
+	public GenericDAO(Class<T> genericClass, EntityManagerFactory factory) {
 		this.genericClass = genericClass;
 		
-		factory = Persistence.createEntityManagerFactory(genericClass.getSimpleName());
+		this.factory = factory;
 	}
 	
 	

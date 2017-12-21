@@ -4,6 +4,9 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
 
+import javax.persistence.EntityManager;
+import javax.persistence.EntityManagerFactory;
+import javax.persistence.Persistence;
 import javax.swing.JFrame;
 
 import database.GenericDAO;
@@ -22,19 +25,28 @@ import view.View;
 
 public class ControllerRemote {
 	private View view;
+	private EntityManagerFactory emFactory;
 	private GenericDAO<Person> personDAO;
 	private GenericDAO<Address> addressDAO;
 	private GenericDAO<Remote> remoteDAO;
 	
 	public ControllerRemote(){
 		view = new View();
-		personDAO = new GenericDAO<>(Person.class);
-		addressDAO = new GenericDAO<>(Address.class);
-		remoteDAO = new GenericDAO<>(Remote.class);
+		
+		/*
+		 * EntityManagerFactory thread safe/heavy resource
+		 * Only 1 creating
+		 */
+		emFactory = Persistence.createEntityManagerFactory("Afstandsbediening");
+		
+		personDAO = new GenericDAO<>(Person.class, emFactory);
+		addressDAO = new GenericDAO<>(Address.class, emFactory);
+		remoteDAO = new GenericDAO<>(Remote.class, emFactory);
 		
 		view.addOVerViewUpdateListener(new RefreshOverViewListener());
 		view.addAddPersonListener(new AddPersonListener());
 		setInactiveRemote();
+		setUnusedAddress();
 	}
 	
 	public void start(){
@@ -53,6 +65,18 @@ public class ControllerRemote {
 		}
 
 		view.setInactiveRemote(list);
+	}
+	
+	private void setUnusedAddress(){
+		try {
+			EntityManager manager = emFactory.createEntityManager();
+			
+			ArrayList<Address> list = (ArrayList<Address>) manager.createNamedQuery("findUnusedAddress", Address.class).getResultList();
+			
+			view.setUnusedAddress(list);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
 	}
 	
 	private void setOverView(){

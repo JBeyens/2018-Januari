@@ -7,6 +7,7 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.NamedQuery;
 import javax.persistence.Table;
 
 
@@ -18,6 +19,7 @@ import javax.persistence.Table;
  */
 
 @Entity
+@NamedQuery(name="findUnusedAddress", query = "SELECT a FROM Address a WHERE a.id NOT IN (SELECT p.id FROM Person p)")
 @Table(name = "address")
 public class Address implements Serializable{
 
@@ -110,8 +112,7 @@ public class Address implements Serializable{
 
 	@Override
 	public String toString() {
-		return "Id=" + id + ", street=" + street + ", nr=" + nr + ", mailBox=" + mailBox + ", postalCode="
-				+ postalCode + ", city=" + city + ", country=" + country;
+		return "Id=" + id + ", street=" + street + ", nr=" + nr + ", mailBox=" + mailBox;
 	}
 
 	
