@@ -7,10 +7,12 @@ import database.GenericDAO;
 import modelPersistent.Address;
 import modelPersistent.Person;
 import modelPersistent.Remote;
+import values.DefaultLogger;
 
 public class TestClass {
 
 	public static void main(String[] args){
+		DefaultLogger.configureLogger();
 		Address address = new Address("Bondgenotenlaan", 150, 5, 3000, "Leuven", "België");
 		Remote remote = new Remote("Test", 555555);
 		

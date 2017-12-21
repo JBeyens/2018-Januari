@@ -7,6 +7,7 @@ import javax.persistence.Persistence;
 import modelPersistent.Address;
 import modelPersistent.Person;
 import modelPersistent.Remote;
+import values.DefaultLogger;
 
 
 /**
@@ -20,6 +21,7 @@ public class ClearDummyData {
 	
 	
 	public static void main(String[] args) {
+		DefaultLogger.configureLogger();
 		try {
 			removePerson();
 			removeRemote();

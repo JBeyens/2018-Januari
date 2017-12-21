@@ -11,6 +11,7 @@ import database.GenericDAO;
 import modelPersistent.Address;
 import modelPersistent.Person;
 import modelPersistent.Remote;
+import values.DefaultLogger;
 
 
 /**
@@ -32,6 +33,7 @@ public class GenerateDummyData {
 	private static DataFactory factory = new DataFactory();
 	
 	public static void main(String[] args) {
+		DefaultLogger.configureLogger();
 		try {;
 			createActivePerson();
 			createInActiveRemote();
