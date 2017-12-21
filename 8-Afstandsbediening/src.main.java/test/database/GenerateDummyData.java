@@ -49,7 +49,7 @@ public class GenerateDummyData {
 		
 		for (int i = 0; i < 30; i++) {
 			person = new Person(factory.getFirstName(), factory.getLastName(), contractDate);
-			address = new Address("Bondgenotenlaan", 150, i+1, 3000, "Leuven", "BelgiÃ«");
+			address = new Address("Bondgenotenlaan", 150, i+1, 3000, "Leuven", "België");
 			remote = new Remote(UUID.randomUUID().toString(), ThreadLocalRandom.current().nextLong(10000, 1000000));
 			
 			person.setAdress(address);

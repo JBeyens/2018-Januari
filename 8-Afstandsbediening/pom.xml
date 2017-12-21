@@ -43,11 +43,13 @@
         <version>4.2.7.SP1</version>
     </dependency>
     
-    <dependency>
-        <groupId>mysql</groupId>
-        <artifactId>mysql-connector-java</artifactId>
-        <version>5.1.26</version>
-    </dependency>
+<!-- https://mvnrepository.com/artifact/mysql/mysql-connector-java -->
+<dependency>
+    <groupId>mysql</groupId>
+    <artifactId>mysql-connector-java</artifactId>
+    <version>6.0.6</version>
+</dependency>
+
     
   	<dependency>
   		<groupId>org.fluttercode.datafactory</groupId>
