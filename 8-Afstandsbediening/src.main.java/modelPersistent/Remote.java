@@ -72,5 +72,4 @@ public class Remote implements Serializable{
 	public String toString() {
 		return "Id=" + id + " / serialNumber=" + serialNumber;
 	}
-	
 }

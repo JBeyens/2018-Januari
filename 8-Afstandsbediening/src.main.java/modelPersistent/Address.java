@@ -55,60 +55,39 @@ public class Address implements Serializable{
 	}
 
 	public int getId() {
-		return id;
-	}
-
+		return id; } 
 	public void setId(int id) {
-		this.id = id;
-	}
+		this.id = id; }
 
 	public String getStreet() {
-		return street;
-	}
-
+		return street; }
 	public void setStreet(String street) {
-		this.street = street;
-	}
-
+		this.street = street; }
+	
 	public int getNumber() {
-		return nr;
-	}
-
+		return nr; }
 	public void setNumber(int number) {
-		this.nr = number;
-	}
+		this.nr = number; }
 
 	public int getMailBox() {
-		return mailBox;
-	}
-
+		return mailBox; }
 	public void setMailBox(int mailBox) {
-		this.mailBox = mailBox;
-	}
+		this.mailBox = mailBox; }
 
 	public int getPostalCode() {
-		return postalCode;
-	}
-
+		return postalCode; }
 	public void setPostalCode(int postalCode) {
-		this.postalCode = postalCode;
-	}
+		this.postalCode = postalCode; }
 
 	public String getCity() {
-		return city;
-	}
-
+		return city; }
 	public void setCity(String city) {
-		this.city = city;
-	}
+		this.city = city; }
 
 	public String getCountry() {
-		return country;
-	}
-
+		return country; }
 	public void setCountry(String country) {
-		this.country = country;
-	}
+		this.country = country; }
 
 	@Override
 	public String toString() {

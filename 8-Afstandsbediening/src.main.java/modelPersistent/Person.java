@@ -57,37 +57,22 @@ public class Person implements Serializable {
 	}
 
 	public int getId() {
-		return id;
-	}
-
+		return id; } 
 	public void setId(int id) {
-		this.id = id;
-	}
+		this.id = id; }
 
 	public String getFirstname() {
-		return firstname;
-	}
-
+		return firstname; } 
 	public void setFirstname(String firstname) {
-		this.firstname = firstname;
-	}
+		this.firstname = firstname; }
 
 	public String getLastname() {
-		return lastname;
-	}
-
+		return lastname; } 
 	public void setLastname(String lastname) {
-		this.lastname = lastname;
-	}
-
-	public Address getAdress() {
-		return address;
-	}
+		this.lastname = lastname; }
 	
 	public Remote getRemote() {
-		return remote;
-	}
-
+		return remote; } 
 	public void setRemote(Remote remote) {
 		this.remote = remote;
 		/*
@@ -96,16 +81,13 @@ public class Person implements Serializable {
 		this.remote.setIsActive(true);
 	}
 
+	public Address getAdress() {
+		return address; } 
 	public void setAdress(Address adress) {
-		this.address = adress;
-	}
+		this.address = adress; }
 
 	public Date getEndOfContract() {
-		return endOfContract;
-	}
-
+		return endOfContract; } 
 	public void setEndOfContract(Date endOfContract) {
-		this.endOfContract = endOfContract;
-	}
-
+		this.endOfContract = endOfContract; }
 }
