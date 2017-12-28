@@ -19,7 +19,7 @@ import model.observer.IRemoteSubject;
  * @Doel Manages users and their remotes. Will control for who the gate opens
  */
 public class UserManager implements IRemoteSubject {
-	private long frequency;
+	private long gateFrequency;
 	private EntityManagerFactory emFactory;
 	private ArrayList<Person> persons;
 	private ArrayList<IRemoteObserver> userRemotes;
@@ -40,19 +40,16 @@ public class UserManager implements IRemoteSubject {
 		personDAO = new GenericDAO<>(Person.class, emFactory);
 		remoteDAO = new GenericDAO<>(Remote.class, emFactory);
 		addressDAO = new GenericDAO<>(Address.class, emFactory);
-	}
+	}	
 	
-	
-
-
 
 	// METHODS	
 	
 	/** Getter & Setter for 'frequency' **/
 	public long getFrequency() {
-		return frequency; }
+		return gateFrequency; }
 	public void setFrequency(long frequency) {
-		this.frequency = frequency; }
+		this.gateFrequency = frequency; }
 	
 	/**  Loads all users from database **/	
 	public boolean LoadAllPersons() 
