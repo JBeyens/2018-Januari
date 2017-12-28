@@ -24,13 +24,11 @@ public class UserRemote implements IRemoteObserver{
 	}
 	
 
-	public boolean AskOpenGate()
-	{
+	public boolean AskOpenGate() {
 		return true;
 	}
 	
-	public void SendId()
-	{
-		
+	public long SendId() {
+		return remote.getId();
 	}
 }
