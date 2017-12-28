@@ -3,9 +3,9 @@
     xsi:schemaLocation="http://java.sun.com/xml/ns/persistence http://java.sun.com/xml/ns/persistence/persistence_2_0.xsd"
     version="2.0" xmlns="http://java.sun.com/xml/ns/persistence">
  <persistence-unit name="Afstandsbediening" transaction-type="RESOURCE_LOCAL">
-        <class>modelPersistent.Remote</class>
-        <class>modelPersistent.Person</class>
-        <class>modelPersistent.Address</class>
+        <class>model.entities.Remote</class>
+        <class>model.entities.Person</class>
+        <class>model.entities.Address</class>
 
  <properties>
   <property name="javax.persistence.jdbc.driver" value="com.mysql.jdbc.Driver" />
