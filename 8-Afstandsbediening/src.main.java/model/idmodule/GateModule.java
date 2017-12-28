@@ -7,7 +7,7 @@ package model.idmodule;
  * @Project Afstandsbediening
  * @Doel Manages user/remote authorization
  */
-public class IdModule {
+public class GateModule {
 	
 
 }

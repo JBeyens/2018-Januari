@@ -1,4 +1,4 @@
-package modelPersistent;
+package model.entities;
 
 import java.util.Date;
 import javax.annotation.Generated;

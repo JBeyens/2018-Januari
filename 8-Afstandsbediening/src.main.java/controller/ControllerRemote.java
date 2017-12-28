@@ -10,9 +10,9 @@ import javax.persistence.Persistence;
 import javax.swing.JFrame;
 
 import database.GenericDAO;
-import modelPersistent.Address;
-import modelPersistent.Person;
-import modelPersistent.Remote;
+import model.entities.Address;
+import model.entities.Person;
+import model.entities.Remote;
 import view.View;
 
 

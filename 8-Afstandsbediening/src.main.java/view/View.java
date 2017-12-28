@@ -19,11 +19,6 @@ import javax.swing.JTabbedPane;
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.JTableHeader;
-
-import modelPersistent.Address;
-import modelPersistent.Person;
-import modelPersistent.Remote;
-
 import javax.swing.JButton;
 import javax.swing.JList;
 import javax.swing.JLabel;
@@ -31,6 +26,10 @@ import javax.swing.JTextField;
 import javax.swing.ListSelectionModel;
 
 import com.toedter.calendar.JDateChooser;
+
+import model.entities.Address;
+import model.entities.Person;
+import model.entities.Remote;
 
 
 /**

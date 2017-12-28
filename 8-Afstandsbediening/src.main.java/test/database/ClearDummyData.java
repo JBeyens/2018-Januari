@@ -4,9 +4,9 @@ import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
 
-import modelPersistent.Address;
-import modelPersistent.Person;
-import modelPersistent.Remote;
+import model.entities.Address;
+import model.entities.Person;
+import model.entities.Remote;
 import values.DefaultLogger;
 
 

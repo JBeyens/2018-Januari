@@ -1,4 +1,4 @@
-package modelPersistent;
+package model.entities;
 
 import javax.annotation.Generated;
 import javax.persistence.metamodel.SingularAttribute;
