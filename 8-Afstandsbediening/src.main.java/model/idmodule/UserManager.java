@@ -10,9 +10,9 @@ import model.entities.Remote;
 
 /**
  * @Author Jef Beyens & Ben Vandevorst
- * @Datum 27/11/2017
+ * @Datum 27/12/2017
  * @Project Afstandsbediening
- * @Doel Manages users and their remotes 
+ * @Doel Manages users and their remotes. Will control for who the gate opens
  */
 public class UserManager {
 	private EntityManagerFactory emFactory;

@@ -3,7 +3,7 @@ package model.idmodule;
 
 /**
  * @Author Jef Beyens & Ben Vandevorst
- * @Datum 27/11/2017
+ * @Datum 27/12/2017
  * @Project Afstandsbediening
  * @Doel This is the software used by the remote
  */
