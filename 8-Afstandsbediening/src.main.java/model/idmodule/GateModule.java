@@ -1,11 +1,11 @@
-package model.idmodule;
+ package model.idmodule;
 
 
 /**
  * @Author Jef Beyens & Ben Vandevorst
  * @Datum 27/11/2017
  * @Project Afstandsbediening
- * @Doel Manages user/remote authorization
+ * @Doel This is the software used by the remote
  */
 public class GateModule {
 	private long frequency;

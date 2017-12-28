@@ -12,7 +12,7 @@ import model.entities.Remote;
  * @Author Jef Beyens & Ben Vandevorst
  * @Datum 27/11/2017
  * @Project Afstandsbediening
- * @Doel Manages user/remote authorization
+ * @Doel Manages users and their remotes 
  */
 public class UserManager {
 	private EntityManagerFactory emFactory;
@@ -22,7 +22,8 @@ public class UserManager {
 	/**
 	 * 
 	 */
-	public UserManager() {
+	public UserManager() 
+	{
 		/*
 		 * EntityManagerFactory thread safe/heavy resource
 		 * Only 1 creating
@@ -34,6 +35,45 @@ public class UserManager {
 		addressDAO = new GenericDAO<>(Address.class, emFactory);
 	}
 	
-
+	/**
+	 * Adds new user. Returns true if succesfull, else false.
+	 **/
+	public boolean AddNewUser(Person person)
+	{
+		try {
+			personDAO.create(person);
+			return true;
+		} 
+		catch (Exception e) {
+			return false;
+		}		
+	}
 	
+	public boolean RegisterUserRemote(Person person, Remote remote) 
+	{
+		try {
+			person.setRemote(remote);
+			remote.setIsActive(true);
+			personDAO.update(person);
+			return true;
+		} catch (Exception e) {
+			return false;
+		}
+	}
+	
+	public boolean DeactivateUserRemote(Person person) 
+	{
+		try {
+			person.getRemote().setIsActive(false);
+			personDAO.update(person);
+			return true;
+		} catch (Exception e) {
+			return false;
+		}
+	}
+	
+	public void SendNewFrequency(long frequency)
+	{
+		
+	}
 }
