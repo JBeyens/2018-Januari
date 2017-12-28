@@ -8,6 +8,16 @@ package model.idmodule;
  * @Doel Manages user/remote authorization
  */
 public class GateModule {
-	
+	private long frequency;
 
+	
+	/**
+	 * Getter & setter for Frequency of the receiver module of the gate
+	 **/
+	public long getFrequency() {
+		return frequency;	}
+	public void setFrequency(long frequency) {
+		this.frequency = frequency;	}
+
+	
 }
