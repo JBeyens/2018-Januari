@@ -125,7 +125,9 @@ public class View extends JFrame{
 	 * Controller fills combobox with data from DB
 	 */
 	public void addPersons(ArrayList<Person> list){
-		this.listPerson = new JComboBox<>(list.toArray());
+		listPerson = new JComboBox<>(list.toArray());
+		listPerson.setBounds(10, 11, 153, 20);
+		simulateGate.add(listPerson);
 	}
 	
 	/*
@@ -243,11 +245,7 @@ public class View extends JFrame{
 	/*
 	 * Component setup for gate TabPanel
 	 */
-	private void setUpGate(){
-		listPerson = new JComboBox<>();
-		listPerson.setBounds(10, 11, 153, 20);
-		simulateGate.add(listPerson);
-		
+	private void setUpGate(){	
 		btnAskEntrance = new JButton("Ask Entrance");
 		btnAskEntrance.setBounds(188, 10, 119, 23);
 		simulateGate.add(btnAskEntrance);

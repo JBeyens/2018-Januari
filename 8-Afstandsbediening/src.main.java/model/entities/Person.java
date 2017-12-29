@@ -90,4 +90,13 @@ public class Person implements Serializable {
 		return endOfContract; } 
 	public void setEndOfContract(Date endOfContract) {
 		this.endOfContract = endOfContract; }
+
+	@Override
+	public String toString() {
+		return firstname + " "+ lastname;
+	}
+
+	
+	
+	
 }
