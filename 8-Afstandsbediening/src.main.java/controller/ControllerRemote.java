@@ -48,6 +48,7 @@ public class ControllerRemote {
 		view.addAddPersonListener(new AddPersonListener());
 		setInactiveRemote();
 		setUnusedAddress();
+		setPersons();
 	}
 	
 	public void start(){
@@ -69,6 +70,15 @@ public class ControllerRemote {
 		}
 
 		view.setInactiveRemote(list);
+	}
+	
+	/*
+	 * Add all persons to list for simulation
+	 */
+	
+	@SuppressWarnings("unused")
+	private void setPersons(){
+		view.addPersons((ArrayList<Person>) personDAO.findAll());
 	}
 	
 	/*
