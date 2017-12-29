@@ -43,6 +43,7 @@ public class ControllerRemote {
 		remoteDAO = new GenericDAO<>(Remote.class, emFactory);
 		addressDAO = new GenericDAO<>(Address.class, emFactory);
 		
+		view.addAskEntranceListener(new AskEntranceListener());
 		view.addOVerViewUpdateListener(new RefreshOverViewListener());
 		view.addAddPersonListener(new AddPersonListener());
 		setInactiveRemote();
@@ -134,5 +135,17 @@ public class ControllerRemote {
 				view.showMessage("Loading from database failed!");
 			}
 		}	
+	}
+	
+	/*
+	 * Listener for ask entrance button (1st tab)
+	 */
+	private class AskEntranceListener implements ActionListener{
+		@Override
+		public void actionPerformed(ActionEvent arg0) {
+			// TODO Auto-generated method stub
+			
+		}
+		
 	}
 }

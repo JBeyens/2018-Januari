@@ -30,6 +30,7 @@ import com.toedter.calendar.JDateChooser;
 import model.entities.Address;
 import model.entities.Person;
 import model.entities.Remote;
+import javax.swing.JComboBox;
 
 
 /**
@@ -55,7 +56,9 @@ public class View extends JFrame{
 	private JTextField tfFirstName;
 	private JTextField tfLastName;
 	private JButton btnAddPerson;
+	private JButton btnAskEntrance;
 	private JDateChooser dateContract;
+	private JComboBox<Object> listPerson;
 	
 	public View(){
 		this.setTitle("Gate Administration");
@@ -68,6 +71,13 @@ public class View extends JFrame{
 	 */
 	public void showMessage(String message){
 		JOptionPane.showMessageDialog(null, message);
+	}
+	
+	/*
+	 * Controller subscrives to this button
+	 */
+	public void addAskEntranceListener(ActionListener e){
+		this.btnAskEntrance.addActionListener(e);
 	}
 	
 	/*
@@ -112,6 +122,13 @@ public class View extends JFrame{
 	}
 	
 	/*
+	 * Controller fills combobox with data from DB
+	 */
+	public void addPersons(ArrayList<Person> list){
+		this.listPerson = new JComboBox<>(list.toArray());
+	}
+	
+	/*
 	 * Returns date choosen by user
 	 */
 	public Date getDate(){
@@ -145,6 +162,7 @@ public class View extends JFrame{
 	public Remote getRemote(){
 		return listInactiveRemote.getSelectedValue();
 	}
+	
 	
 	/*
 	 * Controller sends all inhabitants information through DAO
@@ -223,6 +241,19 @@ public class View extends JFrame{
 	}
 	
 	/*
+	 * Component setup for gate TabPanel
+	 */
+	private void setUpGate(){
+		listPerson = new JComboBox<>();
+		listPerson.setBounds(10, 11, 153, 20);
+		simulateGate.add(listPerson);
+		
+		btnAskEntrance = new JButton("Ask Entrance");
+		btnAskEntrance.setBounds(188, 10, 119, 23);
+		simulateGate.add(btnAskEntrance);
+	}
+	
+	/*
 	 * Component setup for parent TabPanel
 	 */
 	private void setUpTabbedPane(){
@@ -231,6 +262,7 @@ public class View extends JFrame{
 		overView = new JPanel();
 		simulateGate = new JPanel();
 		
+		setUpGate();
 		setUpOverView();
 		setUpAddPerson();
 		
@@ -244,8 +276,9 @@ public class View extends JFrame{
 		ImageIcon iconPlane = new ImageIcon(uPlane);
 		
 		tabbedPane.addTab("Request entrance", new ImageIcon(getScaledImage(iconGate.getImage(), 30, 30)), simulateGate, "Simulates request from inhabitant");
-		tabbedPane.addTab("Add", new ImageIcon(getScaledImage(iconAdd.getImage(), 30, 30)), addPersonPanel, "Add a new person");
+		simulateGate.setLayout(null);
 
+		tabbedPane.addTab("Add", new ImageIcon(getScaledImage(iconAdd.getImage(), 30, 30)), addPersonPanel, "Add a new person");
 		tabbedPane.addTab("Overview", new ImageIcon(getScaledImage(iconPlane.getImage(), 30, 30)), overView, "Overview inhabitants");
 
 		getContentPane().add(tabbedPane);
