@@ -39,6 +39,10 @@ public class GateModule implements IRemoteSubject {
 	/**  Loads all users from database **/	
 	public boolean loadAllPersons() {
 		persons = entityDAO.findAllPersons();
+		for (Person person : persons) {
+			if(person.getRemote().getIsActive())
+				registerUserRemote(new RemoteModule(person.getRemote()));
+		}
 		return persons == null ? false : true;
 	}
 	
