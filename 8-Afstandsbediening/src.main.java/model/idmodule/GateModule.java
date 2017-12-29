@@ -108,10 +108,17 @@ public class GateModule implements IRemoteSubject {
 	 **/
 	@Override
 	public void registerUserRemote(IRemoteObserver userRemote) {
-		userRemotes.remove(userRemote);
+		userRemotes.add(userRemote);
+		updateRemoteIsActive(userRemote.getRemote(), true);
 	}	
 	@Override
 	public void deactivateUserRemote(IRemoteObserver userRemote) {
-		userRemotes.add(userRemote);
+		userRemotes.remove(userRemote);
+		updateRemoteIsActive(userRemote.getRemote(), false);
+	}
+	
+	private void updateRemoteIsActive(Remote remote, boolean isActive) {
+		remote.setIsActive(isActive);
+		remoteDAO.update(remote);
 	}
 }
