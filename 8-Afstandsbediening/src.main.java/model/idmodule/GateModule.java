@@ -15,6 +15,7 @@ import model.observer.IRemoteSubject;
  * @Doel Manages users and their remotes. Will control for who the gate opens
  */
 public class GateModule implements IRemoteSubject {
+	// FIELDS
 	private long gateFrequency;
 	private ArrayList<Person> persons;
 	private ArrayList<IRemoteObserver> userRemotes;
