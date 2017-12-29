@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
 
+import database.EntityDAO;
 import database.GenericDAO;
 import model.entities.Address;
 import model.entities.Person;
@@ -20,26 +21,14 @@ import model.observer.IRemoteSubject;
  */
 public class GateModule implements IRemoteSubject {
 	private long gateFrequency;
-	private EntityManagerFactory emFactory;
 	private ArrayList<Person> persons;
 	private ArrayList<IRemoteObserver> userRemotes;
-	private GenericDAO<Person> personDAO;
-	private GenericDAO<Remote> remoteDAO;
-	private GenericDAO<Address> addressDAO;
+	private EntityDAO entityDAO;
 	
 	
 	// CONSTRUCTOR
-	public GateModule() 
-	{
-		/*
-		 * EntityManagerFactory thread safe/heavy resource
-		 * Only 1 creating
-		 */
-		emFactory = Persistence.createEntityManagerFactory("Afstandsbediening");
-		
-		personDAO = new GenericDAO<>(Person.class, emFactory);
-		remoteDAO = new GenericDAO<>(Remote.class, emFactory);
-		addressDAO = new GenericDAO<>(Address.class, emFactory);
+	public GateModule() {
+		entityDAO = EntityDAO.createEntityDAO();
 	}	
 	
 
@@ -52,15 +41,13 @@ public class GateModule implements IRemoteSubject {
 		this.gateFrequency = frequency; }
 	
 	/**  Loads all users from database **/	
-	public boolean loadAllPersons() 
-	{
-		persons = (ArrayList<Person>)personDAO.findAll();
+	public boolean loadAllPersons() {
+		persons = entityDAO.findAllPersons();
 		return persons == null ? false : true;
 	}
 	
 	/** Returns ArrayList of Persons. Will load first from database if this list is null. **/	
-	public ArrayList<Person> getAllPersons()
-	{
+	public ArrayList<Person> getAllPersons() {
 		if (persons == null)
 			loadAllPersons();
 		
@@ -68,15 +55,8 @@ public class GateModule implements IRemoteSubject {
 	}
 	
 	/** Adds new user. Returns true if succesfull, else false. **/
-	public boolean addNewUser(Person person)
-	{
-		try {
-			personDAO.create(person);
-			return true;
-		} 
-		catch (Exception e) {
-			return false;
-		}		
+	public boolean addNewUser(Person person) {
+		return entityDAO.createPerson(person);
 	}
 	
 	/** Will check the id of the remote and add it to the observers if verified **/
@@ -119,6 +99,6 @@ public class GateModule implements IRemoteSubject {
 	
 	private void updateRemoteIsActive(Remote remote, boolean isActive) {
 		remote.setIsActive(isActive);
-		remoteDAO.update(remote);
+		entityDAO.updateRemote(remote);
 	}
 }
