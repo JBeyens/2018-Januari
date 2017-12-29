@@ -18,7 +18,7 @@ import model.observer.IRemoteSubject;
  * @Project Afstandsbediening
  * @Doel Manages users and their remotes. Will control for who the gate opens
  */
-public class UserManager implements IRemoteSubject {
+public class GateModule implements IRemoteSubject {
 	private long gateFrequency;
 	private EntityManagerFactory emFactory;
 	private ArrayList<Person> persons;
@@ -29,7 +29,7 @@ public class UserManager implements IRemoteSubject {
 	
 	
 	// CONSTRUCTOR
-	public UserManager() 
+	public GateModule() 
 	{
 		/*
 		 * EntityManagerFactory thread safe/heavy resource
@@ -52,23 +52,23 @@ public class UserManager implements IRemoteSubject {
 		this.gateFrequency = frequency; }
 	
 	/**  Loads all users from database **/	
-	public boolean LoadAllPersons() 
+	public boolean loadAllPersons() 
 	{
 		persons = (ArrayList<Person>)personDAO.findAll();
 		return persons == null ? false : true;
 	}
 	
 	/** Returns ArrayList of Persons. Will load first from database if this list is null. **/	
-	public ArrayList<Person> GetAllPersons()
+	public ArrayList<Person> getAllPersons()
 	{
 		if (persons == null)
-			LoadAllPersons();
+			loadAllPersons();
 		
 		return persons;
 	}
 	
 	/** Adds new user. Returns true if succesfull, else false. **/
-	public boolean AddNewUser(Person person)
+	public boolean addNewUser(Person person)
 	{
 		try {
 			personDAO.create(person);
@@ -79,14 +79,26 @@ public class UserManager implements IRemoteSubject {
 		}		
 	}
 	
+	/** Will check the id of the remote and add it to the observers if verified **/
+	public void idModule(IRemoteObserver userRemote)
+	{		
+		for(IRemoteObserver remote : userRemotes) {
+			if (userRemote.sendSerialId() != remote.sendSerialId())
+				continue;
+			
+			registerUserRemote(userRemote);
+			userRemote.updateFrequency(getFrequency());
+			return;
+		}
+	}
 	
 	/** Observer pattern - Updates all remotes who have subscribed to UserManager. **/
-	public void SendNewFrequency(long frequency)
+	public void SendFrequencyToRemotes()
 	{
-		setFrequency(frequency);
+		long freq = getFrequency();
 		for(IRemoteObserver userRemote : userRemotes)
 		{
-			userRemote.UpdateFrequency(frequency);
+			userRemote.updateFrequency(freq);
 		}
 	}
 

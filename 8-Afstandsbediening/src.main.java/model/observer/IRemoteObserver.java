@@ -1,5 +1,6 @@
 package model.observer;
 
 public interface IRemoteObserver {
-	public void UpdateFrequency(long frequency);
+	public void updateFrequency(long frequency);
+	public String sendSerialId();
 }
