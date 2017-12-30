@@ -148,8 +148,8 @@ public class ControllerRemote {
 	private class AskEntranceListener implements ActionListener{
 		@Override
 		public void actionPerformed(ActionEvent arg0) {
-			// TODO Auto-generated method stub
-			
+			//TODO: Get real function here
+			view.drawGraphic(false);
 		}
 		
 	}

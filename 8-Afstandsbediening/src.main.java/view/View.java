@@ -9,6 +9,7 @@ import java.net.URL;
 import java.util.Date;
 import java.util.ArrayList;
 
+import javax.swing.DefaultComboBoxModel;
 import javax.swing.DefaultListModel;
 import javax.swing.ImageIcon;
 import javax.swing.JFrame;
@@ -31,6 +32,9 @@ import model.entities.Address;
 import model.entities.Person;
 import model.entities.Remote;
 import javax.swing.JComboBox;
+import java.awt.Canvas;
+import java.awt.Color;
+import java.awt.Graphics;
 
 
 /**
@@ -58,7 +62,8 @@ public class View extends JFrame{
 	private JButton btnAddPerson;
 	private JButton btnAskEntrance;
 	private JDateChooser dateContract;
-	private JComboBox<Object> listPerson;
+	private JComboBox<Person> listPerson;
+	private Canvas canvasGate;
 	
 	public View(){
 		this.setTitle("Gate Administration");
@@ -125,7 +130,9 @@ public class View extends JFrame{
 	 * Controller fills combobox with data from DB
 	 */
 	public void addPersons(ArrayList<Person> list){
-		listPerson = new JComboBox<>(list.toArray());
+		for (Person person : list) {
+			listPerson.addItem(person);
+		}
 		listPerson.setBounds(10, 11, 153, 20);
 		simulateGate.add(listPerson);
 	}
@@ -165,6 +172,22 @@ public class View extends JFrame{
 		return listInactiveRemote.getSelectedValue();
 	}
 	
+	/*
+	 * Graphics which shows accept/decline entrance
+	 */
+	public void drawGraphic(Boolean bool){
+		if(bool)
+			paintComponent(getGraphics(), Color.GREEN);
+		
+		else
+			paintComponent(getGraphics(), Color.RED);
+	}
+	
+	private void paintComponent(Graphics g, Color c){
+		g.setColor(c);
+		g.fillOval(75, getHeight()/2, 60, 60);	
+		g.dispose();
+	}
 	
 	/*
 	 * Controller sends all inhabitants information through DAO
@@ -246,6 +269,10 @@ public class View extends JFrame{
 	 * Component setup for gate TabPanel
 	 */
 	private void setUpGate(){	
+		listPerson = new JComboBox<Person>();
+		listPerson.setBounds(10, 11, 153, 20);
+		simulateGate.add(listPerson);
+		
 		btnAskEntrance = new JButton("Ask Entrance");
 		btnAskEntrance.setBounds(188, 10, 119, 23);
 		simulateGate.add(btnAskEntrance);
@@ -275,6 +302,10 @@ public class View extends JFrame{
 		
 		tabbedPane.addTab("Request entrance", new ImageIcon(getScaledImage(iconGate.getImage(), 30, 30)), simulateGate, "Simulates request from inhabitant");
 		simulateGate.setLayout(null);
+		
+		canvasGate = new Canvas();
+		canvasGate.setBounds(10, 46, 100, 100);
+		simulateGate.add(canvasGate);
 
 		tabbedPane.addTab("Add", new ImageIcon(getScaledImage(iconAdd.getImage(), 30, 30)), addPersonPanel, "Add a new person");
 		tabbedPane.addTab("Overview", new ImageIcon(getScaledImage(iconPlane.getImage(), 30, 30)), overView, "Overview inhabitants");
