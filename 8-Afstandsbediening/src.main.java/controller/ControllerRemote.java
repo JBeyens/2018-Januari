@@ -24,20 +24,14 @@ import view.View;
 
 public class ControllerRemote {
 	private View view;
-	private GenericDAO<Person> personDAO;
-	private GenericDAO<Remote> remoteDAO;
-	private GenericDAO<Address> addressDAO;
 	
 	public ControllerRemote(){
 		view = new View();
 		
-		personDAO = new GenericDAO<>(Person.class);
-		remoteDAO = new GenericDAO<>(Remote.class);
-		addressDAO = new GenericDAO<>(Address.class);
-		
 		view.addAskEntranceListener(new AskEntranceListener());
 		view.addOVerViewUpdateListener(new RefreshOverViewListener());
 		view.addAddPersonListener(new AddPersonListener());
+		
 		setInactiveRemote();
 		setUnusedAddress();
 		setPersons();
@@ -54,6 +48,8 @@ public class ControllerRemote {
 	 * Creates list of al inactive Remotes => not given to a inhabitant
 	 */
 	private void setInactiveRemote(){
+		GenericDAO<Remote> remoteDAO = new GenericDAO<>(Remote.class);
+		
 		ArrayList<Remote> list = new ArrayList<>();
 		
 		for (Remote remote : remoteDAO.findAll()) {
@@ -69,6 +65,8 @@ public class ControllerRemote {
 	 */
 	
 	private void setPersons(){
+		GenericDAO<Person> personDAO = new GenericDAO<>(Person.class);
+		
 		view.addPersons((ArrayList<Person>) personDAO.findAll());
 	}
 	
@@ -91,6 +89,8 @@ public class ControllerRemote {
 	 * Query list of all active inhabitants and pass them to view
 	 */
 	private void setOverView(){
+		GenericDAO<Person> personDAO = new GenericDAO<>(Person.class);
+		
 		view.setOverview((ArrayList<Person>)personDAO.findAll());
 	} 
 	
@@ -101,6 +101,10 @@ public class ControllerRemote {
 		@Override
 		public void actionPerformed(ActionEvent e) {
 			try {
+				GenericDAO<Person> personDAO = new GenericDAO<>(Person.class);
+				GenericDAO<Address> addressDAO = new GenericDAO<>(Address.class);
+				GenericDAO<Remote> remoteDAO = new GenericDAO<>(Remote.class);
+					
 				Person person = new Person();
 				person.setFirstname(view.getFirstName());
 				person.setLastname(view.getLastName());
