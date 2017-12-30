@@ -2,9 +2,6 @@ package database;
 
 import java.util.ArrayList;
 
-import javax.persistence.EntityManagerFactory;
-import javax.persistence.Persistence;
-
 import model.entities.Address;
 import model.entities.Person;
 import model.entities.Remote;
