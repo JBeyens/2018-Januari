@@ -76,7 +76,6 @@ public class ControllerRemote {
 	 * Add all persons to list for simulation
 	 */
 	
-	@SuppressWarnings("unused")
 	private void setPersons(){
 		view.addPersons((ArrayList<Person>) personDAO.findAll());
 	}
