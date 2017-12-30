@@ -31,9 +31,9 @@ public class ControllerRemote {
 	public ControllerRemote(){
 		view = new View();
 		
-		personDAO = new GenericDAO<>(Person.class, EManagerFactory.getFactory());
-		remoteDAO = new GenericDAO<>(Remote.class,EManagerFactory.getFactory());
-		addressDAO = new GenericDAO<>(Address.class, EManagerFactory.getFactory());
+		personDAO = new GenericDAO<>(Person.class);
+		remoteDAO = new GenericDAO<>(Remote.class);
+		addressDAO = new GenericDAO<>(Address.class);
 		
 		view.addAskEntranceListener(new AskEntranceListener());
 		view.addOVerViewUpdateListener(new RefreshOverViewListener());

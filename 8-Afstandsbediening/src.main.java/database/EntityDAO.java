@@ -11,21 +11,14 @@ import model.entities.Remote;
 
 public class EntityDAO {
 	private static EntityDAO entityDAO;
-	private EntityManagerFactory emFactory;
 	private GenericDAO<Person> personDAO;
 	private GenericDAO<Remote> remoteDAO;
 	private GenericDAO<Address> addressDAO;
 
-	private EntityDAO() {
-		/*
-		 * EntityManagerFactory thread safe/heavy resource
-		 * Only 1 creating
-		 */
-		emFactory = Persistence.createEntityManagerFactory("Afstandsbediening");
-		
-		personDAO = new GenericDAO<>(Person.class, emFactory);
-		remoteDAO = new GenericDAO<>(Remote.class, emFactory);
-		addressDAO = new GenericDAO<>(Address.class, emFactory);
+	private EntityDAO() {		
+		personDAO = new GenericDAO<>(Person.class);
+		remoteDAO = new GenericDAO<>(Remote.class);
+		addressDAO = new GenericDAO<>(Address.class);
 	}
 	
 	public static EntityDAO createEntityDAO() {

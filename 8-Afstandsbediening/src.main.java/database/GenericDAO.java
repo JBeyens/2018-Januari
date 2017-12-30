@@ -21,10 +21,10 @@ public class GenericDAO<T> {
 	protected EntityManagerFactory factory;
 	protected Class<T> genericClass;
 
-	public GenericDAO(Class<T> genericClass, EntityManagerFactory factory) {
+	public GenericDAO(Class<T> genericClass) {
 		this.genericClass = genericClass;
 		
-		this.factory = factory;
+		this.factory = EManagerFactory.getFactory();
 	}
 	
 	
