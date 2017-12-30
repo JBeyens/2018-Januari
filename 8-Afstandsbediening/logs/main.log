@@ -15251,3 +15251,13 @@ java.lang.Exception: exception just for purpose of providing stack trace
 2017-12-29 21:57:53,847 +0100 [main] DEBUG (EntityPrinter.java:106) - More......
 2017-12-29 21:57:53,848 +0100 [main] DEBUG (LogicalConnectionManagedImpl.java:161) - Initiating JDBC connection release from afterTransaction
 2017-12-29 21:57:53,848 +0100 [main] DEBUG (LogicalConnectionManagedImpl.java:161) - Initiating JDBC connection release from afterTransaction
+2017-12-30 14:41:23,168 +0100 [main] DEBUG (HibernatePersistenceProvider.java:38) - Logging Provider: org.jboss.logging.Log4jLoggerProvider
+2017-12-30 14:41:23,599 +0100 [main] DEBUG (HibernatePersistenceProvider.java:98) - Located and parsed 1 persistence units; checking each
+2017-12-30 14:41:23,600 +0100 [main] DEBUG (HibernatePersistenceProvider.java:106) - Checking persistence-unit [name=Afstandsbediening, explicit-provider=null] against incoming persistence unit name [Person]
+2017-12-30 14:41:23,600 +0100 [main] DEBUG (HibernatePersistenceProvider.java:115) - Excluding from consideration due to name mis-match
+2017-12-30 14:41:23,600 +0100 [main] DEBUG (HibernatePersistenceProvider.java:133) - Found no matching persistence units
+2017-12-30 14:43:33,657 +0100 [main] DEBUG (HibernatePersistenceProvider.java:38) - Logging Provider: org.jboss.logging.Log4jLoggerProvider
+2017-12-30 14:43:33,741 +0100 [main] DEBUG (HibernatePersistenceProvider.java:98) - Located and parsed 1 persistence units; checking each
+2017-12-30 14:43:33,743 +0100 [main] DEBUG (HibernatePersistenceProvider.java:106) - Checking persistence-unit [name=Afstandsbediening, explicit-provider=null] against incoming persistence unit name [Remote]
+2017-12-30 14:43:33,744 +0100 [main] DEBUG (HibernatePersistenceProvider.java:115) - Excluding from consideration due to name mis-match
+2017-12-30 14:43:33,744 +0100 [main] DEBUG (HibernatePersistenceProvider.java:133) - Found no matching persistence units
