@@ -46,7 +46,7 @@ public class GateModule implements IRemoteSubject {
 		this.gateFrequency = frequency; }
 	
 	/**  Loads all remotes from database **/	
-	public boolean loadAllRemotes() {
+	private boolean loadAllRemotes() {
 		remotes = entityDAO.readAllRemotes();
 		for (Remote remote : remotes) {
 			if (remote.getPerson() != null) {
@@ -58,10 +58,9 @@ public class GateModule implements IRemoteSubject {
 		}
 		return remotes == null ? false : true;
 	}
-	
-	
+		
 	/**  Loads all users from database **/	
-	public boolean loadAllPersons() {
+	private boolean loadAllPersons() {
 		ArrayList<Person> allPersons = entityDAO.readAllPersons();
 		
 		if (allPersons == null)
