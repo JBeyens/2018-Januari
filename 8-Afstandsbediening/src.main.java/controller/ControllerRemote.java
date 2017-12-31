@@ -8,8 +8,6 @@ import javax.persistence.EntityManager;
 import javax.swing.JFrame;
 
 import org.apache.log4j.Logger;
-import org.hibernate.engine.jdbc.env.spi.AnsiSqlKeywords;
-
 import database.EManagerFactory;
 import database.EntityDAO;
 import database.GenericDAO;
