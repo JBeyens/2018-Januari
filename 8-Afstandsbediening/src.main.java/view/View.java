@@ -62,13 +62,15 @@ public class View extends JFrame{
 	private JButton btnAddPerson;
 	private JButton btnAskEntrance;
 	private JDateChooser dateContract;
-	private JComboBox<Person> listPerson;
+	private JLabel lblChooseRemote; 
+	private JComboBox<Remote> listRemote;
 	private Canvas canvasGate;
 	
 	public View(){
 		this.setTitle("Gate Administration");
 		setExtendedState(JFrame.MAXIMIZED_BOTH);
 		setUpTabbedPane();
+		repaint();
 	}
 	
 	/*
@@ -129,12 +131,12 @@ public class View extends JFrame{
 	/*
 	 * Controller fills combobox with data from DB
 	 */
-	public void addPersons(ArrayList<Person> list){
-		for (Person person : list) {
-			listPerson.addItem(person);
+	public void addRemotes(ArrayList<Remote> list){
+		for (Remote remote : list) {
+			listRemote.addItem(remote);
 		}
-		listPerson.setBounds(10, 11, 153, 20);
-		simulateGate.add(listPerson);
+		listRemote.setBounds(10, 11, 153, 20);
+		simulateGate.add(listRemote);
 	}
 	
 	/*
@@ -268,10 +270,14 @@ public class View extends JFrame{
 	/*
 	 * Component setup for gate TabPanel
 	 */
-	private void setUpGate(){	
-		listPerson = new JComboBox<Person>();
-		listPerson.setBounds(10, 11, 153, 20);
-		simulateGate.add(listPerson);
+	private void setUpGate(){			
+		lblChooseRemote = new JLabel("Choose remote");
+		lblChooseRemote.setBounds(10, 14, 100, 14);
+		simulateGate.add(lblChooseRemote);
+		
+		listRemote = new JComboBox<Remote>();
+		listRemote.setBounds(10, 50, 200, 20);
+		simulateGate.add(listRemote);
 		
 		btnAskEntrance = new JButton("Ask Entrance");
 		btnAskEntrance.setBounds(188, 10, 119, 23);

@@ -8,6 +8,7 @@ import javax.persistence.EntityManager;
 import javax.swing.JFrame;
 
 import database.EManagerFactory;
+import database.EntityDAO;
 import database.GenericDAO;
 import model.entities.Address;
 import model.entities.Person;
@@ -24,9 +25,11 @@ import view.View;
 
 public class ControllerRemote {
 	private View view;
+	private EntityDAO entityDAO;
 	
 	public ControllerRemote(){
 		view = new View();
+		entityDAO = EntityDAO.createEntityDAO();
 		
 		view.addAskEntranceListener(new AskEntranceListener());
 		view.addOVerViewUpdateListener(new RefreshOverViewListener());
@@ -34,7 +37,7 @@ public class ControllerRemote {
 		
 		setInactiveRemote();
 		setUnusedAddress();
-		setPersons();
+		setRemotes();
 	}
 	
 	public void start(){
@@ -64,10 +67,8 @@ public class ControllerRemote {
 	 * Add all persons to list for simulation
 	 */
 	
-	private void setPersons(){
-		GenericDAO<Person> personDAO = new GenericDAO<>(Person.class);
-		
-		view.addPersons((ArrayList<Person>) personDAO.findAll());
+	private void setRemotes(){
+		view.addRemotes( entityDAO.readAllRemotes());
 	}
 	
 	/*

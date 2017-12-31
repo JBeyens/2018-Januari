@@ -35,11 +35,16 @@ public class EntityDAO {
 			return false;
 		}	
 	}
-	public ArrayList<Person> findAllPersons() {
+	public ArrayList<Person> readAllPersons() {
 		return (ArrayList<Person>)personDAO.findAll();
 	}
 	
-	// REMOTE
+	// REMOTE	
+	/* Read*/
+	public ArrayList<Remote> readAllRemotes(){
+		return (ArrayList<Remote>)remoteDAO.findAll();
+	}
+	/* Update */
 	public boolean updateRemote(Remote remote) {
 		try {
 			remoteDAO.update(remote);
@@ -50,7 +55,8 @@ public class EntityDAO {
 		}
 	}
 	
-	public Address getAdress(int id) {
+	// ADRESS	
+	public Address readAdress(int id) {
 		return addressDAO.findOne(id);
 	}
 }
