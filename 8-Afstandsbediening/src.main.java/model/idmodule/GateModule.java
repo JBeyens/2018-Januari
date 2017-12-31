@@ -70,9 +70,11 @@ public class GateModule implements IRemoteSubject {
 	{		
 		log.info("Remote asking access to gate: " + userRemote.toString());
 		for(IRemoteObserver remote : userRemotes) {
-			if (userRemote.sendSerialId() != remote.sendSerialId())
-				continue;
-			
+			if (userRemote.sendSerialId().equals(remote.sendSerialId())) {
+				log.trace("Checking... " + userRemote.sendSerialId() + " NOT EQUALS " + remote.sendSerialId());
+				continue; }
+
+			log.debug("Checking... " + userRemote.sendSerialId() + " EQUALS " + remote.sendSerialId());
 			registerUserRemote(userRemote);
 			userRemote.updateFrequency(getFrequency());
 			return;
