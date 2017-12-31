@@ -18,7 +18,7 @@ public final class PropertyDefaultReader {
 	public static Properties getDefaultProperties(){
 		Properties properties = new Properties();
 		
-		for (DefaultSettings setting : DefaultSettings.values()) {
+		for (DefaultProperties setting : DefaultProperties.values()) {
 			properties.setProperty(setting.toString(), setting.getValue());
 		}
 
@@ -27,6 +27,6 @@ public final class PropertyDefaultReader {
 	
 	/* Method to retrieve the default file path */
 	public static String getDefaultPath() {
-		return DefaultSettings.propertiesPath.getValue();
+		return DefaultProperties.propertiesPath.getValue();
 	} 
 }
