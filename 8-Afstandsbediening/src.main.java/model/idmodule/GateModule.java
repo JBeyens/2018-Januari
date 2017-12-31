@@ -75,7 +75,9 @@ public class GateModule implements IRemoteSubject {
 				continue; }
 
 			log.debug("Checking... " + userRemote.sendSerialId() + " EQUALS " + remote.sendSerialId());
-			registerUserRemote(userRemote);
+			log.debug("-> setIsActive = true");
+			userRemote.getRemote().setIsActive(true);
+			log.debug("-> updating frequency");
 			userRemote.updateFrequency(getFrequency());
 			return;
 		}
