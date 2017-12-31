@@ -9,7 +9,6 @@ import java.net.URL;
 import java.util.Date;
 import java.util.ArrayList;
 
-import javax.swing.DefaultComboBoxModel;
 import javax.swing.DefaultListModel;
 import javax.swing.ImageIcon;
 import javax.swing.JFrame;
@@ -32,7 +31,6 @@ import model.entities.Address;
 import model.entities.Person;
 import model.entities.Remote;
 import javax.swing.JComboBox;
-import java.awt.Canvas;
 import java.awt.Color;
 import java.awt.Graphics;
 
@@ -64,13 +62,11 @@ public class View extends JFrame{
 	private JDateChooser dateContract;
 	private JLabel lblChooseRemote; 
 	private JComboBox<Remote> listRemote;
-	private Canvas canvasGate;
 	
 	public View(){
 		this.setTitle("Gate Administration");
 		setExtendedState(JFrame.MAXIMIZED_BOTH);
 		setUpTabbedPane();
-		repaint();
 	}
 	
 	/*
@@ -135,8 +131,6 @@ public class View extends JFrame{
 		for (Remote remote : list) {
 			listRemote.addItem(remote);
 		}
-		listRemote.setBounds(10, 11, 153, 20);
-		simulateGate.add(listRemote);
 	}
 	
 	/*
@@ -189,6 +183,10 @@ public class View extends JFrame{
 		g.setColor(c);
 		g.fillOval(75, getHeight()/2, 60, 60);	
 		g.dispose();
+	}
+	
+	public Remote getRemoteForGate() {
+		return (Remote)listRemote.getSelectedItem();
 	}
 	
 	/*
@@ -272,15 +270,15 @@ public class View extends JFrame{
 	 */
 	private void setUpGate(){			
 		lblChooseRemote = new JLabel("Choose remote");
-		lblChooseRemote.setBounds(10, 14, 100, 14);
+		lblChooseRemote.setBounds(10, 19, 100, 14);
 		simulateGate.add(lblChooseRemote);
 		
 		listRemote = new JComboBox<Remote>();
-		listRemote.setBounds(10, 50, 200, 20);
+		listRemote.setBounds(10, 44, 409, 20);
 		simulateGate.add(listRemote);
 		
 		btnAskEntrance = new JButton("Ask Entrance");
-		btnAskEntrance.setBounds(188, 10, 119, 23);
+		btnAskEntrance.setBounds(300, 10, 119, 23);
 		simulateGate.add(btnAskEntrance);
 	}
 	
@@ -308,10 +306,6 @@ public class View extends JFrame{
 		
 		tabbedPane.addTab("Request entrance", new ImageIcon(getScaledImage(iconGate.getImage(), 30, 30)), simulateGate, "Simulates request from inhabitant");
 		simulateGate.setLayout(null);
-		
-		canvasGate = new Canvas();
-		canvasGate.setBounds(10, 46, 100, 100);
-		simulateGate.add(canvasGate);
 
 		tabbedPane.addTab("Add", new ImageIcon(getScaledImage(iconAdd.getImage(), 30, 30)), addPersonPanel, "Add a new person");
 		tabbedPane.addTab("Overview", new ImageIcon(getScaledImage(iconPlane.getImage(), 30, 30)), overView, "Overview inhabitants");
