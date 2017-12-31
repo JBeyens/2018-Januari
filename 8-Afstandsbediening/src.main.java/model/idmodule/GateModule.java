@@ -18,16 +18,16 @@ import values.DefaultSettings;
  */
 public class GateModule implements IRemoteSubject {
 	// FIELDS
+	private Logger log;
 	private long gateFrequency;
 	private ArrayList<Person> persons;
 	private ArrayList<IRemoteObserver> userRemotes;
 	private EntityDAO entityDAO;
-	private Logger log;
 	
 	
 	// CONSTRUCTOR
 	public GateModule() {
-		log = DefaultSettings.LOGGER;
+		log = DefaultSettings.getLogger();
 		entityDAO = EntityDAO.createEntityDAO();
 		userRemotes = new ArrayList<IRemoteObserver>();
 		loadAllPersons();
