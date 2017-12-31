@@ -40,9 +40,6 @@ public class Person implements Serializable {
 	@ManyToOne(fetch = FetchType.EAGER, cascade=CascadeType.ALL)
 	@JoinColumn(name = "addressId")
 	private Address address;
-	@ManyToOne(fetch = FetchType.EAGER, cascade=CascadeType.ALL)
-	@JoinColumn(name= "remoteId")
-	private Remote remote;
 	private Date endOfContract;
 	
 	public Person(String firstname, String lastname, Date endOfContract) {
@@ -70,16 +67,6 @@ public class Person implements Serializable {
 		return lastname; } 
 	public void setLastname(String lastname) {
 		this.lastname = lastname; }
-	
-	public Remote getRemote() {
-		return remote; } 
-	public void setRemote(Remote remote) {
-		this.remote = remote;
-		/*
-		 * Remote becomes active when given to person
-		 */
-		this.remote.setIsActive(true);
-	}
 
 	public Address getAdress() {
 		return address; } 

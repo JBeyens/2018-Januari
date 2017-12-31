@@ -1,6 +1,7 @@
 package model.idmodule;
 
 import java.util.ArrayList;
+
 import org.apache.log4j.Logger;
 
 import database.EntityDAO;
@@ -21,7 +22,8 @@ public class GateModule implements IRemoteSubject {
 	private Logger log;
 	private long gateFrequency;
 	private ArrayList<Person> persons;
-	private ArrayList<IRemoteObserver> userRemotes;
+	private ArrayList<Remote> remotes;
+	private ArrayList<IRemoteObserver> activeRemotes;
 	private EntityDAO entityDAO;
 	
 	
@@ -29,7 +31,8 @@ public class GateModule implements IRemoteSubject {
 	public GateModule() {
 		log = DefaultSettings.getLogger();
 		entityDAO = EntityDAO.createEntityDAO();
-		userRemotes = new ArrayList<IRemoteObserver>();
+
+		loadAllRemotes();
 		loadAllPersons();
 	}	
 	
@@ -42,14 +45,44 @@ public class GateModule implements IRemoteSubject {
 	public void setFrequency(long frequency) {
 		this.gateFrequency = frequency; }
 	
+	/**  Loads all remotes from database **/	
+	public boolean loadAllRemotes() {
+		remotes = entityDAO.readAllRemotes();
+		for (Remote remote : remotes) {
+			if (remote.getPerson() != null) {
+				persons.add(remote.getPerson());
+			}
+			if(remote.getIsActive()) {
+				registerUserRemote(new RemoteModule(remote));
+			}
+		}
+		return remotes == null ? false : true;
+	}
+	
+	
 	/**  Loads all users from database **/	
 	public boolean loadAllPersons() {
-		persons = entityDAO.readAllPersons();
-		for (Person person : persons) {
-			if(person.getRemote().getIsActive())
-				registerUserRemote(new RemoteModule(person.getRemote()));
+		ArrayList<Person> allPersons = entityDAO.readAllPersons();
+		
+		if (allPersons == null)
+			return false;
+		
+		if (persons == null || persons.size() == 0) {
+			persons = allPersons;
+			return true;
 		}
-		return persons == null ? false : true;
+		
+		ArrayList<Integer> personIds = new ArrayList<Integer>();
+		for(Person person : persons) {
+			personIds.add(person.getId());
+		}
+		
+		for (Person person : allPersons) {
+			if(!personIds.contains(person.getId())) {
+				persons.add(person);
+			}
+		}
+		return true;
 	}
 	
 	/** Returns ArrayList of Persons. Will load first from database if this list is null. **/	
@@ -69,7 +102,7 @@ public class GateModule implements IRemoteSubject {
 	public void idModule(IRemoteObserver userRemote)
 	{		
 		log.info("Remote asking access to gate: " + userRemote.toString());
-		for(IRemoteObserver remote : userRemotes) {
+		for(IRemoteObserver remote : activeRemotes) {
 			if (userRemote.sendSerialId().equals(remote.sendSerialId())) {
 				log.trace("Checking... " + userRemote.sendSerialId() + " NOT EQUALS " + remote.sendSerialId());
 				continue; }
@@ -91,7 +124,7 @@ public class GateModule implements IRemoteSubject {
 	public void SendFrequencyToRemotes()
 	{
 		long freq = getFrequency();
-		for(IRemoteObserver userRemote : userRemotes)
+		for(IRemoteObserver userRemote : activeRemotes)
 		{
 			userRemote.updateFrequency(freq);
 		}
@@ -103,12 +136,12 @@ public class GateModule implements IRemoteSubject {
 	 **/
 	@Override
 	public void registerUserRemote(IRemoteObserver userRemote) {
-		userRemotes.add(userRemote);
+		activeRemotes.add(userRemote);
 		updateRemoteIsActive(userRemote.getRemote(), true);
 	}	
 	@Override
 	public void deactivateUserRemote(IRemoteObserver userRemote) {
-		userRemotes.remove(userRemote);
+		activeRemotes.remove(userRemote);
 		updateRemoteIsActive(userRemote.getRemote(), false);
 	}
 	

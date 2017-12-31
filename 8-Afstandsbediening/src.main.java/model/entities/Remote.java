@@ -2,11 +2,15 @@ package model.entities;
 
 import java.io.Serializable;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
 
@@ -32,6 +36,9 @@ public class Remote implements Serializable{
 	private String serialNumber;
 	private Boolean isActive;
 	private long frequency;
+	@ManyToOne(fetch = FetchType.EAGER, cascade=CascadeType.ALL)
+	@JoinColumn(name= "personId")
+	private Person person;
 	
 	public Remote(String serialNumber, long frequency) {
 		super();
@@ -67,6 +74,16 @@ public class Remote implements Serializable{
 		return isActive;}
 	public void setIsActive(Boolean isActive) {
 		this.isActive = isActive;}
+	
+	public Person getPerson() {
+		return person; } 
+	public void setPerson(Person person) {
+		this.person = person;
+		/*
+		 * Remote becomes active when given to person
+		 */
+		setIsActive(true);
+	}
 
 	@Override
 	public String toString() {
