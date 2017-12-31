@@ -13,6 +13,8 @@ import database.GenericDAO;
 import model.entities.Address;
 import model.entities.Person;
 import model.entities.Remote;
+import model.idmodule.GateModule;
+import model.idmodule.RemoteModule;
 import view.View;
 
 
@@ -24,10 +26,12 @@ import view.View;
  */
 
 public class ControllerRemote {
+	private GateModule gate;
 	private View view;
 	private EntityDAO entityDAO;
 	
 	public ControllerRemote(){
+		gate = new GateModule();
 		view = new View();
 		entityDAO = EntityDAO.createEntityDAO();
 		
@@ -38,6 +42,7 @@ public class ControllerRemote {
 		setInactiveRemote();
 		setUnusedAddress();
 		setRemotes();
+		view.repaint();
 	}
 	
 	public void start(){
@@ -148,9 +153,10 @@ public class ControllerRemote {
 	 */
 	private class AskEntranceListener implements ActionListener{
 		@Override
-		public void actionPerformed(ActionEvent arg0) {
-			//TODO: Get real function here
-			view.drawGraphic(false);
+		public void actionPerformed(ActionEvent e) {
+			RemoteModule remoteModule = new RemoteModule(view.getRemoteForGate());
+			boolean isGateOpening = remoteModule.askOpenGate(gate);
+			view.drawGraphic(isGateOpening);
 		}
 		
 	}

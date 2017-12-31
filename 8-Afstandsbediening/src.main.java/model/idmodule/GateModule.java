@@ -1,12 +1,16 @@
 package model.idmodule;
 
 import java.util.ArrayList;
+import org.apache.log4j.Logger;
+
+import com.mysql.cj.api.log.Log;
 
 import database.EntityDAO;
 import model.entities.Person;
 import model.entities.Remote;
 import model.observer.IRemoteObserver;
 import model.observer.IRemoteSubject;
+import values.DefaultSettings;
 
 /**
  * @Author Jef Beyens & Ben Vandevorst
@@ -20,11 +24,15 @@ public class GateModule implements IRemoteSubject {
 	private ArrayList<Person> persons;
 	private ArrayList<IRemoteObserver> userRemotes;
 	private EntityDAO entityDAO;
+	private Logger log;
 	
 	
 	// CONSTRUCTOR
 	public GateModule() {
+		log = DefaultSettings.LOGGER;
 		entityDAO = EntityDAO.createEntityDAO();
+		userRemotes = new ArrayList<IRemoteObserver>();
+		loadAllPersons();
 	}	
 	
 
@@ -62,6 +70,7 @@ public class GateModule implements IRemoteSubject {
 	/** Will check the id of the remote and add it to the observers if verified **/
 	public void idModule(IRemoteObserver userRemote)
 	{		
+		log.info("Remote asking access to gate: " + userRemote.toString());
 		for(IRemoteObserver remote : userRemotes) {
 			if (userRemote.sendSerialId() != remote.sendSerialId())
 				continue;
