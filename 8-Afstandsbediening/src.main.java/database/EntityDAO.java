@@ -35,12 +35,18 @@ public class EntityDAO {
 			return false;
 		}	
 	}
+	public Person readPerson(int id) {
+		return personDAO.findOne(id);
+	}
 	public ArrayList<Person> readAllPersons() {
 		return (ArrayList<Person>)personDAO.findAll();
 	}
 	
 	// REMOTE	
 	/* Read*/
+	public Remote readRemote(int id) {
+		return remoteDAO.findOne(id);
+	}
 	public ArrayList<Remote> readAllRemotes(){
 		return (ArrayList<Remote>)remoteDAO.findAll();
 	}
@@ -56,7 +62,7 @@ public class EntityDAO {
 	}
 	
 	// ADRESS	
-	public Address readAdress(int id) {
+	public Address readAddress(int id) {
 		return addressDAO.findOne(id);
 	}
 }

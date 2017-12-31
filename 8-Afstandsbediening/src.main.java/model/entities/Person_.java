@@ -12,6 +12,5 @@ public class Person_ {
 	public static volatile SingularAttribute<Person, String> firstname;
 	public static volatile SingularAttribute<Person, String> lastname;
 	public static volatile SingularAttribute<Person, Address> address;
-	public static volatile SingularAttribute<Person, Remote> remote;
 	public static volatile SingularAttribute<Person, Date> endOfContract;
 }

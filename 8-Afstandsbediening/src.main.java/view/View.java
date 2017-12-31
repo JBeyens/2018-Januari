@@ -33,7 +33,6 @@ import model.entities.Person;
 import model.entities.Remote;
 import javax.swing.JComboBox;
 import java.awt.Color;
-import java.awt.Graphics;
 
 
 /**
@@ -205,8 +204,8 @@ public class View extends JFrame{
 			row[1] = list.get(i).getFirstname();
 			row[2] = list.get(i).getLastname();
 			row[3] = list.get(i).getEndOfContract();
-			row[4] = list.get(i).getRemote().getId();
-			row[5] = list.get(i).getRemote().getSerialNumber();
+			//row[4] = list.get(i).getRemote().getId();
+			//row[5] = list.get(i).getRemote().getSerialNumber();
 			row[6] = list.get(i).getAdress().getStreet();
 			row[7] = list.get(i).getAdress().getNumber();
 			row[8] = list.get(i).getAdress().getMailBox();
