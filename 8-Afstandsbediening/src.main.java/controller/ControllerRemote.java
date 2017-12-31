@@ -46,7 +46,6 @@ public class ControllerRemote {
 		setInactiveRemote();
 		setUnusedAddress();
 		setRemotes();
-		view.repaint();
 	}
 	
 	public void start(){
@@ -162,7 +161,7 @@ public class ControllerRemote {
 			log.info("Remote " + remoteModule.getRemote() + " asked for entrance.");
 			boolean isGateOpening = remoteModule.askOpenGate(gate);
 			log.info("-> The entrance was " + (isGateOpening?"":"not ") + "granted!");
-			view.drawGraphic(isGateOpening);
+			view.setRequest(isGateOpening);
 		}
 		
 	}

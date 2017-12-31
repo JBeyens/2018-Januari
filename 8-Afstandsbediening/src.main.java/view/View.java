@@ -60,7 +60,8 @@ public class View extends JFrame{
 	private JButton btnAddPerson;
 	private JButton btnAskEntrance;
 	private JDateChooser dateContract;
-	private JLabel lblChooseRemote; 
+	private JLabel lblChooseRemote;
+	private JLabel lblRequest;
 	private JComboBox<Remote> listRemote;
 	
 	public View(){
@@ -74,6 +75,21 @@ public class View extends JFrame{
 	 */
 	public void showMessage(String message){
 		JOptionPane.showMessageDialog(null, message);
+	}
+	
+	/*
+	 * Displays acces denied/granted
+	 */
+	public void setRequest(Boolean bool){
+		if(bool){
+			lblRequest.setBackground(Color.GREEN);
+			lblRequest.setText("Acces granted");
+		}
+		
+		else{
+			lblRequest.setBackground(Color.RED);
+			lblRequest.setText("Acces denied");
+		}
 	}
 	
 	/*
@@ -166,23 +182,6 @@ public class View extends JFrame{
 	 */
 	public Remote getRemote(){
 		return listInactiveRemote.getSelectedValue();
-	}
-	
-	/*
-	 * Graphics which shows accept/decline entrance
-	 */
-	public void drawGraphic(Boolean bool){
-		if(bool)
-			paintComponent(getGraphics(), Color.GREEN);
-		
-		else
-			paintComponent(getGraphics(), Color.RED);
-	}
-	
-	private void paintComponent(Graphics g, Color c){
-		g.setColor(c);
-		g.fillOval(75, getHeight()/2, 60, 60);	
-		g.dispose();
 	}
 	
 	public Remote getRemoteForGate() {
@@ -280,6 +279,10 @@ public class View extends JFrame{
 		btnAskEntrance = new JButton("Ask Entrance");
 		btnAskEntrance.setBounds(300, 10, 119, 23);
 		simulateGate.add(btnAskEntrance);
+		
+		lblRequest = new JLabel("");
+		lblRequest.setBounds(10, 160, 409, 62);
+		simulateGate.add(lblRequest);
 	}
 	
 	/*
