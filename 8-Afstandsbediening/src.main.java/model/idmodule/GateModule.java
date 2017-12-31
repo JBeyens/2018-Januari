@@ -3,8 +3,6 @@ package model.idmodule;
 import java.util.ArrayList;
 import org.apache.log4j.Logger;
 
-import com.mysql.cj.api.log.Log;
-
 import database.EntityDAO;
 import model.entities.Person;
 import model.entities.Remote;
@@ -20,16 +18,16 @@ import values.DefaultSettings;
  */
 public class GateModule implements IRemoteSubject {
 	// FIELDS
+	private Logger log;
 	private long gateFrequency;
 	private ArrayList<Person> persons;
 	private ArrayList<IRemoteObserver> userRemotes;
 	private EntityDAO entityDAO;
-	private Logger log;
 	
 	
 	// CONSTRUCTOR
 	public GateModule() {
-		log = DefaultSettings.LOGGER;
+		log = DefaultSettings.getLogger();
 		entityDAO = EntityDAO.createEntityDAO();
 		userRemotes = new ArrayList<IRemoteObserver>();
 		loadAllPersons();

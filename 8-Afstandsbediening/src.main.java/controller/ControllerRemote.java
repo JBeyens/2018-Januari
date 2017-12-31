@@ -7,6 +7,9 @@ import java.util.ArrayList;
 import javax.persistence.EntityManager;
 import javax.swing.JFrame;
 
+import org.apache.log4j.Logger;
+import org.hibernate.engine.jdbc.env.spi.AnsiSqlKeywords;
+
 import database.EManagerFactory;
 import database.EntityDAO;
 import database.GenericDAO;
@@ -15,6 +18,7 @@ import model.entities.Person;
 import model.entities.Remote;
 import model.idmodule.GateModule;
 import model.idmodule.RemoteModule;
+import values.DefaultSettings;
 import view.View;
 
 
@@ -26,11 +30,13 @@ import view.View;
  */
 
 public class ControllerRemote {
+	private Logger log;
 	private GateModule gate;
 	private View view;
 	private EntityDAO entityDAO;
 	
 	public ControllerRemote(){
+		log = DefaultSettings.getLogger();
 		gate = new GateModule();
 		view = new View();
 		entityDAO = EntityDAO.createEntityDAO();
@@ -155,7 +161,9 @@ public class ControllerRemote {
 		@Override
 		public void actionPerformed(ActionEvent e) {
 			RemoteModule remoteModule = new RemoteModule(view.getRemoteForGate());
+			log.info("Remote " + remoteModule.getRemote() + " asked for entrance.");
 			boolean isGateOpening = remoteModule.askOpenGate(gate);
+			log.info("-> The entrance was " + (isGateOpening?"":"not ") + "granted!");
 			view.drawGraphic(isGateOpening);
 		}
 		
