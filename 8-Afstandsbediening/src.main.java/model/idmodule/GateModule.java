@@ -81,6 +81,10 @@ public class GateModule implements IRemoteSubject {
 			userRemote.updateFrequency(getFrequency());
 			return;
 		}
+		
+		log.debug("Checking...  Serial Id not found in registered serial ids");
+		log.debug("-> setIsActive = false");
+		userRemote.getRemote().setIsActive(false);
 	}
 	
 	/** Observer pattern - Updates all remotes who have subscribed to UserManager. **/
