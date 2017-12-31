@@ -90,6 +90,14 @@ public class GateModule implements IRemoteSubject {
 			loadAllPersons();
 		
 		return persons;
+	}	
+	
+	/** Returns ArrayList of Persons. Will load first from database if this list is null. **/	
+	public ArrayList<Remote> getAllRemotes() {
+		if (remotes == null)
+			loadAllRemotes();
+		
+		return remotes;
 	}
 	
 	/** Adds new user. Returns true if succesfull, else false. **/
