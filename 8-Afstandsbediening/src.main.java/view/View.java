@@ -24,6 +24,7 @@ import javax.swing.JList;
 import javax.swing.JLabel;
 import javax.swing.JTextField;
 import javax.swing.ListSelectionModel;
+import javax.swing.SwingConstants;
 
 import com.toedter.calendar.JDateChooser;
 
@@ -81,9 +82,10 @@ public class View extends JFrame{
 	 * Displays acces denied/granted
 	 */
 	public void setRequest(Boolean bool){
+
 		if(bool){
 			lblRequest.setBackground(Color.GREEN);
-			lblRequest.setText("Acces granted");
+			lblRequest.setText("Access granted");
 		}
 		
 		else{
@@ -280,8 +282,9 @@ public class View extends JFrame{
 		btnAskEntrance.setBounds(300, 10, 119, 23);
 		simulateGate.add(btnAskEntrance);
 		
-		lblRequest = new JLabel("");
+		lblRequest = new JLabel("", SwingConstants.CENTER);
 		lblRequest.setBounds(10, 160, 409, 62);
+		lblRequest.setOpaque(true);
 		simulateGate.add(lblRequest);
 	}
 	
