@@ -3,8 +3,6 @@ package model.idmodule;
 import java.util.ArrayList;
 import org.apache.log4j.Logger;
 
-import com.mysql.cj.api.log.Log;
-
 import database.EntityDAO;
 import model.entities.Person;
 import model.entities.Remote;
