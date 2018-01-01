@@ -1,8 +1,8 @@
 create database if not exists DbRemote /*!40100 DEFAULT CHARACTER SET latin1 */;
 use DbRemote;
-drop table if exists Address;
-drop table if exists Person;
 drop table if exists Remote;
+drop table if exists Person;
+drop table if exists Address;
 
 
 -- Host: 127.0.0.1    Database: DbRemote
@@ -46,7 +46,7 @@ id INT(6) PRIMARY KEY auto_increment,
 serialNumber VARCHAR(50) NOT NULL,
 frequency LONG NOT NULL,
 isActive BIT NOT NULL,
-personId INT(6) NULL, -- Must be NULL (and not null) because of ON DELETE no action constraint
+personId INT(6) NULL, -- Must be NULL (and not NOT NULL) because of ON DELETE no action constraint
 CONSTRAINT UC_Remote UNIQUE (serialNumber),
 FOREIGN KEY fk_p(personId) REFERENCES Person(id) ON UPDATE no action ON DELETE no action
 );
@@ -58,13 +58,7 @@ CREATE TABLE Person (
 id INT(6)  PRIMARY KEY auto_increment,
 firstName VARCHAR(30) NOT NULL,
 lastName VARCHAR(30) NOT NULL,
-addressId INT(6) NULL, -- Must be NULL (and not null) because of ON DELETE no action constraint
+addressId INT(6) NULL, -- Must be NULL (and not NOT NULL) because of ON DELETE no action constraint
 endOfContract DATE NOT NULL,
 FOREIGN KEY fk_a(addressId) REFERENCES Address(id) ON UPDATE no action ON DELETE no action
 );
-
-
-
-
-
-
