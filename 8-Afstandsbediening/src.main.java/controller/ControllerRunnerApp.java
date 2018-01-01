@@ -1,7 +1,5 @@
 package controller;
 
-import values.DefaultLogger;
-
 /**
  * 	@Author Ben Vandevorst & Jef Beyens
 	@Datum 15/12/2017
@@ -12,7 +10,6 @@ import values.DefaultLogger;
 public class ControllerRunnerApp {
 
 	public static void main(String[] args) {
-		DefaultLogger.configureLogger();
 		ControllerRemote cRemote = new ControllerRemote();
 		cRemote.start();
 	}
