@@ -119,7 +119,7 @@ public class ControllerRemote {
 				person.setLastname(view.getLastName());
 				person.setEndOfContract(view.getDate());
 				person.setAdress(addressDAO.findOne(view.getAddress().getId()));
-				person.setRemote(remoteDAO.findOne(view.getRemote().getId()));
+				//person.setRemote(remoteDAO.findOne(view.getRemote().getId()));
 				
 				personDAO.create(person);
 			} catch (Exception e1) {
