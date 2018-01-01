@@ -17,12 +17,9 @@ public class ClearDummyData {
 	public static void main(String[] args) {
 		logger = DefaultSettings.getLogger("ClearData");
 		try {
-			removeAddress();
-			removePerson();		
+			removePerson();	
+			removeAddress();	
 			removeRemote();
-
-			removePerson();
-			removeAddress();
 
 		} catch (Exception e) {
 			e.printStackTrace();
