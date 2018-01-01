@@ -31,7 +31,7 @@ public class ControllerRemote {
 	private DataManager dataManager;
 	
 	public ControllerRemote(){
-		log = DefaultSettings.getLogger();
+		log = DefaultSettings.getLogger("Controller");
 		gateModule = new GateModule();
 		dataManager = new DataManager();
 		view = new View();
