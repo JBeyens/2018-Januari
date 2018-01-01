@@ -1,7 +1,9 @@
 package test.database;
 
+import org.apache.log4j.Logger;
+
 import model.entities.EntityDAO;
-import values.DefaultLogger;
+import values.DefaultSettings;
 
 
 /**
@@ -11,10 +13,10 @@ import values.DefaultLogger;
 	@Doel Clears all data from Database
  */
 public class ClearDummyData {
-	
+	private static Logger logger;
 	
 	public static void main(String[] args) {
-		DefaultLogger.configureLogger();
+		logger = DefaultSettings.getLogger();
 		try {
 			removeRemote();
 			removePerson();
@@ -25,14 +27,17 @@ public class ClearDummyData {
 	}
 	
 	private static void removeRemote(){
+		logger.info("Deleting cotent from table 'Remote' ...");
 		EntityDAO.REMOTE_DAO.deleteAll();
 	}
 	
 	private static void removeAddress(){
+		logger.info("Deleting cotent from table 'Address' ...");
 		EntityDAO.ADDRESS_DAO.deleteAll();
 	}
 
 	private static void removePerson(){
+		logger.info("Deleting cotent from table 'Person' ...");
 		EntityDAO.PERSON_DAO.deleteAll();
 	}
 }
