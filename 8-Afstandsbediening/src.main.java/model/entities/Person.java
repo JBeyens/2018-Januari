@@ -43,9 +43,9 @@ public class Person implements Serializable {
 	@JoinColumn(name = "addressId")
 	private Address address;
 	private Date endOfContract;
-	@OneToMany(fetch = FetchType.EAGER, cascade=CascadeType.ALL)
-	@JoinColumn(name= "personId")
-	private Set<Remote> remotes;
+	@ManyToOne(fetch = FetchType.EAGER, cascade=CascadeType.ALL)
+	@JoinColumn(name= "remoteId")
+	private Remote remote;
 	
 	public Person(String firstname, String lastname, Date endOfContract) {
 		super();
@@ -83,10 +83,10 @@ public class Person implements Serializable {
 	public void setEndOfContract(Date endOfContract) {
 		this.endOfContract = endOfContract; }
 	
-	public Set<Remote> getRemotes() {
-		return remotes; } 
-	public void setRemotes(Set<Remote> remotes) {
-		this.remotes = remotes;
+	public Remote getRemote() {
+		return remote; } 
+	public void setRemote(Remote remote) {
+		this.remote = remote;
 	}
 
 	@Override
