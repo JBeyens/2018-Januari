@@ -122,9 +122,8 @@ public class GenerateDummyData {
 	
 	private static void createInActiveAddress(){
 		logger.info("Creating addresses not linked by persons...");
-		
-		if (nrToAdress == null)
-			loadHashMapOfAddresses();
+
+		loadHashMapOfAddresses();
 		
 		for (int i = 1; i <= 10; i++) {
 			address = nrToAdress.get(i+1);
