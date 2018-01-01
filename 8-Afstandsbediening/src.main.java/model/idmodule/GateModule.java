@@ -9,7 +9,6 @@ import model.entities.Person;
 import model.entities.Remote;
 import model.observer.IRemoteObserver;
 import model.observer.IRemoteSubject;
-import values.DefaultSettings;
 
 /**
  * @Author Jef Beyens & Ben Vandevorst
@@ -24,13 +23,11 @@ public class GateModule implements IRemoteSubject {
 	private ArrayList<Person> persons;
 	private ArrayList<Remote> remotes;
 	private ArrayList<IRemoteObserver> activeRemotes;
-	private EntityDAO entityDAO;
 	
 	
 	// CONSTRUCTOR
 	public GateModule() {
-		log = DefaultSettings.getLogger();
-		entityDAO = EntityDAO.createEntityDAO();
+		//log = DefaultSettings.getLogger();
 
 		loadAllRemotes();
 		loadAllPersons();
@@ -47,7 +44,7 @@ public class GateModule implements IRemoteSubject {
 	
 	/**  Loads all remotes from database **/	
 	private boolean loadAllRemotes() {
-		remotes = entityDAO.readAllRemotes();
+		remotes = (ArrayList<Remote>) EntityDAO.REMOTE_DAO.findAll();
 		for (Remote remote : remotes) {
 			if (remote.getPerson() != null) {
 				persons.add(remote.getPerson());
@@ -61,7 +58,7 @@ public class GateModule implements IRemoteSubject {
 		
 	/**  Loads all users from database **/	
 	private boolean loadAllPersons() {
-		ArrayList<Person> allPersons = entityDAO.readAllPersons();
+		ArrayList<Person> allPersons = (ArrayList<Person>) EntityDAO.PERSON_DAO.findAll();
 		
 		if (allPersons == null)
 			return false;
@@ -100,9 +97,9 @@ public class GateModule implements IRemoteSubject {
 		return remotes;
 	}
 	
-	/** Adds new user. Returns true if succesfull, else false. **/
-	public boolean addNewUser(Person person) {
-		return entityDAO.createPerson(person);
+	/** Adds new user **/
+	public void addNewUser(Person person) {
+		EntityDAO.PERSON_DAO.create(person);
 	}
 	
 	/** Will check the id of the remote and add it to the observers if verified **/
@@ -154,6 +151,6 @@ public class GateModule implements IRemoteSubject {
 	
 	private void updateRemoteIsActive(Remote remote, boolean isActive) {
 		remote.setIsActive(isActive);
-		entityDAO.updateRemote(remote);
+		EntityDAO.REMOTE_DAO.update(remote);
 	}
 }
