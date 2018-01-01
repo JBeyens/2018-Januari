@@ -9,6 +9,7 @@ import model.entities.Person;
 import model.entities.Remote;
 import model.observer.IRemoteObserver;
 import model.observer.IRemoteSubject;
+import values.DefaultSettings;
 
 /**
  * @Author Jef Beyens & Ben Vandevorst
@@ -18,15 +19,17 @@ import model.observer.IRemoteSubject;
  */
 public class GateModule implements IRemoteSubject {
 	// FIELDS
-	private Logger log;
+	private Logger log = DefaultSettings.getLogger("GateModule");
 	private long gateFrequency;
 	private ArrayList<Person> persons;
 	private ArrayList<Remote> remotes;
 	private ArrayList<IRemoteObserver> activeRemotes;
+	private EntityDAO entityDAO;
 	
 	
 	// CONSTRUCTOR
 	public GateModule() {
+
 		//log = DefaultSettings.getLogger();
 		persons = new ArrayList<>();
 		remotes = new ArrayList<>();

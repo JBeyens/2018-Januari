@@ -1,5 +1,7 @@
 package test.database;
 
+import javax.persistence.EntityManager;
+
 import org.apache.log4j.Logger;
 
 import model.entities.EntityDAO;
@@ -18,12 +20,14 @@ public class ClearDummyData {
 	public static void main(String[] args) {
 		logger = DefaultSettings.getLogger("ClearData");
 		try {
+			removeAddress();
+			removePerson();		
 			removeRemote();
-			removePerson();
-			removeAddress();		
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
+		logger.info("Deleting data -> DONE!");
+		
 	}
 	
 	private static void removeRemote(){

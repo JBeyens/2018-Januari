@@ -11,5 +11,4 @@ public class Remote_ {
 	public static volatile SingularAttribute<Remote, String> serialNumber;
 	public static volatile SingularAttribute<Remote, Boolean> isActive;
 	public static volatile SingularAttribute<Remote, Long> frequency;
-	public static volatile SingularAttribute<Remote, Person> person;
 }

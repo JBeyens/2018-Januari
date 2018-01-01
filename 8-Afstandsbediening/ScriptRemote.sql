@@ -39,6 +39,18 @@ CONSTRAINT UC_Address UNIQUE (street, nr, mailBox, postalCode, city, country)
 );
 
 --
+-- Table structure for table `Person`
+--
+CREATE TABLE Person (
+id INT(6)  PRIMARY KEY auto_increment,
+firstName VARCHAR(30) NOT NULL,
+lastName VARCHAR(30) NOT NULL,
+addressId INT(6) NULL, -- Must be NULL (and not NOT NULL) because of ON DELETE no action constraint
+endOfContract DATE NOT NULL,
+FOREIGN KEY fk_a(addressId) REFERENCES Address(id) ON UPDATE no action ON DELETE no action
+);
+
+--
 -- Table structure for table `Remote`
 --
 CREATE TABLE Remote (
@@ -49,16 +61,4 @@ isActive BIT NOT NULL,
 personId INT(6) NULL, -- Must be NULL (and not NOT NULL) because of ON DELETE no action constraint
 CONSTRAINT UC_Remote UNIQUE (serialNumber),
 FOREIGN KEY fk_p(personId) REFERENCES Person(id) ON UPDATE no action ON DELETE no action
-);
-
---
--- Table structure for table `Person`
---
-CREATE TABLE Person (
-id INT(6)  PRIMARY KEY auto_increment,
-firstName VARCHAR(30) NOT NULL,
-lastName VARCHAR(30) NOT NULL,
-addressId INT(6) NULL, -- Must be NULL (and not NOT NULL) because of ON DELETE no action constraint
-endOfContract DATE NOT NULL,
-FOREIGN KEY fk_a(addressId) REFERENCES Address(id) ON UPDATE no action ON DELETE no action
 );

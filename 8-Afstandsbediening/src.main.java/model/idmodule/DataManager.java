@@ -11,6 +11,7 @@ import model.entities.Address;
 import model.entities.EntityDAO;
 import model.entities.Person;
 import model.entities.Remote;
+import model.observer.IRemoteObserver;
 import values.DefaultSettings;
 
 /*
@@ -19,6 +20,11 @@ import values.DefaultSettings;
 public class DataManager {
 	// FIELDS
 	private Logger log;
+	// FIELDS
+	private ArrayList<Address> addresses;
+	private ArrayList<Person> persons;
+	private ArrayList<Remote> remotes;
+	private ArrayList<IRemoteObserver> activeRemotes;
 	
 	public DataManager() {
 		log = DefaultSettings.getLogger("DataManager");
