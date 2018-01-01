@@ -28,7 +28,10 @@ public class GateModule implements IRemoteSubject {
 	// CONSTRUCTOR
 	public GateModule() {
 		//log = DefaultSettings.getLogger();
-
+		persons = new ArrayList<>();
+		remotes = new ArrayList<>();
+		activeRemotes = new ArrayList<>();
+		
 		loadAllRemotes();
 		loadAllPersons();
 	}	
