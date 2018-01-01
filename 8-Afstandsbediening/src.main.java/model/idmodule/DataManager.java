@@ -19,11 +19,9 @@ import values.DefaultSettings;
 public class DataManager {
 	// FIELDS
 	private Logger log;
-	private EntityDAO entityDAO;
 	
 	public DataManager() {
-		log = DefaultSettings.getLogger();
-		entityDAO = EntityDAO.createEntityDAO();
+		log = DefaultSettings.getLogger("DataManager");
 	}
 
 	/*
@@ -44,19 +42,19 @@ public class DataManager {
 	
 	public Address getAddress(Integer id) {
 		log.trace("Asking datalayer to retrieve 'Address' with id = " + id);
-		return entityDAO.readAddress(id);
+		return EntityDAO.ADDRESS_DAO.findOne(id);
 	}
 	
 	public Person getPerson(Integer id) {
 		log.trace("Asking datalayer to retrieve 'Person' with id = " + id);
-		return entityDAO.readPerson(id);
+		return  EntityDAO.PERSON_DAO.findOne(id);
 	}
 	
 	public Remote getRemote(Integer id) {
 		log.trace("Asking datalayer to retrieve 'Remote' with id = " + id);
-		return entityDAO.readRemote(id);
+		return  EntityDAO.REMOTE_DAO.findOne(id);
 	}
 	public void updateRemote(Remote remote) {
-		entityDAO.updateRemote(remote);
+		EntityDAO.REMOTE_DAO.update(remote);
 	}	
 }
