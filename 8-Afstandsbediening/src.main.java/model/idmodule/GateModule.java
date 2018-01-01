@@ -24,7 +24,6 @@ public class GateModule implements IRemoteSubject {
 	private ArrayList<Person> persons;
 	private ArrayList<Remote> remotes;
 	private ArrayList<IRemoteObserver> activeRemotes;
-	private EntityDAO entityDAO;
 	
 	
 	// CONSTRUCTOR
@@ -52,9 +51,6 @@ public class GateModule implements IRemoteSubject {
 	private boolean loadAllRemotes() {
 		remotes = (ArrayList<Remote>) EntityDAO.REMOTE_DAO.findAll();
 		for (Remote remote : remotes) {
-			if (remote.getPerson() != null) {
-				persons.add(remote.getPerson());
-			}
 			if(remote.getIsActive()) {
 				registerUserRemote(new RemoteModule(remote));
 			}
