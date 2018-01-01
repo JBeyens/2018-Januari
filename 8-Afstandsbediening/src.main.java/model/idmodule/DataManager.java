@@ -63,4 +63,7 @@ public class DataManager {
 	public void updateRemote(Remote remote) {
 		EntityDAO.REMOTE_DAO.update(remote);
 	}	
+	public void updatePerson(Person person) {
+		EntityDAO.PERSON_DAO.update(person);
+	}	
 }
