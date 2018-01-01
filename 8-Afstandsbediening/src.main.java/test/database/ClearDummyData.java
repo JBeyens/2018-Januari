@@ -27,17 +27,17 @@ public class ClearDummyData {
 	}
 	
 	private static void removeRemote(){
-		logger.info("Deleting cotent from table 'Remote' ...");
+		logger.info("Deleting content from table 'Remote' ...");
 		EntityDAO.REMOTE_DAO.deleteAll();
 	}
 	
 	private static void removeAddress(){
-		logger.info("Deleting cotent from table 'Address' ...");
+		logger.info("Deleting content from table 'Address' ...");
 		EntityDAO.ADDRESS_DAO.deleteAll();
 	}
 
 	private static void removePerson(){
-		logger.info("Deleting cotent from table 'Person' ...");
+		logger.info("Deleting content from table 'Person' ...");
 		EntityDAO.PERSON_DAO.deleteAll();
 	}
 }
