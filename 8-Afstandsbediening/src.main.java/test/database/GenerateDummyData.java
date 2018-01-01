@@ -45,7 +45,7 @@ public class GenerateDummyData {
 	
 	public static void main(String[] args) {
 		try {
-			createActiveRemotesPersonsAddresses();
+			createActivePersonsRemotesAddresses();
 			createInActiveRemote();
 			createInActivePerson();
 			createInActiveAddress();
@@ -76,26 +76,21 @@ public class GenerateDummyData {
 		}		
 	}
 
-	private static void createActiveRemotesPersonsAddresses(){	
+	private static void createActivePersonsRemotesAddresses(){	
 		logger.info("Creating linked persons, remotes and addresses...");
-		
-		if (nrToAdress == null)
-			loadHashMapOfAddresses();
+
+		loadHashMapOfAddresses();
 		
 		for (int i = 1; i <= amountOfAddresses; i++) {
 			person = new Person(factory.getFirstName(), factory.getLastName(), contractDate);
-			
-			Set<Remote> remotes = new HashSet<Remote>();
-			for (int j = 0; j <= DefaultSettings.RANDOM.nextInt(3); j++) {
-				remote = new Remote(UUID.randomUUID().toString(), ThreadLocalRandom.current().nextLong(10000, 1000000));
-				remote.setIsActive(true);
-				remotes.add(remote);
-			}
-			person.setRemotes(remotes);
+			remote = new Remote(UUID.randomUUID().toString(), ThreadLocalRandom.current().nextLong(10000, 1000000));
 			
 			address = nrToAdress.get(i+1);
 			if (address == null)
 				address = new Address(street, streetNumber, i+1, postalCode, city, country);			
+			
+			remote.setIsActive(true);
+			person.setRemote(remote);
 			person.setAdress(address);
 			
 			EntityDAO.PERSON_DAO.create(person);
