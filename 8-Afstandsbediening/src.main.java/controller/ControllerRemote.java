@@ -150,7 +150,6 @@ public class ControllerRemote {
 			boolean isGateOpening = remoteModule.askOpenGate(gateModule);
 			log.info("-> The entrance was " + (isGateOpening?"":"not ") + "granted!");
 			view.setRequest(isGateOpening);
-		}
-		
+		}		
 	}
 }
