@@ -49,7 +49,7 @@ public class GenerateDummyData {
 		
 		for (int i = 0; i < 30; i++) {
 			person = new Person(factory.getFirstName(), factory.getLastName(), contractDate);
-			address = new Address("Bondgenotenlaan", 150, i+1, 3000, "Leuven", "België");
+			address = new Address("Bondgenotenlaan", 150, i+1, 3000, "Leuven", "Belgiï¿½");
 			remote = new Remote(UUID.randomUUID().toString(), ThreadLocalRandom.current().nextLong(10000, 1000000));
 			
 			person.setAdress(address);
@@ -72,7 +72,7 @@ public class GenerateDummyData {
 	private static void createInActiveAddress(){
 		GenericDAO<Address> addressDAO = new GenericDAO<>(Address.class);
 		for (int i = 0; i < 10; i++) {
-			address = new Address("Bondgenotenlaan", 150, i+31, 3000, "Leuven", "België");
+			address = new Address("Bondgenotenlaan", 150, i+31, 3000, "Leuven", "Belgiï¿½");
 			
 			addressDAO.create(address);
 		}

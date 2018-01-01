@@ -101,6 +101,10 @@ public class ControllerRemote {
 				person.setFirstname(view.getFirstName());
 				person.setLastname(view.getLastName());
 				person.setEndOfContract(view.getDate());
+
+				//person.setAdress(addressDAO.findOne(view.getAddress().getId()));
+				//person.setRemote(remoteDAO.findOne(view.getRemote().getId()));
+
 				person.setAdress(address);
 				remote.setPerson(person);
 				
