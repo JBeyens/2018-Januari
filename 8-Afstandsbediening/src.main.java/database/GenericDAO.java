@@ -5,6 +5,7 @@ import java.util.List;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.EntityTransaction;
+import javax.persistence.Query;
 
 import org.hibernate.HibernateException;
 
@@ -146,7 +147,28 @@ public class GenericDAO<T> {
 			e.printStackTrace();
 		} finally{
 			manager.clear();
-		}
+		}		
+	}
+
+	public void deleteAll() {
+		EntityManager manager = factory.createEntityManager();
+		EntityTransaction transaction = manager.getTransaction();
+
+		Query query = manager.createNativeQuery("DELETE FROM " + genericClass.getSimpleName());
 		
+		try {
+			transaction.begin();
+			
+			query.executeUpdate();
+			
+			transaction.commit();
+		} catch (HibernateException e) {
+			if (transaction != null)
+				transaction.rollback();
+			
+			e.printStackTrace();
+		} finally{
+			manager.clear();
+		}		
 	}
 }
