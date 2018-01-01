@@ -23,8 +23,8 @@ public class ClearDummyData {
 	public static void main(String[] args) {
 		DefaultLogger.configureLogger();
 		try {
-			removePerson();
 			removeRemote();
+			removePerson();
 			removeAddress();		
 		} catch (Exception e) {
 			e.printStackTrace();

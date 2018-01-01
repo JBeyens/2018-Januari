@@ -4,18 +4,15 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
 
-import javax.persistence.EntityManager;
 import javax.swing.JFrame;
 
 import org.apache.log4j.Logger;
-import database.EManagerFactory;
-import database.EntityDAO;
-import database.GenericDAO;
 import model.entities.Address;
 import model.entities.Person;
 import model.entities.Remote;
 import model.idmodule.GateModule;
 import model.idmodule.RemoteModule;
+import model.idmodule.DataManager;
 import values.DefaultSettings;
 import view.View;
 
@@ -29,15 +26,14 @@ import view.View;
 
 public class ControllerRemote {
 	private Logger log;
-	private GateModule gate;
 	private View view;
-	private EntityDAO entityDAO;
+	private GateModule gateModule;
+	private DataManager dataManager;
 	
 	public ControllerRemote(){
 		log = DefaultSettings.getLogger();
-		gate = new GateModule();
+		gateModule = new GateModule();
 		view = new View();
-		entityDAO = EntityDAO.createEntityDAO();
 		
 		view.addAskEntranceListener(new AskEntranceListener());
 		view.addOVerViewUpdateListener(new RefreshOverViewListener());
@@ -58,49 +54,36 @@ public class ControllerRemote {
 	/*
 	 * Creates list of al inactive Remotes => not given to a inhabitant
 	 */
-	private void setInactiveRemote(){
-		GenericDAO<Remote> remoteDAO = new GenericDAO<>(Remote.class);
+	private void setInactiveRemote(){	
+		ArrayList<Remote> inactiveRemotes = new ArrayList<>();
 		
-		ArrayList<Remote> list = new ArrayList<>();
-		
-		for (Remote remote : remoteDAO.findAll()) {
+		for (Remote remote : gateModule.getAllRemotes()) {
 			if(!remote.getIsActive())
-				list.add(remote);
+				inactiveRemotes.add(remote);
 		}
 
-		view.setInactiveRemote(list);
+		view.setInactiveRemote(inactiveRemotes);
 	}
 	
 	/*
 	 * Add all persons to list for simulation
-	 */
-	
+	 */	
 	private void setRemotes(){
-		view.addRemotes( entityDAO.readAllRemotes());
+		view.addRemotes( gateModule.getAllRemotes() );
 	}
 	
 	/*
 	 * JPA Namedquery (Address class) => unused Addresses returned
 	 */
 	private void setUnusedAddress(){
-		try {
-			EntityManager manager = EManagerFactory.getFactory().createEntityManager();
-			
-			ArrayList<Address> list = (ArrayList<Address>) manager.createNamedQuery("findUnusedAddress", Address.class).getResultList();
-			
-			view.setUnusedAddress(list);
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
+		view.setUnusedAddress(dataManager.getUnusedAddress());
 	}
 	
 	/*
 	 * Query list of all active inhabitants and pass them to view
 	 */
 	private void setOverView(){
-		GenericDAO<Person> personDAO = new GenericDAO<>(Person.class);
-		
-		view.setOverview((ArrayList<Person>)personDAO.findAll());
+		view.setOverview(gateModule.getAllPersons());
 	} 
 	
 	/*
@@ -109,19 +92,22 @@ public class ControllerRemote {
 	private class AddPersonListener implements ActionListener{
 		@Override
 		public void actionPerformed(ActionEvent e) {
-			try {
-				GenericDAO<Person> personDAO = new GenericDAO<>(Person.class);
-				GenericDAO<Address> addressDAO = new GenericDAO<>(Address.class);
-				GenericDAO<Remote> remoteDAO = new GenericDAO<>(Remote.class);
-					
+			try {					
+				Address address = dataManager.getAddress(view.getAddress().getId());
+				Remote remote = dataManager.getRemote(view.getRemote().getId());
+
 				Person person = new Person();
 				person.setFirstname(view.getFirstName());
 				person.setLastname(view.getLastName());
 				person.setEndOfContract(view.getDate());
-				person.setAdress(addressDAO.findOne(view.getAddress().getId()));
+
+				//person.setAdress(addressDAO.findOne(view.getAddress().getId()));
 				//person.setRemote(remoteDAO.findOne(view.getRemote().getId()));
+
+				person.setAdress(address);
+				remote.setPerson(person);
 				
-				personDAO.create(person);
+				dataManager.updateRemote(remote);
 			} catch (Exception e1) {
 				e1.printStackTrace();
 				view.showMessage("Input parameters not correct!");
@@ -159,7 +145,7 @@ public class ControllerRemote {
 		public void actionPerformed(ActionEvent e) {
 			RemoteModule remoteModule = new RemoteModule(view.getRemoteForGate());
 			log.info("Remote " + remoteModule.getRemote() + " asked for entrance.");
-			boolean isGateOpening = remoteModule.askOpenGate(gate);
+			boolean isGateOpening = remoteModule.askOpenGate(gateModule);
 			log.info("-> The entrance was " + (isGateOpening?"":"not ") + "granted!");
 			view.setRequest(isGateOpening);
 		}
