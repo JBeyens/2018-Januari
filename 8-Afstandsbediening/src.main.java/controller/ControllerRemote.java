@@ -33,6 +33,7 @@ public class ControllerRemote {
 	public ControllerRemote(){
 		log = DefaultSettings.getLogger();
 		gateModule = new GateModule();
+		dataManager = new DataManager();
 		view = new View();
 		
 		view.addAskEntranceListener(new AskEntranceListener());
