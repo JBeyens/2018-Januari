@@ -1,9 +1,8 @@
+drop table if exists Address;
+drop table if exists Person;
+drop table if exists Remote;
 create database if not exists DbRemote /*!40100 DEFAULT CHARACTER SET latin1 */;
 use DbRemote;
-drop table if exists Remote;
-drop table if exists Person;
-drop table if exists Address;
-
 
 -- Host: 127.0.0.1    Database: DbRemote
 -- ------------------------------------------------------
@@ -39,26 +38,25 @@ CONSTRAINT UC_Address UNIQUE (street, nr, mailBox, postalCode, city, country)
 );
 
 --
+-- Table structure for table `Remote`
+--
+CREATE TABLE Remote (
+id INT(6) PRIMARY KEY auto_increment,
+serialNumber VARCHAR(50) NOT NULL,
+frequency LONG NULL,
+isActive BIT NOT NULL,
+CONSTRAINT UC_Remote UNIQUE (serialNumber));
+
+--
 -- Table structure for table `Person`
 --
 CREATE TABLE Person (
 id INT(6)  PRIMARY KEY auto_increment,
 firstName VARCHAR(30) NOT NULL,
 lastName VARCHAR(30) NOT NULL,
-addressId INT(6) NULL, -- Must be NULL (and not NOT NULL) because of ON DELETE no action constraint
+addressId INT(6) NULL,
+remoteId INT(6) NULL,
 endOfContract DATE NOT NULL,
-FOREIGN KEY fk_a(addressId) REFERENCES Address(id) ON UPDATE no action ON DELETE no action
-);
-
---
--- Table structure for table `Remote`
---
-CREATE TABLE Remote (
-id INT(6) PRIMARY KEY auto_increment,
-serialNumber VARCHAR(50) NOT NULL,
-frequency LONG NOT NULL,
-isActive BIT NOT NULL,
-personId INT(6) NULL, -- Must be NULL (and not NOT NULL) because of ON DELETE no action constraint
-CONSTRAINT UC_Remote UNIQUE (serialNumber),
-FOREIGN KEY fk_p(personId) REFERENCES Person(id) ON UPDATE no action ON DELETE no action
+FOREIGN KEY fk_a(addressId) REFERENCES Address(id) ON UPDATE no action ON DELETE no action,
+FOREIGN KEY fk_r(remoteId) REFERENCES Remote(id) ON UPDATE no action ON DELETE no action
 );
