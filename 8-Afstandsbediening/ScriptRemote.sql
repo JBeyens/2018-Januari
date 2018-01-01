@@ -1,8 +1,9 @@
+create database if not exists DbRemote /*!40100 DEFAULT CHARACTER SET latin1 */;
+use DbRemote;
 drop table if exists Address;
 drop table if exists Person;
 drop table if exists Remote;
-create database if not exists DbRemote /*!40100 DEFAULT CHARACTER SET latin1 */;
-use DbRemote;
+
 
 -- Host: 127.0.0.1    Database: DbRemote
 -- ------------------------------------------------------
