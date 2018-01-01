@@ -36,9 +36,6 @@ public class Remote implements Serializable{
 	private String serialNumber;
 	private Boolean isActive;
 	private long frequency;
-	@ManyToOne(fetch = FetchType.EAGER, cascade=CascadeType.ALL)
-	@JoinColumn(name= "personId")
-	private Person person;
 	
 	public Remote(String serialNumber, long frequency) {
 		super();
@@ -74,16 +71,6 @@ public class Remote implements Serializable{
 		return isActive;}
 	public void setIsActive(Boolean isActive) {
 		this.isActive = isActive;}
-	
-	public Person getPerson() {
-		return person; } 
-	public void setPerson(Person person) {
-		this.person = person;
-		/*
-		 * Remote becomes active when given to person
-		 */
-		setIsActive(true);
-	}
 
 	@Override
 	public String toString() {

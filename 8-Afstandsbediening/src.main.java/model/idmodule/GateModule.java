@@ -9,6 +9,7 @@ import model.entities.Person;
 import model.entities.Remote;
 import model.observer.IRemoteObserver;
 import model.observer.IRemoteSubject;
+import values.DefaultSettings;
 
 /**
  * @Author Jef Beyens & Ben Vandevorst
@@ -18,7 +19,7 @@ import model.observer.IRemoteSubject;
  */
 public class GateModule implements IRemoteSubject {
 	// FIELDS
-	private Logger log;
+	private Logger log = DefaultSettings.getLogger("GateModule");
 	private long gateFrequency;
 	private ArrayList<Person> persons;
 	private ArrayList<Remote> remotes;
@@ -27,6 +28,7 @@ public class GateModule implements IRemoteSubject {
 	
 	// CONSTRUCTOR
 	public GateModule() {
+
 		//log = DefaultSettings.getLogger();
 		persons = new ArrayList<>();
 		remotes = new ArrayList<>();
@@ -49,9 +51,6 @@ public class GateModule implements IRemoteSubject {
 	private boolean loadAllRemotes() {
 		remotes = (ArrayList<Remote>) EntityDAO.REMOTE_DAO.findAll();
 		for (Remote remote : remotes) {
-			if (remote.getPerson() != null) {
-				persons.add(remote.getPerson());
-			}
 			if(remote.getIsActive()) {
 				registerUserRemote(new RemoteModule(remote));
 			}

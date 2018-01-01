@@ -3,6 +3,7 @@ package controller;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
+import java.util.HashSet;
 
 import javax.swing.JFrame;
 
@@ -95,7 +96,10 @@ public class ControllerRemote {
 		public void actionPerformed(ActionEvent e) {
 			try {					
 				Address address = dataManager.getAddress(view.getAddress().getId());
+				HashSet<Remote> remotes = new HashSet<>();
 				Remote remote = dataManager.getRemote(view.getRemote().getId());
+				remote.setIsActive(true);
+				remotes.add(remote);
 
 				Person person = new Person();
 				person.setFirstname(view.getFirstName());
@@ -106,9 +110,9 @@ public class ControllerRemote {
 				//person.setRemote(remoteDAO.findOne(view.getRemote().getId()));
 
 				person.setAdress(address);
-				remote.setPerson(person);
+				person.setRemotes(remotes);
 				
-				dataManager.updateRemote(remote);
+				dataManager.updatePerson(person);
 			} catch (Exception e1) {
 				e1.printStackTrace();
 				view.showMessage("Input parameters not correct!");

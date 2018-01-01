@@ -4,6 +4,8 @@ import java.sql.Date;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.HashSet;
+import java.util.Set;
 import java.util.UUID;
 import java.util.concurrent.ThreadLocalRandom;
 
@@ -71,28 +73,32 @@ public class GenerateDummyData {
 				 xAddress.getCity().equals(city) &&
 				 xAddress.getCountry().equals(country))
 				nrToAdress.put(xAddress.getMailBox(), xAddress);
-		}
-		
+		}		
 	}
 
 	private static void createActiveRemotesPersonsAddresses(){	
-		logger.info("Creating linked remotes, persons and addresses...");
+		logger.info("Creating linked persons, remotes and addresses...");
 		
 		if (nrToAdress == null)
 			loadHashMapOfAddresses();
 		
 		for (int i = 1; i <= amountOfAddresses; i++) {
-			remote = new Remote(UUID.randomUUID().toString(), ThreadLocalRandom.current().nextLong(10000, 1000000));
 			person = new Person(factory.getFirstName(), factory.getLastName(), contractDate);
+			
+			Set<Remote> remotes = new HashSet<Remote>();
+			for (int j = 0; j <= DefaultSettings.RANDOM.nextInt(3); j++) {
+				remote = new Remote(UUID.randomUUID().toString(), ThreadLocalRandom.current().nextLong(10000, 1000000));
+				remote.setIsActive(true);
+				remotes.add(remote);
+			}
+			person.setRemotes(remotes);
+			
 			address = nrToAdress.get(i+1);
 			if (address == null)
-				address = new Address(street, streetNumber, i+1, postalCode, city, country);
-			
-			remote.setIsActive(true);
-			remote.setPerson(person);
+				address = new Address(street, streetNumber, i+1, postalCode, city, country);			
 			person.setAdress(address);
 			
-			EntityDAO.REMOTE_DAO.create(remote);
+			EntityDAO.PERSON_DAO.create(person);
 		}
 	}
 	
@@ -116,9 +122,8 @@ public class GenerateDummyData {
 	
 	private static void createInActiveAddress(){
 		logger.info("Creating addresses not linked by persons...");
-		
-		if (nrToAdress == null)
-			loadHashMapOfAddresses();
+
+		loadHashMapOfAddresses();
 		
 		for (int i = 1; i <= 10; i++) {
 			address = nrToAdress.get(i+1);
