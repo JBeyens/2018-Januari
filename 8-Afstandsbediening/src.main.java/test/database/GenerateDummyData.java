@@ -118,12 +118,13 @@ public class GenerateDummyData {
 
 		loadHashMapOfAddresses();
 		
-		for (int i = 1; i <= 10; i++) {
-			address = nrToAdress.get(i+1);
+		int i = 1;
+		while (i <= 10) {
+			address = nrToAdress.get(i);
 			if (address != null)
 				continue;
 			
-			address = new Address(street, streetNumber, i+1, postalCode, city, country);			
+			address = new Address(street, streetNumber, i++, postalCode, city, country);	
 			EntityDAO.ADDRESS_DAO.create(address);
 		}
 	}
