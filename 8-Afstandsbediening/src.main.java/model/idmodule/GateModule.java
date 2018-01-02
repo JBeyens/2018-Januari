@@ -49,24 +49,9 @@ public class GateModule implements IGateObserver, IGateModule {
 	 **/
 	public long getPersons() {
 		return gateFrequency; }
+	@Override // IGateObserver
 	public void setPersons(ArrayList<Person> persons) {
-		this.persons = persons; }
-	
-	
-	/**
-	 *  Register new person
-	 **/
-	@Override // IGateObserver
-	public void registerPerson(Person person) {
-		persons.add(person); }
-	
-	/**
-	 * Remove existing person (if registered)
-	 */
-	@Override // IGateObserver
-	public void deActivatePerson(Person person) {
-		persons.remove(person); }
-	
+		this.persons = persons; }	
 	
 	
 	/** 

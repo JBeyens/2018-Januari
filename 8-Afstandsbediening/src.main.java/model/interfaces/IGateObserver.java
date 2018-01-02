@@ -1,9 +1,10 @@
 package model.interfaces;
 
+import java.util.ArrayList;
+
 import model.entities.Person;
 
 public interface IGateObserver {
 	public void setFrequency(long frequency);
-	public void registerPerson(Person person);
-	public void deActivatePerson(Person person);
+	public void setPersons(ArrayList<Person> persons);
 }
