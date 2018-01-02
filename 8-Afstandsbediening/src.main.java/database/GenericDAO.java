@@ -75,7 +75,6 @@ public class GenericDAO<T> {
 		return list;
 	}
 	
-	@SuppressWarnings("unchecked")
 	public List<T> executeNamedQuery(String query){
 		EntityManager manager = factory.createEntityManager();
 		EntityTransaction transaction = manager.getTransaction();
@@ -84,7 +83,7 @@ public class GenericDAO<T> {
 		try {
 			transaction.begin();
 			
-			list =(List<T>) manager.createNamedQuery(query).getResultList();
+			list =(List<T>) manager.createNamedQuery(query, genericClass).getResultList();
 			
 			transaction.commit();
 		} catch (HibernateException e) {

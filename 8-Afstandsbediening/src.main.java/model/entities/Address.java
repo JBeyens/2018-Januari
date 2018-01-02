@@ -19,7 +19,7 @@ import javax.persistence.Table;
  */
 
 @Entity
-@NamedQuery(name="findUnusedAddress", query = "SELECT a FROM Address a WHERE a.id NOT IN (SELECT p.address.id FROM Person p)")
+@NamedQuery(name="findUnusedAddress", query = "SELECT a FROM Address a WHERE a.id NOT IN (SELECT p.address.id FROM Person p where p.address.id IS NOT NULL)")
 @Table(name = "address")
 public class Address implements Serializable{
 
