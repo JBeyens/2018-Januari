@@ -83,10 +83,12 @@ public class DataManager implements IGateSubject{
 	@Override
 	public void registerGate(IGateObserver gateModule) {
 		gateModules.add(gateModule);
+		updateGateModules();
 	}
 	@Override
 	public void unregisterGate(IGateObserver gateModule) {
 		gateModules.add(gateModule);
+		updateGateModules();
 	}
 	private void updateGateModules() {
 		long newFrequency = DefaultSettings.RANDOM.nextLong();
