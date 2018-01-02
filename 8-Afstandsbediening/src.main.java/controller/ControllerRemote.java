@@ -2,7 +2,6 @@ package controller;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.util.ArrayList;
 
 import javax.swing.JFrame;
 
@@ -12,7 +11,6 @@ import model.business.DataManager;
 import model.business.GateModule;
 import model.business.RemoteModule;
 import model.entities.Person;
-import model.entities.Remote;
 import values.DefaultSettings;
 import view.View;
 
