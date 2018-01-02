@@ -1,4 +1,4 @@
-package model.idmodule;
+package model.business;
 
 import java.sql.Date;
 import java.time.LocalDate;

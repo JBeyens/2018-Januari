@@ -1,4 +1,4 @@
-package model.idmodule;
+package model.business;
 
 import java.util.ArrayList;
 
@@ -62,8 +62,10 @@ public class DataManager implements IGateSubject{
 	 *  Returns ArrayList of Persons. Will load first from database if this list is null. 
 	 **/	
 	public ArrayList<Person> getAllPersons() {
-		if (persons == null)
-			readAllPersons();		
+		if (persons == null) {
+			readAllPersons();
+			updateGateModules();
+		}		
 		return persons;
 	}	
 	

@@ -1,4 +1,4 @@
-package model.idmodule;
+package model.business;
 
 import model.entities.Remote;
 import model.interfaces.IGateModule;
