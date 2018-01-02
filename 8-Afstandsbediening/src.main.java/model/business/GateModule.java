@@ -46,8 +46,8 @@ public class GateModule implements IGateObserver, IGateModule {
 	/**
 	 *  Getter & Setter for 'persons' 
 	 **/
-	public long getPersons() {
-		return gateFrequency; }
+	public ArrayList<Person> getPersons() {
+		return persons; }
 	public void setPersons(ArrayList<Person> persons) {
 		this.persons = persons; }	
 	
