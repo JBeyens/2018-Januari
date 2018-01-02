@@ -1,7 +1,8 @@
 package model.idmodule;
 
 import model.entities.Remote;
-import model.observer.IRemoteObserver;
+import model.interfaces.IGateModule;
+import model.interfaces.IRemoteModule;
 
 /**
  * @Author Jef Beyens & Ben Vandevorst
@@ -9,7 +10,7 @@ import model.observer.IRemoteObserver;
  * @Project Afstandsbediening
  * @Doel This is the software used by the remote
  */
-public class RemoteModule implements IRemoteObserver{
+public class RemoteModule implements IRemoteModule {
 	// FIELDS
 	private Remote remote;
 	
@@ -19,24 +20,27 @@ public class RemoteModule implements IRemoteObserver{
 	}
 	
 	// METHODS
-	/** Updates the frequency in the remote **/
-	public void updateFrequency(long frequency) {
-		getRemote().setFrequency(frequency);
+	/** 
+	 * Updates the frequency in the remote
+	 **/
+	@Override
+	public void setFrequency(long frequency) {
+		remote.setFrequency(frequency);
 	}
 	
-	/** Will return true if the remote is allowed to open the gate. Will return false otherwise. **/
-	public boolean askOpenGate(GateModule gate) {
-		gate.idModule(this);
-		return getRemote().getFrequency() == gate.getFrequency();
+	/**
+	 *  Will return true if the remote is allowed to open the gate. Will return false otherwise.
+	 **/
+	public boolean askOpenGate(IGateModule gate) {
+		gate.verifyRemote(this);
+		return remote.getFrequency() == gate.getFrequency();
 	}
 	
-	/** Returns the serial Id number of the remote. **/
-	public String sendSerialId() {
-		return getRemote().getSerialNumber();
-	}
-	
-	/** Returns the remote object **/
-	public Remote getRemote() {
-		return remote;
+	/** 
+	 * Returns the serial Id number of the remote.
+	 **/
+	@Override
+	public String getSerialNumber() {
+		return remote.getSerialNumber();
 	}
 }
