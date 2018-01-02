@@ -2,18 +2,13 @@ package model.business.test;
 
 import static org.junit.Assert.*;
 
-import java.util.ArrayList;
-
 import org.junit.Before;
 import org.junit.Test;
 
-import model.business.GateModule;
 import model.business.RemoteModule;
-import model.entities.Person;
 import model.entities.Remote;
 import model.interfaces.IGateModule;
 import model.interfaces.IRemoteModule;
-import values.DefaultSettings;
 
 /**
  * 	@Author Jef Beyens & Ben Vandevorst
@@ -24,7 +19,6 @@ import values.DefaultSettings;
 public class RemoteModuleTest {
 	private Remote remote;
 	private RemoteModule remoteModule;
-	private ArrayList<Person> persons;
 	long newFrequency;
 	
 	@Before
@@ -32,7 +26,6 @@ public class RemoteModuleTest {
 		remote = new Remote("xyz", 911);
 		remoteModule = new RemoteModule(remote);
 		newFrequency = 666;
-		ArrayList<Person> persons = new ArrayList<>();
 	}
 	
 	@Test
