@@ -11,6 +11,8 @@ import org.apache.log4j.Logger;
 import model.business.DataManager;
 import model.business.GateModule;
 import model.business.RemoteModule;
+import model.entities.Address;
+import model.entities.EntityDAO;
 import model.entities.Person;
 import model.entities.Remote;
 import values.DefaultSettings;
@@ -79,7 +81,7 @@ public class ControllerRemote {
 	 * JPA Namedquery (Address class) => unused Addresses returned
 	 */
 	private void setUnusedAddress(){
-		view.setUnusedAddress(dataManager.getUnusedAddress());
+		view.setUnusedAddress((ArrayList<Address>) EntityDAO.ADDRESS_DAO.executeNamedQuery("findUnusedAddress"));
 	}
 	
 	/*

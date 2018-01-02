@@ -70,8 +70,30 @@ public class GenericDAO<T> {
 	    		  transaction.rollback();
 	         e.printStackTrace(); 
 	      } finally {
-	         manager.close(); 
+	         manager.clear(); 
 	      }
+		return list;
+	}
+	
+	@SuppressWarnings("unchecked")
+	public List<T> executeNamedQuery(String query){
+		EntityManager manager = factory.createEntityManager();
+		EntityTransaction transaction = manager.getTransaction();
+		
+	    List<T> list = null;
+		try {
+			transaction.begin();
+			
+			list =(List<T>) manager.createNamedQuery(query).getResultList();
+			
+			transaction.commit();
+		} catch (HibernateException e) {
+			if(transaction != null)
+	    		  transaction.rollback();
+	         e.printStackTrace(); 
+		} finally{
+			manager.clear();
+		}
 		return list;
 	}
 
