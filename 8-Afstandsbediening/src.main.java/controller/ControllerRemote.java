@@ -11,7 +11,6 @@ import org.apache.log4j.Logger;
 import model.business.DataManager;
 import model.business.GateModule;
 import model.business.RemoteModule;
-import model.entities.Address;
 import model.entities.Person;
 import model.entities.Remote;
 import values.DefaultSettings;
@@ -91,6 +90,20 @@ public class ControllerRemote {
 	} 
 	
 	/*
+	 * Listener for ask entrance button (1st tab)
+	 */
+	private class AskEntranceListener implements ActionListener{
+		@Override
+		public void actionPerformed(ActionEvent e) {
+			RemoteModule remoteModule = new RemoteModule(view.getRemoteForGate());
+			log.info("Remote with serial '" + remoteModule.getSerialNumber() + "' asked for entrance.");
+			boolean isGateOpening = remoteModule.askOpenGate(gateModule);
+			log.info("-> The entrance was " + (isGateOpening?"":"not ") + "granted!");
+			view.setRequest(isGateOpening);
+		}		
+	}
+	
+	/*
 	 * Listeren for addPerson button (2nd tab)
 	 */
 	private class AddPersonListener implements ActionListener{
@@ -132,19 +145,5 @@ public class ControllerRemote {
 				view.showMessage("Loading from database failed!");
 			}
 		}	
-	}
-	
-	/*
-	 * Listener for ask entrance button (1st tab)
-	 */
-	private class AskEntranceListener implements ActionListener{
-		@Override
-		public void actionPerformed(ActionEvent e) {
-			RemoteModule remoteModule = new RemoteModule(view.getRemoteForGate());
-			log.info("Remote with serial '" + remoteModule.getSerialNumber() + "' asked for entrance.");
-			boolean isGateOpening = remoteModule.askOpenGate(gateModule);
-			log.info("-> The entrance was " + (isGateOpening?"":"not ") + "granted!");
-			view.setRequest(isGateOpening);
-		}		
 	}
 }
