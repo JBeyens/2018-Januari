@@ -27,6 +27,9 @@ public class DataManager implements IGateSubject{
 	public DataManager() {
 		log = DefaultSettings.getLogger("DataManager");
 		gateModules = new ArrayList<>();
+		readAllPersons();
+		readAllAddresses();
+		readAllRemotes();
 	}
 	
 	/*
