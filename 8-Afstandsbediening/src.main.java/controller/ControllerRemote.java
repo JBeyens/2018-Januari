@@ -11,8 +11,6 @@ import org.apache.log4j.Logger;
 import model.business.DataManager;
 import model.business.GateModule;
 import model.business.RemoteModule;
-import model.entities.Address;
-import model.entities.EntityDAO;
 import model.entities.Person;
 import model.entities.Remote;
 import values.DefaultSettings;
@@ -60,14 +58,7 @@ public class ControllerRemote {
 	 * Creates list of al inactive Remotes => not given to a inhabitant
 	 */
 	private void setInactiveRemote(){	
-		ArrayList<Remote> inactiveRemotes = new ArrayList<>();
-		
-		for (Remote remote : dataManager.getAllRemotes()) {
-			if(!remote.getIsActive())
-				inactiveRemotes.add(remote);
-		}
-
-		view.setInactiveRemote(inactiveRemotes);
+		view.setInactiveRemote(dataManager.getInactiveRemotes());
 	}
 	
 	/*

@@ -7,6 +7,7 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.NamedQuery;
 import javax.persistence.Table;
 
 
@@ -18,6 +19,7 @@ import javax.persistence.Table;
  */
 
 @Entity
+@NamedQuery(name="inactiveRemotes", query = "select r from Remote r where r.isActive = false")
 @Table(name ="Remote")
 public class Remote implements Serializable{
 	/**

@@ -28,9 +28,16 @@ public class DataManager implements IGateSubject{
 		log = DefaultSettings.getLogger("DataManager");
 		gateModules = new ArrayList<>();
 	}
+	
+	/*
+	 * Returns inactive remotes by namedquery JPA
+	 */
+	public ArrayList<Remote> getInactiveRemotes(){
+		return (ArrayList<Remote>) EntityDAO.REMOTE_DAO.executeNamedQuery("inactiveRemotes");
+	}
 
 	/*
-	 * Returns unused addresses by comparing persons & addresses
+	 * Returns unused addresses by namedquery JPA
 	 */
 	public ArrayList<Address> getUnusedAddress(){
 		return (ArrayList<Address>) EntityDAO.ADDRESS_DAO.executeNamedQuery("findUnusedAddress");
