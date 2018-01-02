@@ -62,7 +62,7 @@ public class GenericDAO<T> {
 	      try {
 	         transaction.begin();
 	         
-	         list = (List<T>) manager.createQuery("FROM " + genericClass.getName()).getResultList();
+	         list = (List<T>) manager.createQuery("Select x FROM " + genericClass.getSimpleName() + " x").getResultList();
 	         
 	         transaction.commit();
 	      } catch (HibernateException e) {
