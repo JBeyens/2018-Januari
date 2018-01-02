@@ -1,14 +1,15 @@
 package model.idmodule;
 
+import java.sql.Date;
+import java.time.LocalDate;
 import java.util.ArrayList;
 
 import org.apache.log4j.Logger;
 
-import model.entities.EntityDAO;
 import model.entities.Person;
-import model.entities.Remote;
-import model.observer.IRemoteObserver;
-import model.observer.IRemoteSubject;
+import model.interfaces.IGateModule;
+import model.interfaces.IGateObserver;
+import model.interfaces.IRemoteModule;
 import values.DefaultSettings;
 
 /**
@@ -17,142 +18,80 @@ import values.DefaultSettings;
  * @Project Afstandsbediening
  * @Doel Manages users and their remotes. Will control for who the gate opens
  */
-public class GateModule implements IRemoteSubject {
+public class GateModule implements IGateObserver, IGateModule {
 	// FIELDS
 	private Logger log = DefaultSettings.getLogger("GateModule");
 	private long gateFrequency;
 	private ArrayList<Person> persons;
-	private ArrayList<Remote> remotes;
-	private ArrayList<IRemoteObserver> activeRemotes;
 	
 	
 	// CONSTRUCTOR
 	public GateModule() {
-
-		//log = DefaultSettings.getLogger();
+		gateFrequency = DefaultSettings.RANDOM.nextLong();
 		persons = new ArrayList<>();
-		remotes = new ArrayList<>();
-		activeRemotes = new ArrayList<>();
-		
-		loadAllRemotes();
-		loadAllPersons();
 	}	
 	
 
 	// METHODS	
 	
-	/** Getter & Setter for 'frequency' **/
+	/**
+	 *  Getter & Setter for 'frequency' 
+	 **/
+	@Override // IGateModule
 	public long getFrequency() {
 		return gateFrequency; }
+	@Override // IGateObserver
 	public void setFrequency(long frequency) {
 		this.gateFrequency = frequency; }
 	
-	/**  Loads all remotes from database **/	
-	private boolean loadAllRemotes() {
-		remotes = (ArrayList<Remote>) EntityDAO.REMOTE_DAO.findAll();
-		for (Remote remote : remotes) {
-			if(remote.getIsActive()) {
-				registerUserRemote(new RemoteModule(remote));
-			}
-		}
-		return remotes == null ? false : true;
-	}
-		
-	/**  Loads all users from database **/	
-	private boolean loadAllPersons() {
-		ArrayList<Person> allPersons = (ArrayList<Person>) EntityDAO.PERSON_DAO.findAll();
-		
-		if (allPersons == null)
-			return false;
-		
-		if (persons == null || persons.size() == 0) {
-			persons = allPersons;
-			return true;
-		}
-		
-		ArrayList<Integer> personIds = new ArrayList<Integer>();
-		for(Person person : persons) {
-			personIds.add(person.getId());
-		}
-		
-		for (Person person : allPersons) {
-			if(!personIds.contains(person.getId())) {
-				persons.add(person);
-			}
-		}
-		return true;
-	}
-	
-	/** Returns ArrayList of Persons. Will load first from database if this list is null. **/	
-	public ArrayList<Person> getAllPersons() {
-		if (persons == null)
-			loadAllPersons();
-		
-		return persons;
-	}	
-	
-	/** Returns ArrayList of Persons. Will load first from database if this list is null. **/	
-	public ArrayList<Remote> getAllRemotes() {
-		if (remotes == null)
-			loadAllRemotes();
-		
-		return remotes;
-	}
-	
-	/** Adds new user **/
-	public void addNewUser(Person person) {
-		EntityDAO.PERSON_DAO.create(person);
-	}
-	
-	/** Will check the id of the remote and add it to the observers if verified **/
-	public void idModule(IRemoteObserver userRemote)
-	{		
-		log.info("Remote asking access to gate: " + userRemote.toString());
-		for(IRemoteObserver remote : activeRemotes) {
-			if (userRemote.sendSerialId().equals(remote.sendSerialId())) {
-				log.trace("Checking... " + userRemote.sendSerialId() + " NOT EQUALS " + remote.sendSerialId());
-				continue; }
-
-			log.debug("Checking... " + userRemote.sendSerialId() + " EQUALS " + remote.sendSerialId());
-			log.debug("-> setIsActive = true");
-			userRemote.getRemote().setIsActive(true);
-			log.debug("-> updating frequency");
-			userRemote.updateFrequency(getFrequency());
-			return;
-		}
-		
-		log.debug("Checking...  Serial Id not found in registered serial ids");
-		log.debug("-> setIsActive = false");
-		userRemote.getRemote().setIsActive(false);
-	}
-	
-	/** Observer pattern - Updates all remotes who have subscribed to UserManager. **/
-	public void SendFrequencyToRemotes()
-	{
-		long freq = getFrequency();
-		for(IRemoteObserver userRemote : activeRemotes)
-		{
-			userRemote.updateFrequency(freq);
-		}
-	}
-
-
 	/**
-	 * Observer pattern - Add- & Remove observers
+	 *  Getter & Setter for 'persons' 
 	 **/
-	@Override
-	public void registerUserRemote(IRemoteObserver userRemote) {
-		activeRemotes.add(userRemote);
-		updateRemoteIsActive(userRemote.getRemote(), true);
-	}	
-	@Override
-	public void deactivateUserRemote(IRemoteObserver userRemote) {
-		activeRemotes.remove(userRemote);
-		updateRemoteIsActive(userRemote.getRemote(), false);
-	}
+	public long getPersons() {
+		return gateFrequency; }
+	public void setPersons(ArrayList<Person> persons) {
+		this.persons = persons; }
 	
-	private void updateRemoteIsActive(Remote remote, boolean isActive) {
-		remote.setIsActive(isActive);
-		EntityDAO.REMOTE_DAO.update(remote);
+	
+	/**
+	 *  Register new person
+	 **/
+	@Override // IGateObserver
+	public void registerPerson(Person person) {
+		persons.add(person); }
+	
+	/**
+	 * Remove existing person (if registered)
+	 */
+	@Override // IGateObserver
+	public void deActivatePerson(Person person) {
+		persons.remove(person); }
+	
+	
+	
+	/** 
+	 * Will check the id of the remote and add it to the observers if verified. This is the IdModule of the gate.
+	 **/
+	@Override // IGateModule
+	public void verifyRemote(IRemoteModule userRemote)
+	{		
+		LocalDate date  = LocalDate.now();	
+		Date now = Date.valueOf(date);	
+		
+		log.info("Remote asking access to gate has serial number: " + userRemote.getSerialNumber());
+		for(Person person : persons) {
+			if (person.getRemote() == null)
+				log.trace("- No remote registered to " + person.toString());			
+			else if (!person.getRemote().getSerialNumber().equals(userRemote.getSerialNumber()))
+				log.trace("- Different serial number for remote registered to " + person.toString() + ". Serial number is " + userRemote.getSerialNumber());	
+			else if (!person.getRemote().getIsActive()) 
+				log.trace("- Remote registered to " + person.toString() + ", but not activated!");
+			else if (person.getEndOfContract().before(now))
+				log.trace("- Remote registered to " + person.toString() + ", but user contract has expired!");
+			else {
+				log.trace("- Remote registered to " + person.toString() + ", contract valid so updating frequency");
+				userRemote.setFrequency(getFrequency());
+			}				
+		}
 	}
 }
