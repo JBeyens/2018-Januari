@@ -51,6 +51,7 @@ public class GenerateDummyData {
 			e.printStackTrace();
 		}
 		logger.info("Finished creating dummy data!");
+		System.exit(0);
 	}
 	
 	private static Date getDate() {		
@@ -118,8 +119,8 @@ public class GenerateDummyData {
 
 		loadHashMapOfAddresses();
 		
-		int i = 1;
-		while (i <= 10) {
+		int i = 1000;
+		while (i <= 1010) {
 			address = nrToAdress.get(i);
 			if (address != null)
 				continue;

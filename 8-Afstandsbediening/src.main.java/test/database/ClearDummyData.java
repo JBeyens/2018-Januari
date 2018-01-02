@@ -25,7 +25,7 @@ public class ClearDummyData {
 			e.printStackTrace();
 		}
 		logger.info("Deleting data -> DONE!");
-		
+		System.exit(0);
 	}
 
 	private static void removeRemote() {
