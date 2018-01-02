@@ -36,7 +36,7 @@ public class DataManager implements IGateSubject{
 		ArrayList<Address> unusedAdresses = new ArrayList<>();
 		ArrayList<Integer> registeredAdressIds = new ArrayList<>();
 		
-		for (Person person : persons) {
+		for (Person person : getAllPersons()) {
 			if (person.getAdress() != null)
 				registeredAdressIds.add(person.getAdress().getId());			
 		}
