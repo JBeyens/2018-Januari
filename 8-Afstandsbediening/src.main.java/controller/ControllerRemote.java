@@ -103,11 +103,6 @@ public class ControllerRemote {
 				person.setEndOfContract(view.getDate());
 				person.setAdress(view.getAddress());
 				person.setRemote(view.getRemote());
-				person.getr
-
-				person.setAdress(address);
-				remote.setIsActive(true);
-				person.setRemote(remote);
 				
 				dataManager.updatePerson(person);
 			} catch (Exception e1) {
