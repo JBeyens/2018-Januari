@@ -7,12 +7,13 @@ import java.util.ArrayList;
 import javax.swing.JFrame;
 
 import org.apache.log4j.Logger;
+
+import model.business.DataManager;
+import model.business.GateModule;
+import model.business.RemoteModule;
 import model.entities.Address;
 import model.entities.Person;
 import model.entities.Remote;
-import model.idmodule.GateModule;
-import model.idmodule.RemoteModule;
-import model.idmodule.DataManager;
 import values.DefaultSettings;
 import view.View;
 
@@ -58,7 +59,7 @@ public class ControllerRemote {
 	private void setInactiveRemote(){	
 		ArrayList<Remote> inactiveRemotes = new ArrayList<>();
 		
-		for (Remote remote : gateModule.getAllRemotes()) {
+		for (Remote remote : dataManager.getAllRemotes()) {
 			if(!remote.getIsActive())
 				inactiveRemotes.add(remote);
 		}
@@ -70,7 +71,7 @@ public class ControllerRemote {
 	 * Add all persons to list for simulation
 	 */	
 	private void setRemotes(){
-		view.addRemotes( gateModule.getAllRemotes() );
+		view.addRemotes( dataManager.getAllRemotes() );
 	}
 	
 	/*
@@ -84,7 +85,7 @@ public class ControllerRemote {
 	 * Query list of all active inhabitants and pass them to view
 	 */
 	private void setOverView(){
-		view.setOverview(gateModule.getAllPersons());
+		view.setOverview(dataManager.getAllPersons());
 	} 
 	
 	/*
@@ -94,8 +95,8 @@ public class ControllerRemote {
 		@Override
 		public void actionPerformed(ActionEvent e) {
 			try {					
-				Address address = dataManager.getAddress(view.getAddress().getId());
-				Remote remote = dataManager.getRemote(view.getRemote().getId());
+				Address address = dataManager.readAddress(view.getAddress().getId());
+				Remote remote = dataManager.readRemote(view.getRemote().getId());
 
 				Person person = new Person();
 				person.setFirstname(view.getFirstName());
@@ -146,7 +147,7 @@ public class ControllerRemote {
 		@Override
 		public void actionPerformed(ActionEvent e) {
 			RemoteModule remoteModule = new RemoteModule(view.getRemoteForGate());
-			log.info("Remote " + remoteModule.getRemote() + " asked for entrance.");
+			log.info("Remote with serial '" + remoteModule.getSerialNumber() + "' asked for entrance.");
 			boolean isGateOpening = remoteModule.askOpenGate(gateModule);
 			log.info("-> The entrance was " + (isGateOpening?"":"not ") + "granted!");
 			view.setRequest(isGateOpening);

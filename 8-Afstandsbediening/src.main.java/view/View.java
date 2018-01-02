@@ -31,6 +31,8 @@ import com.toedter.calendar.JDateChooser;
 import model.entities.Address;
 import model.entities.Person;
 import model.entities.Remote;
+import model.interfaces.IRemoteModule;
+
 import javax.swing.JComboBox;
 import java.awt.Color;
 
@@ -198,17 +200,24 @@ public class View extends JFrame{
 		model.setRowCount(0);
 		
 		Object[] row = new Object[9];
+		Remote remote;
+		Address address;
 		
 		for (int i = 0; i < list.size(); i++) {
 			row[0] = list.get(i).getId();
 			row[1] = list.get(i).getFirstname();
 			row[2] = list.get(i).getLastname();
 			row[3] = list.get(i).getEndOfContract();
-			row[4] = list.get(i).getRemote().getId();
-			row[5] = list.get(i).getRemote().getSerialNumber();
-			row[6] = list.get(i).getAdress().getStreet();
-			row[7] = list.get(i).getAdress().getNumber();
-			row[8] = list.get(i).getAdress().getMailBox();
+			
+			remote = list.get(i).getRemote();
+			row[4] = remote != null ? remote.getId() : "";
+			row[5] = remote != null ? remote.getSerialNumber() : "";
+			
+			address = list.get(i).getAdress();
+			row[6] = address != null ? address.getStreet() : "";
+			row[7] = address != null ? address.getNumber() : "";
+			row[8] = address != null ? address.getMailBox() : "";
+			
 			model.addRow(row);
 		}
 	}
