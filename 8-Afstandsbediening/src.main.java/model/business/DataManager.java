@@ -58,7 +58,7 @@ public class DataManager implements IGateSubject{
 	public ArrayList<Person> getAllPersons() {
 		if (persons == null) {
 			readAllPersons();
-			updateGateModules();
+			notifyGateObservers();
 		}		
 		return persons;
 	}	
@@ -77,19 +77,18 @@ public class DataManager implements IGateSubject{
 	@Override
 	public void registerGate(IGateObserver gateModule) {
 		gateModules.add(gateModule);
-		updateGateModules();
+		notifyGateObservers();
 	}
 	@Override
 	public void unregisterGate(IGateObserver gateModule) {
 		gateModules.add(gateModule);
-		updateGateModules();
+		notifyGateObservers();
 	}
-	private void updateGateModules() {
+	private void notifyGateObservers() {
 		long newFrequency = DefaultSettings.RANDOM.nextLong();
 		
 		for (IGateObserver gate : gateModules) {
-			gate.setFrequency(newFrequency);
-			gate.setPersons(persons);
+			gate.handleNotification(newFrequency, persons);
 		}
 	}	
 	
@@ -102,7 +101,7 @@ public class DataManager implements IGateSubject{
 			person.getRemote().setIsActive(true);
 		
 		updatePerson(person); // Database
-		updateGateModules();
+		notifyGateObservers();
 	}
 	
 	/**
@@ -114,7 +113,7 @@ public class DataManager implements IGateSubject{
 			person.getRemote().setIsActive(false);
 		
 		updatePerson(person);
-		updateGateModules();
+		notifyGateObservers();
 	}
 	
 	// DATABASE READ OPERATIONS

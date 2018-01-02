@@ -40,7 +40,6 @@ public class GateModule implements IGateObserver, IGateModule {
 	@Override // IGateModule
 	public long getFrequency() {
 		return gateFrequency; }
-	@Override // IGateObserver
 	public void setFrequency(long frequency) {
 		this.gateFrequency = frequency; }
 	
@@ -49,10 +48,16 @@ public class GateModule implements IGateObserver, IGateModule {
 	 **/
 	public long getPersons() {
 		return gateFrequency; }
-	@Override // IGateObserver
 	public void setPersons(ArrayList<Person> persons) {
 		this.persons = persons; }	
 	
+	
+
+	@Override // IGateObserver
+	public void handleNotification(long frequency, ArrayList<Person> persons) {
+		setFrequency(frequency);
+		setPersons(persons);
+	}
 	
 	/** 
 	 * Will check the id of the remote and add it to the observers if verified. This is the IdModule of the gate.
