@@ -96,7 +96,6 @@ public class ControllerRemote {
 		@Override
 		public void actionPerformed(ActionEvent e) {
 			RemoteModule remoteModule = new RemoteModule(view.getRemoteForGate());
-			log.info("Remote with serial '" + remoteModule.getSerialNumber() + "' asked for entrance.");
 			boolean isGateOpening = remoteModule.askOpenGate(gateModule);
 			log.info("-> The entrance was " + (isGateOpening?"":"not ") + "granted!");
 			view.setRequest(isGateOpening);
