@@ -35,6 +35,8 @@ public class ControllerRemote {
 		log = DefaultSettings.getLogger("Controller");
 		gateModule = new GateModule();
 		dataManager = new DataManager();
+		dataManager.registerGate(gateModule);
+		
 		view = new View();
 		
 		view.addAskEntranceListener(new AskEntranceListener());
@@ -94,17 +96,14 @@ public class ControllerRemote {
 	private class AddPersonListener implements ActionListener{
 		@Override
 		public void actionPerformed(ActionEvent e) {
-			try {					
-				Address address = dataManager.readAddress(view.getAddress().getId());
-				Remote remote = dataManager.readRemote(view.getRemote().getId());
-
+			try {				
 				Person person = new Person();
 				person.setFirstname(view.getFirstName());
 				person.setLastname(view.getLastName());
 				person.setEndOfContract(view.getDate());
-
-				//person.setAdress(addressDAO.findOne(view.getAddress().getId()));
-				//person.setRemote(remoteDAO.findOne(view.getRemote().getId()));
+				person.setAdress(view.getAddress());
+				person.setRemote(view.getRemote());
+				person.getr
 
 				person.setAdress(address);
 				remote.setIsActive(true);
