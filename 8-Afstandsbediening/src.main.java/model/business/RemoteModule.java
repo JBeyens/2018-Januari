@@ -32,7 +32,7 @@ public class RemoteModule implements IRemoteModule {
 	 *  Will return true if the remote is allowed to open the gate. Will return false otherwise.
 	 **/
 	public boolean askOpenGate(IGateModule gate) {
-		gate.verifyRemote(this);
+		gate.verifyAndUpdateFrequencyRemote(this);
 		return remote.getFrequency() == gate.getFrequency();
 	}
 	

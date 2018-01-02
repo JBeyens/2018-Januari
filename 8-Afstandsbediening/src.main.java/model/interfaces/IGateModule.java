@@ -1,6 +1,6 @@
 package model.interfaces;
 
 public interface IGateModule {
-	public void verifyRemote(IRemoteModule remote);
+	public void verifyAndUpdateFrequencyRemote(IRemoteModule remote);
 	public long getFrequency();
 }

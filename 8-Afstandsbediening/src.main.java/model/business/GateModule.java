@@ -63,7 +63,7 @@ public class GateModule implements IGateObserver, IGateModule {
 	 * Will check the id of the remote and add it to the observers if verified. This is the IdModule of the gate.
 	 **/
 	@Override // IGateModule
-	public void verifyRemote(IRemoteModule userRemote)
+	public void verifyAndUpdateFrequencyRemote(IRemoteModule userRemote)
 	{		
 		LocalDate date  = LocalDate.now();	
 		Date now = Date.valueOf(date);	
