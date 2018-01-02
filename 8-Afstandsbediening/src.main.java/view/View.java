@@ -31,7 +31,6 @@ import com.toedter.calendar.JDateChooser;
 import model.entities.Address;
 import model.entities.Person;
 import model.entities.Remote;
-import model.interfaces.IRemoteModule;
 
 import javax.swing.JComboBox;
 import java.awt.Color;

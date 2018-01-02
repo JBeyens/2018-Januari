@@ -2,11 +2,10 @@ package model.entities;
 
 import java.util.Date;
 import javax.annotation.Generated;
-import javax.persistence.metamodel.SetAttribute;
 import javax.persistence.metamodel.SingularAttribute;
 import javax.persistence.metamodel.StaticMetamodel;
 
-@Generated(value="Dali", date="2018-01-01T21:15:18.028+0100")
+@Generated(value="Dali", date="2018-01-01T21:36:12.545+0100")
 @StaticMetamodel(Person.class)
 public class Person_ {
 	public static volatile SingularAttribute<Person, Integer> id;
@@ -14,5 +13,5 @@ public class Person_ {
 	public static volatile SingularAttribute<Person, String> lastname;
 	public static volatile SingularAttribute<Person, Address> address;
 	public static volatile SingularAttribute<Person, Date> endOfContract;
-	public static volatile SetAttribute<Person, Remote> remotes;
+	public static volatile SingularAttribute<Person, Remote> remote;
 }
