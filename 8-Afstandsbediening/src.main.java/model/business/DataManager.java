@@ -33,20 +33,7 @@ public class DataManager implements IGateSubject{
 	 * Returns unused addresses by comparing persons & addresses
 	 */
 	public ArrayList<Address> getUnusedAddress(){
-		ArrayList<Address> unusedAdresses = new ArrayList<>();
-		ArrayList<Integer> registeredAdressIds = new ArrayList<>();
-		
-		for (Person person : getAllPersons()) {
-			if (person.getAdress() != null)
-				registeredAdressIds.add(person.getAdress().getId());			
-		}
-		
-		for (Address adr : getAllAddresses()) {
-			if (!registeredAdressIds.contains(adr.getId()))
-				unusedAdresses.add(adr);
-		}
-		
-		return unusedAdresses;
+		return (ArrayList<Address>) EntityDAO.ADDRESS_DAO.executeNamedQuery("findUnusedAddress");
 	} 
 	
 	/**

@@ -81,7 +81,7 @@ public class ControllerRemote {
 	 * JPA Namedquery (Address class) => unused Addresses returned
 	 */
 	private void setUnusedAddress(){
-		view.setUnusedAddress((ArrayList<Address>) EntityDAO.ADDRESS_DAO.executeNamedQuery("findUnusedAddress"));
+		view.setUnusedAddress(dataManager.getUnusedAddress());
 	}
 	
 	/*
