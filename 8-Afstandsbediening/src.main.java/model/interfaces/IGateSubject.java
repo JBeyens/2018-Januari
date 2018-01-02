@@ -5,4 +5,5 @@ public interface IGateSubject {
 	public void unregisterGate(IGateObserver gateModule);
 	
 	// add / remove / notify functie => void return type allemaal
+	// concrete subject heeft dan lijst van igateobserver uiteraard
 }
