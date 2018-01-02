@@ -36,13 +36,13 @@ public class RemoteModuleTest {
 	
 	@Test
 	public void Ask_Open_Gate_Should_Fail_If_Not_Verified_By_Gate() {
-		GateModuleForTest gateModule = new GateModuleForTest(newFrequency, false);
+		GateModuleMock gateModule = new GateModuleMock(newFrequency, false);
 		assertFalse(remoteModule.askOpenGate(gateModule));
 	}
 	
 	@Test
 	public void Ask_Open_Gate_Should_Fail_If_Verified_By_Gate() {
-		GateModuleForTest gateModule = new GateModuleForTest(newFrequency, true);
+		GateModuleMock gateModule = new GateModuleMock(newFrequency, true);
 		assertTrue(remoteModule.askOpenGate(gateModule));
 	}
 	
@@ -54,11 +54,11 @@ public class RemoteModuleTest {
 	/**
 	 * New class to mock GateModule behavior so RemoteModule can be tested.
 	 **/
-	private class GateModuleForTest implements IGateModule {
+	private class GateModuleMock implements IGateModule {
 		private long frequency;
 		private boolean verifySuccesfull;
 		
-		public GateModuleForTest(long frequency, boolean willVerifyBeSuccesfull) {
+		public GateModuleMock(long frequency, boolean willVerifyBeSuccesfull) {
 			this.frequency = frequency;
 			this.verifySuccesfull = willVerifyBeSuccesfull;
 		}
