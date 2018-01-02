@@ -41,7 +41,7 @@ public class DataManager implements IGateSubject{
 				registeredAdressIds.add(person.getAdress().getId());			
 		}
 		
-		for (Address adr : addresses) {
+		for (Address adr : getAllAddresses()) {
 			if (!registeredAdressIds.contains(adr.getId()))
 				unusedAdresses.add(adr);
 		}
