@@ -51,6 +51,9 @@ public class RemoteModuleTest {
 		assertTrue(remote.getSerialNumber().equals(remoteModule.getSerialNumber()));
 	}
 	
+	/**
+	 * New class to mock GateModule behavior so RemoteModule can be tested.
+	 **/
 	private class GateModuleForTest implements IGateModule {
 		private long frequency;
 		private boolean verifySuccesfull;
