@@ -7,6 +7,7 @@ import model.business.GateModule;
 import model.business.RemoteModule;
 import model.entities.Person;
 import model.entities.Remote;
+import model.interfaces.IRemoteModule;
 
 import static org.junit.Assert.*;
 
@@ -41,6 +42,11 @@ public class GateModuleTest {
 		assertEquals(newFrequency, gateModule.getFrequency());
 		assertEquals(personList, gateModule.getPersons());
 	}
+	
+	@Test
+	public void Verify_And_Update_Frequency_Remote_When_Remote_Is_Not_Null(){
+		
+	}
 		// TODO: Test verifyAndUpdateFrequencyRemote
 		/** 
 		 * Will check the id of the remote and add it to the observers if verified. This is the IdModule of the gate.
@@ -71,5 +77,31 @@ public class GateModuleTest {
 		private class RemoteModuleMock GateModuleTest() {
 			// TODO Auto-generated constructor stub
 		}*/
+	
+		@SuppressWarnings("unused")
+		private class RemoteModuleMock implements IRemoteModule{
+			private Remote remote;
+			
+			public RemoteModuleMock(Remote remote){
+				this.setRemote(remote);
+			}
+			@Override
+			public String getSerialNumber() {
+				return getRemote().getSerialNumber();
+			}
+
+			@Override
+			public void setFrequency(long frequency) {
+				getRemote().setFrequency(frequency);
+			}
+			
+			public Remote getRemote() {
+				return remote;
+			}
+			public void setRemote(Remote remote) {
+				this.remote = remote;
+			}
+			
+		}
 	}
 
