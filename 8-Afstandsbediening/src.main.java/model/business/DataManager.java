@@ -53,10 +53,9 @@ public class DataManager implements IGateSubject{
 	 *  Returns ArrayList of Persons. Will load first from database if this list is null. 
 	 **/	
 	public ArrayList<Person> getAllPersons() {
-		if (persons == null) {
-			readAllPersons();
-			notifyGateObservers();
-		}		
+		persons = (ArrayList<Person>) EntityDAO.PERSON_DAO.findAll();
+		notifyGateObservers();
+		
 		return persons;
 	}	
 	
