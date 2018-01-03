@@ -44,4 +44,5 @@ public class Administrator implements AdminSubject{
 			adminObserver.update(getFrequency());
 		}
 	}
+	
 }

@@ -13,11 +13,13 @@ public class User implements AdminObserver{
 		return person;
 	}
 	
-	public void openGate(){
+	public boolean openGate(){
+		return false;
 		
 	}
 
-	public void giveId(){
+	public boolean giveId(){
+		return false;
 		//checkId functie in Admin? met person als paramter om op alle gegevens te checken?
 	}
 
