@@ -104,8 +104,12 @@ public class ControllerRemote {
 				person.setFirstname(view.getFirstName());
 				person.setLastname(view.getLastName());
 				person.setEndOfContract(view.getDate());
-				person.setAdress(view.getAddress());
-				person.setRemote(view.getRemote());
+				
+				if(view.getAddress() != null)
+					person.setAdress(view.getAddress());
+				
+				if(view.getRemote() != null)
+					person.setRemote(view.getRemote());
 				
 				dataManager.updatePerson(person);
 			} catch (Exception e1) {

@@ -19,17 +19,13 @@ public class DataManager implements IGateSubject{
 	// FIELDS
 	private Logger log;
 	// FIELDS
-	private ArrayList<Address> addresses;
 	private ArrayList<Person> persons;
-	private ArrayList<Remote> remotes;
 	private ArrayList<IGateObserver> gateModules;
 	
 	public DataManager() {
 		log = DefaultSettings.getLogger("DataManager");
 		gateModules = new ArrayList<>();
 		readAllPersons();
-		readAllAddresses();
-		readAllRemotes();
 	}
 	
 	/*
@@ -50,9 +46,7 @@ public class DataManager implements IGateSubject{
 	 * Returns ArrayList of Addresses. Will load first from database if this list is null. 
 	 **/	
 	public ArrayList<Address> getAllAddresses() {
-		if (addresses == null)
-			readAllAddresses();		
-		return addresses;
+		return (ArrayList<Address>) EntityDAO.ADDRESS_DAO.findAll();
 	}
 		
 	/**
@@ -70,9 +64,7 @@ public class DataManager implements IGateSubject{
 	 *  Returns ArrayList of Persons. Will load first from database if this list is null.
 	 **/	
 	public ArrayList<Remote> getAllRemotes() {
-		if (remotes == null)
-			readAllRemotes();		
-		return remotes;
+		return (ArrayList<Remote>) EntityDAO.REMOTE_DAO.findAll();
 	}
 	
 
@@ -134,14 +126,6 @@ public class DataManager implements IGateSubject{
 	}
 
 	/**
-	 *   Loads all addresses from database. 
-	 *   @Return Boolean - true if list exists at end of operation, else false.
-	 **/	
-	private boolean readAllAddresses() {
-		addresses = (ArrayList<Address>) EntityDAO.ADDRESS_DAO.findAll();
-		return addresses != null;
-	}
-	/**
 	 *   Loads all users from database. 
 	 *   @Return Boolean - true if list exists at end of operation, else false.
 	 **/	
@@ -149,14 +133,7 @@ public class DataManager implements IGateSubject{
 		persons = (ArrayList<Person>) EntityDAO.PERSON_DAO.findAll();
 		return persons != null;
 	}
-	/**
-	 *   Loads all remotes from database. 
-	 *   @Return Boolean - true if remotes has a list at end of operation, else false.
-	 **/	
-	private boolean readAllRemotes() {
-		remotes = (ArrayList<Remote>) EntityDAO.REMOTE_DAO.findAll();
-		return remotes != null;
-	}
+
 
 	
 	// DATABASE UPDATE OPERATIONS
