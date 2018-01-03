@@ -4,7 +4,6 @@ import org.junit.Before;
 import org.junit.Test;
 
 import model.business.GateModule;
-import model.business.RemoteModule;
 import model.entities.Person;
 import model.entities.Remote;
 import model.interfaces.IRemoteModule;
@@ -13,8 +12,6 @@ import static org.junit.Assert.*;
 
 import java.util.ArrayList;
 
-import org.junit.Before;
-import org.junit.Test;
 
 /**
  * 	@Author Jef Beyens & Ben Vandevorst
@@ -72,10 +69,6 @@ public class GateModuleTest {
 					userRemote.setFrequency(getFrequency());
 				}				
 			}
-		}
-		
-		private class RemoteModuleMock GateModuleTest() {
-			// TODO Auto-generated constructor stub
 		}*/
 	
 		@SuppressWarnings("unused")
