@@ -49,12 +49,14 @@ public class GateModuleTest {
 	
 	@Test
 	public void Verify_And_Update_Frequency_Remote_When_Remote_Is_Not_Null(){
-		//RemoteModuleMock mock = new RemoteModuleMock(remote);
+		person.setRemote(new Remote("123456789", 0));
+		RemoteModuleMock mock = new RemoteModuleMock(person.getRemote());
 		gateModule.setFrequency(newFrequency);
-		//gateModule.verifyAndUpdateFrequencyRemote(mock);
+		gateModule.setPersons(personList);
+		gateModule.verifyAndUpdateFrequencyRemote(mock);
 		
 		assertEquals(gateModule.getFrequency(), 789);
-		//assertEquals(mock.getRemote().getFrequency(), 789);
+		assertEquals(mock.getRemote().getFrequency(), 789);
 	}
 		// TODO: Test verifyAndUpdateFrequencyRemote
 		/** 

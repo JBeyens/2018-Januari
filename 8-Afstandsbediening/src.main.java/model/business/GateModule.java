@@ -51,7 +51,16 @@ public class GateModule implements IGateObserver, IGateModule {
 	public void setPersons(ArrayList<Person> persons) {
 		this.persons = persons; }	
 	
+	/*
+	 * Add & Remove from list
+	 */
+	public void addPerson(Person person){
+		persons.add(person);
+	}
 	
+	public void removePerson(Person person){
+		persons.remove(person);
+	}
 
 	@Override // IGateObserver
 	public void handleNotification(long frequency, ArrayList<Person> persons) {
