@@ -57,7 +57,6 @@ lastName VARCHAR(30) NOT NULL,
 addressId INT(6) NULL,
 remoteId INT(6) NULL,
 endOfContract DATE NOT NULL,
-CONSTRAINT UC_Person UNIQUE (firstName, lastName, addressId, remoteId),
 FOREIGN KEY fk_a(addressId) REFERENCES Address(id) ON UPDATE no action ON DELETE no action,
 FOREIGN KEY fk_r(remoteId) REFERENCES Remote(id) ON UPDATE no action ON DELETE no action
 );
