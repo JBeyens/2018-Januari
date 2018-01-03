@@ -18,7 +18,7 @@ public class User implements AdminObserver{
 	}
 
 	public void giveId(){
-		
+		//checkId functie in Admin? met person als paramter om op alle gegevens te checken?
 	}
 
 	@Override
