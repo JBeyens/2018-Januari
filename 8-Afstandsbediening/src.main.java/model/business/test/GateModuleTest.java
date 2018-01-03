@@ -2,6 +2,7 @@ package model.business.test;
 
 import org.junit.Before;
 import org.junit.Test;
+import static org.junit.Assert.assertNotEquals;
 
 import model.business.GateModule;
 import model.entities.Address;
@@ -32,8 +33,10 @@ public class GateModuleTest {
 	public void setUp(){
 		gateModule = new GateModule();
 		personList = new ArrayList<>();
+		
 		person = createPersonMock();
 		personList.add(person);
+		gateModule.addPerson(person);
 		
 		newFrequency = 789;
 	}
@@ -49,15 +52,25 @@ public class GateModuleTest {
 	
 	@Test
 	public void Verify_And_Update_Frequency_Remote_When_Remote_Is_Not_Null(){
-		person.setRemote(new Remote("123456789", 0));
 		RemoteModuleMock mock = new RemoteModuleMock(person.getRemote());
 		gateModule.setFrequency(newFrequency);
-		gateModule.setPersons(personList);
 		gateModule.verifyAndUpdateFrequencyRemote(mock);
 		
-		assertEquals(gateModule.getFrequency(), 789);
 		assertEquals(mock.getRemote().getFrequency(), 789);
 	}
+	
+	//Gives nullreference exception => throw statement should be added in function
+	@Test
+	public void Verify_And_Update_Frequency_Remote_When_Remote_Is_Null(){
+		RemoteModuleMock mock = new RemoteModuleMock(person.getRemote());
+		mock.setRemote(null);
+		gateModule.setFrequency(newFrequency);
+		gateModule.verifyAndUpdateFrequencyRemote(mock);
+		
+		assertNotEquals(mock.getRemote().getFrequency(), gateModule.getFrequency());
+	}
+	
+	
 		// TODO: Test verifyAndUpdateFrequencyRemote
 		/** 
 		 * Will check the id of the remote and add it to the observers if verified. This is the IdModule of the gate.
@@ -79,7 +92,7 @@ public class GateModuleTest {
 				else if (person.getEndOfContract().before(now))
 					log.trace("- Remote registered to " + person.toString() + ", but user contract has expired!");
 				else {
-					log.trace("- Remote registered to " + person.toString() + ", contract valid so updating frequency");
+				//OKE	log.trace("- Remote registered to " + person.toString() + ", contract valid so updating frequency");
 					userRemote.setFrequency(getFrequency());
 				}				
 			}
@@ -90,6 +103,7 @@ public class GateModuleTest {
 			person.setFirstname("Foo");
 			person.setLastname("Bar");
 			person.setAdress(new Address("Test", 10, 20, 3300, "Unknown", "Unknown"));
+			person.setRemote(new Remote("123456789", 0));
 			
 			LocalDate date  = LocalDate.now();
 			date.plusYears(2);
