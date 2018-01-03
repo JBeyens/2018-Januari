@@ -116,10 +116,10 @@ public class ControllerRemote {
 				view.setFirstName("");
 				view.setLastName("");
 				view.setDate(null);
-			} catch (Exception e1) {
+			} 
+			catch (Exception e1) {
 				e1.printStackTrace();
-				view.showMessage("Input parameters not correct!");
-				
+				view.showMessage("Input parameters not correct!");	
 			}
 			finally{
 				/*
