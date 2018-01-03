@@ -159,6 +159,13 @@ public class View extends JFrame{
 	}
 	
 	/*
+	 * set date
+	 */
+	public void setDate(Date date){
+		this.dateContract.setDate(date);
+	}
+	
+	/*
 	 * Returns user firstname
 	 */
 	public String getFirstName(){
@@ -166,10 +173,24 @@ public class View extends JFrame{
 	}
 	
 	/*
+	 * Sets firstname texfield
+	 */
+	public void setFirstName(String name){
+		this.tfFirstName.setText(name);
+	}
+	
+	/*
 	 * Returns user lastname
 	 */
 	public String getLastName(){
 		return tfLastName.getText();
+	}
+	
+	/*
+	 * Sets firstname texfield
+	 */
+	public void setLastName(String name){
+		this.tfLastName.setText(name);
 	}
 	
 	/*

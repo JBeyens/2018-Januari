@@ -112,9 +112,14 @@ public class ControllerRemote {
 					person.setRemote(view.getRemote());
 				
 				dataManager.updatePerson(person);
+				
+				view.setFirstName("");
+				view.setLastName("");
+				view.setDate(null);
 			} catch (Exception e1) {
 				e1.printStackTrace();
 				view.showMessage("Input parameters not correct!");
+				
 			}
 			finally{
 				/*
