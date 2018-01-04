@@ -19,7 +19,7 @@ import javax.persistence.Table;
  */
 
 @Entity
-@NamedQuery(name="inactiveRemotes", query = "select r from Remote r where r.isActive = false")
+@NamedQuery(name="findUnusedRemotes", query = "select r from Remote r where r.isActive = false")
 @Table(name ="Remote")
 public class Remote implements Serializable{
 	/**
