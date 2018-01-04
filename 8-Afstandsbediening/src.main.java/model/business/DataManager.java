@@ -4,8 +4,6 @@ import java.util.ArrayList;
 
 import org.apache.log4j.Logger;
 
-import model.business.interfaces.IGateObserver;
-import model.business.interfaces.IGateSubject;
 import model.entities.Address;
 import model.entities.EntityDAO;
 import model.entities.Person;
