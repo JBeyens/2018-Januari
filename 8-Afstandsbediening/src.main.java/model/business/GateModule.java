@@ -6,10 +6,10 @@ import java.util.ArrayList;
 
 import org.apache.log4j.Logger;
 
+import model.business.interfaces.IGateModule;
+import model.business.interfaces.IGateObserver;
+import model.business.interfaces.IRemoteModule;
 import model.entities.Person;
-import model.interfaces.IGateModule;
-import model.interfaces.IGateObserver;
-import model.interfaces.IRemoteModule;
 import values.DefaultSettings;
 
 /**

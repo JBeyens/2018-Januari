@@ -1,6 +1,9 @@
 package model.business;
 
 import java.util.ArrayList;
+
+import model.business.interfaces.AdminObserver;
+import model.business.interfaces.AdminSubject;
 import values.DefaultSettings;
 
 public class Administrator implements AdminSubject{

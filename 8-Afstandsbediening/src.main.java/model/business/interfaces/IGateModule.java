@@ -1,4 +1,4 @@
-package model.interfaces;
+package model.business.interfaces;
 
 public interface IGateModule {
 	public void verifyAndUpdateFrequencyRemote(IRemoteModule remote);

@@ -5,10 +5,10 @@ import org.junit.Test;
 import static org.junit.Assert.assertNotEquals;
 
 import model.business.GateModule;
+import model.business.interfaces.IRemoteModule;
 import model.entities.Address;
 import model.entities.Person;
 import model.entities.Remote;
-import model.interfaces.IRemoteModule;
 
 import static org.junit.Assert.*;
 

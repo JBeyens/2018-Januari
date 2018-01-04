@@ -1,8 +1,8 @@
 package model.business;
 
+import model.business.interfaces.IGateModule;
+import model.business.interfaces.IRemoteModule;
 import model.entities.Remote;
-import model.interfaces.IGateModule;
-import model.interfaces.IRemoteModule;
 
 /**
  * @Author Jef Beyens & Ben Vandevorst

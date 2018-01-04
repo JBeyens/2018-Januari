@@ -1,5 +1,6 @@
 package model.business;
 
+import model.business.interfaces.AdminObserver;
 import model.entities.Person;
 
 public class User implements AdminObserver{

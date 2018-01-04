@@ -1,4 +1,4 @@
-package model.interfaces;
+package model.business.interfaces;
 
 public interface IRemoteModule {
 	public String getSerialNumber();

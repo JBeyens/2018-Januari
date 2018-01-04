@@ -6,9 +6,9 @@ import org.junit.Before;
 import org.junit.Test;
 
 import model.business.RemoteModule;
+import model.business.interfaces.IGateModule;
+import model.business.interfaces.IRemoteModule;
 import model.entities.Remote;
-import model.interfaces.IGateModule;
-import model.interfaces.IRemoteModule;
 
 /**
  * 	@Author Jef Beyens & Ben Vandevorst

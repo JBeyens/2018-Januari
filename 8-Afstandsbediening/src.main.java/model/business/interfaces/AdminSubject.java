@@ -1,4 +1,4 @@
-package model.business;
+package model.business.interfaces;
 
 public interface AdminSubject {
 	void addObserver(AdminObserver o);

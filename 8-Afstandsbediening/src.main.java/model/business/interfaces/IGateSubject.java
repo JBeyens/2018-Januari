@@ -1,4 +1,4 @@
-package model.interfaces;
+package model.business.interfaces;
 
 public interface IGateSubject {
 	public void registerGate(IGateObserver gateModule);

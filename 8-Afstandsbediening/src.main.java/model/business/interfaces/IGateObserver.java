@@ -1,4 +1,4 @@
-package model.interfaces;
+package model.business.interfaces;
 
 import java.util.ArrayList;
 
