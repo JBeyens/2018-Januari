@@ -26,12 +26,10 @@ public class ControllerRemote {
 	private Logger log;
 	private View view;
 	private GateModule gateModule;
-	private DataManager dataManager;
 	
 	public ControllerRemote(){
 		log = DefaultSettings.getLogger("Controller");
 		gateModule = new GateModule();
-		dataManager = new DataManager();
 		dataManager.registerGate(gateModule);
 		
 		view = new View();
@@ -56,28 +54,28 @@ public class ControllerRemote {
 	 * Creates list of al inactive Remotes => not given to a inhabitant
 	 */
 	private void setInactiveRemote(){	
-		view.setInactiveRemote(dataManager.getInactiveRemotes());
+		view.setInactiveRemote( DataManager.getUnusedRemotes() );
 	}
 	
 	/*
 	 * Add all persons to list for simulation
 	 */	
 	private void setRemotes(){
-		view.addRemotes( dataManager.getAllRemotes() );
+		view.addRemotes( DataManager.getAllRemotes() );
 	}
 	
 	/*
 	 * JPA Namedquery (Address class) => unused Addresses returned
 	 */
 	private void setUnusedAddress(){
-		view.setUnusedAddress(dataManager.getUnusedAddress());
+		view.setUnusedAddress( DataManager.getUnusedAddress() );
 	}
 	
 	/*
 	 * Query list of all active inhabitants and pass them to view
 	 */
 	private void setOverView(){
-		view.setOverview(dataManager.getAllPersons());
+		view.setOverview( DataManager.getAllPersons() );
 	} 
 	
 	/*
@@ -111,7 +109,7 @@ public class ControllerRemote {
 				if(view.getRemote() != null)
 					person.setRemote(view.getRemote());
 				
-				dataManager.updatePerson(person);
+				DataManager.updatePerson(person);
 				
 				view.setFirstName("");
 				view.setLastName("");
