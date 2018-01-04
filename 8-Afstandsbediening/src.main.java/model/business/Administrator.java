@@ -16,12 +16,12 @@ public class Administrator implements AdminSubject{
 	private long frequency;
 	private ArrayList<AdminObserver> listeners;
 	
-	public Administrator(ArrayList<AdminObserver> list){
+	public Administrator(){
 		log = DefaultSettings.getLogger(this.getClass().getSimpleName());
 		this.setFrequency(DefaultSettings.RANDOM.nextLong());
-		this.setListeners( list != null ? list : new ArrayList<AdminObserver>() ); // Prevent nullReferenceException
+		loadListenersFromDB();
 	}
-	
+
 	/**
 	 * Getter & setter for list of subscribed listeners
 	 **/
@@ -46,6 +46,18 @@ public class Administrator implements AdminSubject{
 		this.frequency = frequency;
 	}
 
+	
+	/**
+	 * Loads all persons from database and adds Users for each person with Remote and with Remote set to active
+	 **/
+	private void loadListenersFromDB() {
+		ArrayList<Person> allPersons = DataManager.getAllPersons();
+		for (Person person : allPersons) {
+			if ( person.getRemote() != null && person.getRemote().getIsActive() )
+				listeners.add(new User(person));	
+		}		
+	}
+	
 	/**
 	 * Add- & remove function for observer pattern
 	 **/
