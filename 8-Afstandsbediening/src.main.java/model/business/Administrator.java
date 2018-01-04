@@ -6,6 +6,7 @@ import org.apache.log4j.Logger;
 
 import model.business.interfaces.AdminObserver;
 import model.business.interfaces.AdminSubject;
+import model.entities.Person;
 import values.DefaultSettings;
 
 public class Administrator implements AdminSubject{
@@ -16,7 +17,7 @@ public class Administrator implements AdminSubject{
 	public Administrator(ArrayList<AdminObserver> list){
 		log = DefaultSettings.getLogger(this.getClass().getSimpleName());
 		this.setFrequency(DefaultSettings.RANDOM.nextLong());
-		this.setListeners(list);
+		this.setListeners( list != null ? list : new ArrayList<AdminObserver>() ); // Prevent nullReferenceException
 	}
 	
 	/**
@@ -64,6 +65,56 @@ public class Administrator implements AdminSubject{
 			adminObserver.update(getFrequency());
 		}
 	}
+
 	
+	/**
+	 * Registers inputted person (if not registered). 
+	 * @return Boolean - true if succesfull, false if not succesfull
+	 **/
+	public Boolean registerPerson(Person person) {
+		if (findUserInList(person) != null) // Check if person is already in list
+			return false;
+		
+		if (person.getRemote() != null) 
+			person.getRemote().setIsActive(true);
+		
+		DataManager.updatePerson(person); 
+		listeners.add(new User(person));
+		return true;
+	}
 	
+	/**
+	 * Remove existing person (if registered). 
+	 * @return Boolean - true if succesfull, false if not succesfull
+	 */
+	public boolean deActivatePerson(Person person) {
+		User user = findUserInList(person);
+		
+		if (user == null)
+			return false;
+		
+		if (user.getPerson().getRemote() != null) // if (User has a remote object)
+			user.getPerson().getRemote().setIsActive(false);
+			
+		DataManager.updatePerson(person);
+		listeners.remove(user);
+		return true;
+	}	
+	
+	private User findUserInList(Person person)
+	{	
+		for (AdminObserver o : listeners) {
+			User user = (User) o;
+			
+			if (user == null) // if (AdminObserver was not castable to User)
+				continue;
+			if (user.getPerson() != person) // if (User object does not reference the same person)
+				continue;
+			
+			// We found the correct User! 
+			return user;
+		}
+		
+		return null;
+	}
 }
