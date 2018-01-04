@@ -84,11 +84,7 @@ public class Person implements Serializable {
 	public Remote getRemote() {
 		return remote; } 
 	public void setRemote(Remote remote) {
-		if (this.remote != null)
-			this.remote.setIsActive(false);
-		
 		this.remote = remote;
-		remote.setIsActive(true);
 	}
 
 	@Override
