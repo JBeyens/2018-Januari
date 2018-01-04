@@ -11,7 +11,7 @@ import model.entities.Remote;
 import values.DefaultSettings;
 
 /*
- * Business layer for retrieval & storage of data
+ * Business layer for retrieval/storage of data from/to database
  */
 
 //remove interface
