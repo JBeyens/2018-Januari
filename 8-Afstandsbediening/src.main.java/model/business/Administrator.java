@@ -45,4 +45,5 @@ public class Administrator implements AdminSubject{
 		}
 	}
 	
+	
 }

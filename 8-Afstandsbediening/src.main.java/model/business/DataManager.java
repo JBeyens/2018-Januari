@@ -15,16 +15,22 @@ import values.DefaultSettings;
 /*
  * Business layer for retrieval & storage of data
  */
+
+//remove interface
 public class DataManager implements IGateSubject{
 	// FIELDS
 	private Logger log;
 	// FIELDS
+	//Remove fields
 	private ArrayList<Person> persons;
 	private ArrayList<IGateObserver> gateModules;
 	
 	public DataManager() {
 		log = DefaultSettings.getLogger("DataManager");
+		
+		//Remove
 		gateModules = new ArrayList<>();
+		//remove
 		readAllPersons();
 	}
 	
@@ -54,8 +60,10 @@ public class DataManager implements IGateSubject{
 	 **/	
 	public ArrayList<Person> getAllPersons() {
 		persons = (ArrayList<Person>) EntityDAO.PERSON_DAO.findAll();
+		//Remove
 		notifyGateObservers();
 		
+		//add return to line above
 		return persons;
 	}	
 	
@@ -67,17 +75,19 @@ public class DataManager implements IGateSubject{
 	}
 	
 
-
+	//Remove
 	@Override
 	public void registerGate(IGateObserver gateModule) {
 		gateModules.add(gateModule);
 		notifyGateObservers();
 	}
+	//Remove
 	@Override
 	public void unregisterGate(IGateObserver gateModule) {
 		gateModules.add(gateModule);
 		notifyGateObservers();
 	}
+	//Remove
 	private void notifyGateObservers() {
 		long newFrequency = DefaultSettings.RANDOM.nextLong();
 		
@@ -90,11 +100,15 @@ public class DataManager implements IGateSubject{
 	 *  Register new person
 	 **/
 	public void registerPerson(Person person) {
+		//remove setactive other class
 		persons.add(person); 
 		if (person.getRemote() != null)
 			person.getRemote().setIsActive(true);
 		
+		//entitydao call functie
 		updatePerson(person); // Database
+		
+		//remove
 		notifyGateObservers();
 	}
 	
@@ -102,11 +116,15 @@ public class DataManager implements IGateSubject{
 	 * Remove existing person (if registered)
 	 */
 	public void deActivatePerson(Person person) {
+		//remove zie vorig
 		persons.remove(person);
 		if (person.getRemote() != null)
 			person.getRemote().setIsActive(false);
 		
+		//use entitydao => geen nood aan andere functie op te roepen
 		updatePerson(person);
+		
+		//remove
 		notifyGateObservers();
 	}
 	
@@ -127,7 +145,8 @@ public class DataManager implements IGateSubject{
 	/**
 	 *   Loads all users from database. 
 	 *   @Return Boolean - true if list exists at end of operation, else false.
-	 **/	
+	 **/
+	//currently not necessary
 	private boolean readAllPersons() {
 		persons = (ArrayList<Person>) EntityDAO.PERSON_DAO.findAll();
 		return persons != null;
