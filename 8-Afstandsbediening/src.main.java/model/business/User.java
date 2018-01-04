@@ -21,7 +21,7 @@ public class User implements AdminObserver{
 
 	public boolean giveId(){
 		return false;
-		//checkId functie in Admin? met person als paramter om op alle gegevens te checken?
+		//checkId functie in Admin? met person als parameter om op alle gegevens te checken?
 	}
 
 	@Override
