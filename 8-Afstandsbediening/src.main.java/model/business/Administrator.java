@@ -19,6 +19,7 @@ public class Administrator implements AdminSubject{
 	public Administrator(){
 		log = DefaultSettings.getLogger(this.getClass().getSimpleName());
 		this.setFrequency(DefaultSettings.RANDOM.nextLong());
+		this.listeners = new ArrayList<>();
 		loadListenersFromDB();
 	}
 
