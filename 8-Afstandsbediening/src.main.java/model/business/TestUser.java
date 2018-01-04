@@ -30,7 +30,10 @@ public class TestUser {
 		EntityDAO.PERSON_DAO.create(person);
 		System.out.println("Person saved to database!");
 		
-
+		System.out.println("Remote becomes active");
+		System.out.println("Admin gets new observer");
+		
+		person.getRemote().setIsActive(true);
 	}
 
 }
