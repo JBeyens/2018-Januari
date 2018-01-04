@@ -7,7 +7,9 @@ import org.apache.log4j.Logger;
 import model.business.interfaces.AdminObserver;
 import model.business.interfaces.AdminSubject;
 import model.entities.Person;
+import values.RegisterPersonResult;
 import values.DefaultSettings;
+import values.DeactivatePersonResult;
 
 public class Administrator implements AdminSubject{
 	private Logger log;
@@ -69,36 +71,39 @@ public class Administrator implements AdminSubject{
 	
 	/**
 	 * Registers inputted person (if not registered). 
-	 * @return Boolean - true if succesfull, false if not succesfull
+	 * @return AddPersonResult - Enum which contains possible outcomes of the situation
 	 **/
-	public Boolean registerPerson(Person person) {
+	public RegisterPersonResult registerPerson(Person person) {
 		if (findUserInList(person) != null) // Check if person is already in list
-			return false;
+			return RegisterPersonResult.AlreadyInList;
 		
-		if (person.getRemote() != null) 
-			person.getRemote().setIsActive(true);
+		if (person.getRemote() == null)
+			return RegisterPersonResult.NoRemote;
 		
+		person.getRemote().setIsActive(true);
 		DataManager.updatePerson(person); 
+		
 		listeners.add(new User(person));
-		return true;
+		return RegisterPersonResult.Succesfull;
 	}
 	
 	/**
 	 * Remove existing person (if registered). 
-	 * @return Boolean - true if succesfull, false if not succesfull
+	 * @return AddRemovePersonResult - Enum which contains possible outcomes of the situation
 	 */
-	public boolean deActivatePerson(Person person) {
+	public DeactivatePersonResult deActivatePerson(Person person) {
 		User user = findUserInList(person);
 		
 		if (user == null)
-			return false;
+			return DeactivatePersonResult.NotFound;
 		
-		if (user.getPerson().getRemote() != null) // if (User has a remote object)
-			user.getPerson().getRemote().setIsActive(false);
-			
+		if (user.getPerson().getRemote() == null) // if (User has a remote object)
+			return DeactivatePersonResult.NoRemote;
+		
+		user.getPerson().getRemote().setIsActive(false);
 		DataManager.updatePerson(person);
 		listeners.remove(user);
-		return true;
+		return DeactivatePersonResult.Succesfull;
 	}	
 	
 	private User findUserInList(Person person)
