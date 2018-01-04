@@ -17,7 +17,7 @@ import values.DefaultSettings;
  */
 
 //remove interface
-public final class DataManager implements IGateSubject{
+public final class DataManager {
 	// FIELDS
 	private static Logger log = DefaultSettings.getLogger(DataManager.class.getSimpleName());
 
@@ -69,59 +69,5 @@ public final class DataManager implements IGateSubject{
 	public static void updateRemote(Remote remote) {
 		log.debug("Asking datalayer to update " + Remote.class.getSimpleName() + " '" + remote.toString() + "'");
 		EntityDAO.REMOTE_DAO.update(remote);
-	}	
-	
-
-	//Remove
-	@Override
-	public void registerGate(IGateObserver gateModule) {
-		gateModules.add(gateModule);
-		notifyGateObservers();
-	}
-	//Remove
-	@Override
-	public void unregisterGate(IGateObserver gateModule) {
-		gateModules.add(gateModule);
-		notifyGateObservers();
-	}
-	//Remove
-	private void notifyGateObservers() {
-		long newFrequency = DefaultSettings.RANDOM.nextLong();
-		
-		for (IGateObserver gate : gateModules) {
-			gate.handleNotification(newFrequency, persons);
-		}
-	}	
-	
-	/**
-	 *  Register new person
-	 **/
-	public void registerPerson(Person person) {
-		//remove setactive other class
-		persons.add(person); 
-		if (person.getRemote() != null)
-			person.getRemote().setIsActive(true);
-		
-		//entitydao call functie
-		updatePerson(person); // Database
-		
-		//remove
-		notifyGateObservers();
-	}
-	
-	/**
-	 * Remove existing person (if registered)
-	 */
-	public void deActivatePerson(Person person) {
-		//remove zie vorig
-		persons.remove(person);
-		if (person.getRemote() != null)
-			person.getRemote().setIsActive(false);
-		
-		//use entitydao => geen nood aan andere functie op te roepen
-		updatePerson(person);
-		
-		//remove
-		notifyGateObservers();
-	}	
+	}		
 }
