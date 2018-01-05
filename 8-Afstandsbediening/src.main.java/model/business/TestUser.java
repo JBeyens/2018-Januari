@@ -9,7 +9,6 @@ import model.entities.Address;
 import model.entities.Person;
 import model.entities.Remote;
 import values.DefaultSettings;
-import values.RegisterPersonResult;
 
 public class TestUser {
 
