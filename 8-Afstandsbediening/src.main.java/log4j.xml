@@ -27,9 +27,9 @@
 
 
 	<logger name="com.journaldev.log4j" additivity="false">
-		<level value="OFF" />
+		<level value="DEBUG" />
 		<appender-ref ref="file" />
-		<appender-ref ref="console" />
+<!-- 		<appender-ref ref="console" /> -->
 	</logger>
 
 	<logger name="com.journaldev.log4j.logic" additivity="false">
@@ -38,9 +38,9 @@
 	</logger>
 
 	<root>
-		<priority value="OFF" />
+		<priority value="DEBUG" />
 		<appender-ref ref="file" />
-		<appender-ref ref="console" />
+<!-- 		<appender-ref ref="console" /> -->
 	</root>
 
 </log4j:configuration>
