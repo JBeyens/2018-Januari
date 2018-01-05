@@ -88,16 +88,16 @@ public class Administrator implements AdminSubject{
 	 **/
 	public RegisterPersonResult registerPerson(Person person) {
 		if (findUserInList(person) != null) // Check if person is already in list
-			return RegisterPersonResult.AlreadyInList;
+			return RegisterPersonResult.alreadyInList;
 		
 		if (person.getRemote() == null)
-			return RegisterPersonResult.NoRemote;
+			return RegisterPersonResult.noRemote;
 		
 		person.getRemote().setIsActive(true);
 		DataManager.updatePerson(person); 
 		
 		listeners.add(new User(person));
-		return RegisterPersonResult.Succesfull;
+		return RegisterPersonResult.succesfull;
 	}
 	
 	/**
