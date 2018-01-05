@@ -14,18 +14,17 @@ public class User implements AdminObserver{
 		return person;
 	}
 	
-	public boolean openGate(){
-		return false;
-		
+	public boolean openGate(Administrator gateAdmin){
+		return gateAdmin.askFrequency(giveId()) == getPerson().getRemote().getFrequency();		
 	}
 
-	public boolean giveId(){
-		return false;
+	public String giveId(){
+		return getPerson().getRemote().getSerialNumber();
 		//checkId functie in Admin? met person als parameter om op alle gegevens te checken?
 	}
 
 	@Override
 	public void update(long frequency) {
-		this.person.getRemote().setFrequency(frequency);
+		getPerson().getRemote().setFrequency(frequency);
 	}
 }

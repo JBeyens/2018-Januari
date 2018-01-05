@@ -1,12 +1,16 @@
 package model.business;
 
+import java.sql.Date;
+import java.time.LocalDate;
 import java.util.ArrayList;
 
 import org.apache.log4j.Logger;
 
 import model.business.interfaces.AdminObserver;
 import model.business.interfaces.AdminSubject;
+import model.business.interfaces.IRemoteModule;
 import model.entities.Person;
+import model.entities.Remote;
 import values.RegisterPersonResult;
 import values.DefaultSettings;
 import values.DeactivatePersonResult;
@@ -119,6 +123,39 @@ public class Administrator implements AdminSubject{
 		return DeactivatePersonResult.Succesfull;
 	}	
 	
+
+	
+	/** 
+	 * Method to check wether a remote with certain serialNumber can receive the correct frequency
+	 * @return long - frequency of the gate, is zero if the serialNumber is invalid or not authorized
+	 **/
+	public long askFrequency(String serialNumber)
+	{		
+		log.info("Remote asking access to gate has serial number: " + serialNumber);
+		User user = findUserInList(serialNumber);
+		if (user == null) {
+			log.info("Not registered, zero frequency returned!" );
+			return 0;
+		}
+		
+		Person person = user.getPerson();
+		Remote remote = person.getRemote();
+		Date now  = Date.valueOf(LocalDate.now());			
+		if (!remote.getIsActive()) {
+			log.trace("- Remote registered to " + person.toString() + ", but not activated!");
+		} else if (person.getEndOfContract().before(now)) {
+			log.trace("- Remote registered to " + person.toString() + ", but user contract has expired!");
+		} else {
+			log.trace("- Remote registered to " + person.toString() + ", contract valid! Updating remote!");
+			user.update(getFrequency());
+			return getFrequency();
+		}				
+		return 0;
+	}
+	
+	/**
+	 * Finds User in list that has the same reference to person as the inputted parameter
+	 **/
 	private User findUserInList(Person person)
 	{	
 		for (AdminObserver o : listeners) {
@@ -133,6 +170,33 @@ public class Administrator implements AdminSubject{
 			return user;
 		}
 		
+		return null;
+	}
+
+	
+	/**
+	 * Finds User in list that has a remote with the same serial number registered to it
+	 **/
+	private User findUserInList(String serialNumber)
+	{	
+		for (AdminObserver o : listeners) {
+			User user = (User) o;
+			
+			if (user == null || user.getPerson() == null || user.getPerson().getRemote() == null) 
+				continue;
+			String serial = user.getPerson().getRemote().getSerialNumber();
+			if ( serial == null || !serial.equals(serialNumber)) { // if (User object does not reference the same person)
+				log.trace("- Different serial number for remote registered to " + user.getPerson().toString()
+						+ ". Serial number is " + serial == null ? "" : serial.toString());	
+				continue;
+			}
+			
+			// We found the correct User!
+			log.trace("- Serial number registered to " + user.getPerson().toString() + "!");	 
+			return user;
+		}
+
+		log.trace("- No user found with remote with serial number " + serialNumber.toString() + " linked to it!");	
 		return null;
 	}
 }

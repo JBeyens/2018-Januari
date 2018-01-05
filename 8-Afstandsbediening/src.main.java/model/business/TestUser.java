@@ -6,9 +6,10 @@ import java.time.LocalDate;
 import org.fluttercode.datafactory.impl.DataFactory;
 
 import model.entities.Address;
-import model.entities.EntityDAO;
 import model.entities.Person;
 import model.entities.Remote;
+import values.DefaultSettings;
+import values.RegisterPersonResult;
 
 public class TestUser {
 
@@ -16,24 +17,32 @@ public class TestUser {
 		DataFactory factory = new DataFactory();
 		Administrator admin = new Administrator();
 		
-		System.out.println("Administrator created");
+		System.out.println("Administrator created!");
 		System.out.println("Administrator has " + admin.getListeners().size() +" observers");
 		
-		Person person = new Person();
+		Person person = new Person();		
+		System.out.println("New person created!");
 		
 		person.setFirstname(factory.getFirstName());
 		person.setLastname(factory.getLastName());
-		person.setAdress(new Address("Kersenlaan", 10, 1, 3300, "Leuven", "Ijsland"));
-		person.setRemote(new Remote("123456789", 100));
+		person.setAdress(new Address("Kersenlaan", 10, DefaultSettings.RANDOM.nextInt(), 3300, "Leuven", "Ijsland"));
+		person.setRemote(new Remote(Long.toString( DefaultSettings.RANDOM.nextLong()), 100));
 		person.setEndOfContract(Date.valueOf(LocalDate.of(2018, 7, 1)));
+
+		System.out.println("Registering this person to administrator... (person will also be saved to database in process)");
+		RegisterPersonResult registerResult = admin.registerPerson(person);
+		System.out.println(registerResult.toString());
 		
-		EntityDAO.PERSON_DAO.create(person);
-		System.out.println("Person saved to database!");
+		User remote = new User(person);
+		System.out.println("Made new remote and registered person '" + person.toString() + "' to it.");
+		System.out.println("Trying to open gate with this remote...");
+		if (remote.openGate(admin))
+			System.out.println("Access granted!");
+		else 
+			System.out.println("Access denied");
+
+		System.exit(0);
 		
-		System.out.println("Remote becomes active");
-		System.out.println("Admin gets new observer");
-		
-		person.getRemote().setIsActive(true);
 	}
 
 }
