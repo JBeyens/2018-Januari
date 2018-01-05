@@ -8,7 +8,6 @@ import org.apache.log4j.Logger;
 
 import model.business.interfaces.AdminObserver;
 import model.business.interfaces.AdminSubject;
-import model.business.interfaces.IRemoteModule;
 import model.entities.Person;
 import model.entities.Remote;
 import values.RegisterPersonResult;
