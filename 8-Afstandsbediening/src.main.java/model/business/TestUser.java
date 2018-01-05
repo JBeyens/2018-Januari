@@ -30,8 +30,7 @@ public class TestUser {
 		person.setEndOfContract(Date.valueOf(LocalDate.of(2018, 7, 1)));
 
 		System.out.println("Registering this person to administrator... (person will also be saved to database in process)");
-		RegisterPersonResult registerResult = admin.registerPerson(person);
-		System.out.println(registerResult.toString());
+		System.out.println(admin.registerPerson(person).toString());
 		
 		User remote = new User(person);
 		System.out.println("Made new remote and registered person '" + person.toString() + "' to it.");
