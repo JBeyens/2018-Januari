@@ -92,11 +92,7 @@ public class Administrator implements AdminSubject{
 	private boolean checkDateExpired(Date date){
 		int result = date.compareTo(Date.valueOf(LocalDate.now()));
 		
-		if(result >= 0)
-			return true;
-		
-		else
-			return false;
+		return result >= 0;
 	}
 	
 	/**
