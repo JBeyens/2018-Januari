@@ -36,9 +36,8 @@ public class User implements AdminObserver{
 		
 		return gate.getFrequency() == remote.getFrequency();		
 	}
-
-	//can be private
-	public void giveId(){
+	
+	private void giveId(){
 		gate.checkId(this);
 	}
 

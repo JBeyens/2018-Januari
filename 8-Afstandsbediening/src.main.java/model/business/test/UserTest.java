@@ -38,26 +38,31 @@ public class UserTest {
 
 
 	@Test
-	public void Verify_And_Update_Frequency_Remote_When_Remote_Is_Active_Contract_OK_Expect_Succesfull() {
+	public void Open_Gate_When_Remote_Is_Active_Contract_OK_Acces_Granted() {
 		admin.addObserver(user);
+		user.getRemote().setIsActive(true);
+		
 		Boolean bool = user.openGate();
 
-		
 		assertEquals(user.getRemote().getFrequency(), admin.getFrequency());
 		assertTrue(bool);
 	}
 
-	//@Test
-	public void Verify_And_Update_Frequency_Remote_When_Contract_Has_Expired_Expect_Expired() {
+	@Test
+	public void Open_Gate__When_Contract_Has_Expired_Acces_Denied() {
+		admin.addObserver(user);
+		user.getRemote().setIsActive(true);
 		user.getPerson().setEndOfContract(Date.valueOf(LocalDate.of(2000, 1, 1)));
 
-		admin.notifyAllObservers();
+		Boolean bool = user.openGate();
 
 		assertNotEquals(user.getPerson().getRemote().getFrequency(), admin.getFrequency());
+		assertFalse(bool);
 	}
 
-	//@Test
-	public void Verify_And_Update_Frequency_Remote_When_Remote_Is_Not_Active() {
+	@Test
+	public void Open_Gate_When_Remote_Is_Not_Active_Acces_Denied() {
+		admin.addObserver(user);
 		user.getPerson().getRemote().setIsActive(false);
 		Boolean bool = user.openGate();
 
