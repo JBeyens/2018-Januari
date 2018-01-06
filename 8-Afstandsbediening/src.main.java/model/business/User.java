@@ -19,10 +19,10 @@ public class User implements AdminObserver{
 		return person;
 	}
 	
-	public boolean openGate(Administrator gateAdmin){
+	public boolean openGate(){
 		//hir komt dan boolean check of deze frequentie == admin frequency
 		//sommige sites zeggen dat observer ook reference naar subject mag bijhouden mss es nadeken hierover
-		return gateAdmin.askFrequency(giveId()) == getPerson().getRemote().getFrequency();		
+		return gate.askFrequency(giveId()) == getPerson().getRemote().getFrequency();		
 	}
 
 	public boolean giveId(Administrator gateAdmin){

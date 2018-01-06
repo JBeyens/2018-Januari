@@ -34,7 +34,7 @@ public class TestUser {
 		User remote = new User(person, person.getRemote(), admin);
 		System.out.println("Made new remote and registered person '" + person.toString() + "' to it.");
 		System.out.println("Trying to open gate with this remote...");
-		if (remote.openGate(admin))
+		if (remote.openGate())
 			System.out.println("Access granted!");
 		else 
 			System.out.println("Access denied");
@@ -43,7 +43,7 @@ public class TestUser {
 		remote.getPerson().getRemote().setIsActive(false);
 		System.out.println("Remote set inactive!");
 		System.out.println("Trying to open gate with this remote...");
-		if (remote.openGate(admin))
+		if (remote.openGate())
 			System.out.println("Access granted!");
 		else 
 			System.out.println("Access denied");
@@ -52,7 +52,7 @@ public class TestUser {
 		remote.getPerson().setEndOfContract(Date.valueOf(LocalDate.of(2000, 1, 1)));
 		System.out.println("Contract person has expired!");
 		System.out.println("Trying to open gate with this remote...");
-		if (remote.openGate(admin))
+		if (remote.openGate())
 			System.out.println("Access granted!");
 		else 
 			System.out.println("Access denied");
