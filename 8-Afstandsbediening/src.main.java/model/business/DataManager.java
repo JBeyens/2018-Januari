@@ -48,6 +48,11 @@ public final class DataManager {
 	}
 	
 	// Returns inactive remotes by namedquery JPA
+	public static ArrayList<Person> getAllPersonsWithActiveRemote(){
+		log.debug("Asking datalayer to retrieve all persons with active remote");
+		return (ArrayList<Person>) EntityDAO.PERSON_DAO.executeNamedQuery("activePersonRemote");
+	}
+	// Returns inactive remotes by namedquery JPA
 	public static ArrayList<Remote> getUnusedRemotes(){
 		log.debug("Asking datalayer to retrieve all unused remotes");
 		return (ArrayList<Remote>) EntityDAO.REMOTE_DAO.executeNamedQuery("findUnusedRemotes");

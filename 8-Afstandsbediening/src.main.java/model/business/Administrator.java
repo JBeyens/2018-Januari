@@ -8,7 +8,7 @@ import org.apache.log4j.Logger;
 
 import model.business.interfaces.AdminObserver;
 import model.business.interfaces.AdminSubject;
-import model.entities.EntityDAO;
+import model.business.DataManager;
 import model.entities.Person;
 import model.entities.Remote;
 import values.RegisterPersonResult;
@@ -56,10 +56,10 @@ public class Administrator implements AdminSubject{
 	 * Loads all persons from database and adds Users for each person with Remote and with Remote set to active
 	 **/
 	private void loadListenersFromDB() {
-		ArrayList<Person> allPersons = (ArrayList<Person>) EntityDAO.PERSON_DAO.executeNamedQuery("activePersonRemote");
+		ArrayList<Person> allPersons = DataManager.getAllPersonsWithActiveRemote();
 		
 		for (Person person : allPersons) 
-				listeners.add(new User(person));				
+			listeners.add(new User(person, person.getRemote(), this));				
 	}
 	
 	/**
@@ -103,7 +103,7 @@ public class Administrator implements AdminSubject{
 		person.getRemote().setIsActive(true);
 		DataManager.updatePerson(person); 
 		
-		listeners.add(new User(person));
+		listeners.add(new User(person, person.getRemote(), this));
 		return RegisterPersonResult.succesfull.toString();
 	}
 	

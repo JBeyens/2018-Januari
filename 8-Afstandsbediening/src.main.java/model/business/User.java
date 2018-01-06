@@ -2,12 +2,17 @@ package model.business;
 
 import model.business.interfaces.AdminObserver;
 import model.entities.Person;
+import model.entities.Remote;
 
 public class User implements AdminObserver{
 	private Person person;
+	private Administrator gate;
+	private Remote remote;
 
-	public User(Person person){
+	public User(Person person, Remote remote, Administrator gate){
 		this.person = person;
+		this.gate = gate;
+		this.remote = remote;
 	}
 
 	public Person getPerson() {
