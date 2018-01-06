@@ -89,37 +89,37 @@ public class Administrator implements AdminSubject{
 	 * Registers inputted person (if not registered). 
 	 * @return AddPersonResult - Enum which contains possible outcomes of the situation
 	 **/
-	public RegisterPersonResult registerPerson(Person person) {
+	public String registerPerson(Person person) {
 		if (findUserInList(person) != null) // Check if person is already in list
-			return RegisterPersonResult.alreadyInList;
+			return RegisterPersonResult.alreadyInList.toString();
 		
 		if (person.getRemote() == null)
-			return RegisterPersonResult.noRemote;
+			return RegisterPersonResult.noRemote.toString();
 		
 		person.getRemote().setIsActive(true);
 		DataManager.updatePerson(person); 
 		
 		listeners.add(new User(person));
-		return RegisterPersonResult.succesfull;
+		return RegisterPersonResult.succesfull.toString();
 	}
 	
 	/**
 	 * Remove existing person (if registered). 
 	 * @return AddRemovePersonResult - Enum which contains possible outcomes of the situation
 	 */
-	public DeactivatePersonResult deActivatePerson(Person person) {
+	public String deActivatePerson(Person person) {
 		User user = findUserInList(person);
 		
 		if (user == null)
-			return DeactivatePersonResult.NotFound;
+			return DeactivatePersonResult.NotFound.toString();
 		
 		if (user.getPerson().getRemote() == null) // if (User has a remote object)
-			return DeactivatePersonResult.NoRemote;
+			return DeactivatePersonResult.NoRemote.toString();
 		
 		user.getPerson().getRemote().setIsActive(false);
 		DataManager.updatePerson(person);
 		listeners.remove(user);
-		return DeactivatePersonResult.Succesfull;
+		return DeactivatePersonResult.Succesfull.toString();
 	}	
 	
 
