@@ -55,8 +55,9 @@ id INT(6)  PRIMARY KEY auto_increment,
 firstName VARCHAR(30) NOT NULL,
 lastName VARCHAR(30) NOT NULL,
 addressId INT(6) NULL,
-remoteId INT(6) NOT NULL,
+remoteId INT(6) NULL,
 endOfContract DATE NOT NULL,
 FOREIGN KEY fk_a(addressId) REFERENCES Address(id) ON UPDATE no action ON DELETE no action,
 FOREIGN KEY fk_r(remoteId) REFERENCES Remote(id) ON UPDATE no action ON DELETE no action
 );
+
