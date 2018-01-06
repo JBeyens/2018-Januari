@@ -18,27 +18,33 @@ public class User implements AdminObserver{
 	public Person getPerson() {
 		return person;
 	}
+
+	public void setPerson(Person person) {
+		this.person = person;
+	}
 	
-	public boolean openGate(){
-		//hir komt dan boolean check of deze frequentie == admin frequency
-		//sommige sites zeggen dat observer ook reference naar subject mag bijhouden mss es nadeken hierover
-		return gate.askFrequency(giveId()) == getPerson().getRemote().getFrequency();		
+	public Remote getRemote() {
+		return remote;
 	}
 
-	public boolean giveId(Administrator gateAdmin){
-		return gateAdmin.checkId(this);
+	public void setRemote(Remote remote) {
+		this.remote = remote;
 	}
 	
-	public String giveId(){
-		return getPerson().getRemote().getSerialNumber();
+	public boolean openGate(){
+		giveId();
+		
+		return gate.getFrequency() == remote.getFrequency();		
+	}
+
+	//can be private
+	public void giveId(){
+		gate.checkId(this);
 	}
 
 	@Override
 	public void update(long frequency) {
-		//If remote not active, it cannot be updated
-		//is logischer als dit in admin komt ergens
-		if(getPerson().getRemote().getIsActive())
-			getPerson().getRemote().setFrequency(frequency);
+		getRemote().setFrequency(frequency);
 	}
 	
 }

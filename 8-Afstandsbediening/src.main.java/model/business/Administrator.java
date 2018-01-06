@@ -85,8 +85,8 @@ public class Administrator implements AdminSubject{
 	}
 
 	//check! try out
-	public boolean checkId(User user){
-		return true;
+	public void checkId(User user){
+		notifyAllObservers();
 	}
 	
 	/**

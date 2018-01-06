@@ -34,7 +34,7 @@ public class UserTest {
 		admin.setFrequency(newFrequency);
 
 		person = createPersonMock();
-		user = new User(person);
+		//user = new User(person);
 	}
 
 
