@@ -26,6 +26,7 @@ public class User implements AdminObserver{
 	@Override
 	public void update(long frequency) {
 		//If remote not active, it cannot be updated
+		//is logischer als dit in admin komt ergens
 		if(getPerson().getRemote().getIsActive())
 			getPerson().getRemote().setFrequency(frequency);
 	}
