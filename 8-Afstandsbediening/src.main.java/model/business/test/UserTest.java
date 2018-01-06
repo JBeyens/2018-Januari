@@ -4,7 +4,9 @@ import org.junit.Before;
 import org.junit.Test;
 import static org.junit.Assert.assertNotEquals;
 
+import model.business.Administrator;
 import model.business.GateModule;
+import model.business.User;
 import model.business.interfaces.IRemoteModule;
 import model.entities.Address;
 import model.entities.Person;
@@ -22,20 +24,18 @@ import java.sql.Date;
  * @Project Afstandsbediening
  * @Doel Test of GateModule
  */
-public class GateModuleTest {
+public class UserTest {
 	private Person person;
-	private GateModule gateModule;
-	private ArrayList<Person> personList;
+	private User user;
+	private Administrator admin;
 	private long newFrequency;
 
 	@Before
 	public void setUp() {
-		gateModule = new GateModule();
-		personList = new ArrayList<>();
+		admin = new Administrator();
 
-		person = createPersonMock();
-		personList.add(person);
-		gateModule.addPerson(person);
+		user = new User(createPersonMock());
+		admin.addObserver(user);
 
 		newFrequency = 789;
 	}

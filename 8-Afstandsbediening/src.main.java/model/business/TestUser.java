@@ -57,8 +57,6 @@ public class TestUser {
 		else 
 			System.out.println("Access denied");
 		
-		
-		
 		System.exit(0);
 		
 	}
