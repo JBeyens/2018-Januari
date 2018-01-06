@@ -2,7 +2,6 @@ package model.business.test;
 
 import org.junit.Before;
 import org.junit.Test;
-import static org.junit.Assert.assertNotEquals;
 
 import model.business.Administrator;
 import model.business.User;
