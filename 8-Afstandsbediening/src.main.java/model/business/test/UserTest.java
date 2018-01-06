@@ -57,7 +57,6 @@ public class UserTest {
 	@Test
 	public void Verify_And_Update_Frequency_Remote_When_Remote_Is_Not_Active() {
 		user.getPerson().getRemote().setIsActive(false);
-		admin.deActivatePerson(user.getPerson());
 		admin.notifyAllObservers();
 
 		assertNotEquals(user.getPerson().getRemote().getFrequency(), admin.getFrequency());
