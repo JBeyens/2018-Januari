@@ -84,6 +84,10 @@ public class Administrator implements AdminSubject{
 		}
 	}
 
+	//check! try out
+	public boolean checkId(User user){
+		return true;
+	}
 	
 	/**
 	 * Registers inputted person (if not registered). 

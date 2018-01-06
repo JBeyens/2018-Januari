@@ -15,12 +15,17 @@ public class User implements AdminObserver{
 	}
 	
 	public boolean openGate(Administrator gateAdmin){
+		//hir komt dan boolean check of deze frequentie == admin frequency
+		//sommige sites zeggen dat observer ook reference naar subject mag bijhouden mss es nadeken hierover
 		return gateAdmin.askFrequency(giveId()) == getPerson().getRemote().getFrequency();		
 	}
 
+	public boolean giveId(Administrator gateAdmin){
+		return gateAdmin.checkId(this);
+	}
+	
 	public String giveId(){
 		return getPerson().getRemote().getSerialNumber();
-		//checkId functie in Admin? met person als parameter om op alle gegevens te checken?
 	}
 
 	@Override
