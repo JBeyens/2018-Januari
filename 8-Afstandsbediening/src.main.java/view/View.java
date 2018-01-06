@@ -6,7 +6,8 @@ import java.awt.RenderingHints;
 import java.awt.event.ActionListener;
 import java.awt.image.BufferedImage;
 import java.net.URL;
-import java.util.Date;
+import java.sql.Date;
+import java.time.LocalDate;
 import java.util.ArrayList;
 
 import javax.swing.DefaultListModel;
@@ -155,7 +156,7 @@ public class View extends JFrame{
 	 * Returns date choosen by user
 	 */
 	public Date getDate(){
-		return dateContract.getDate();
+		return (Date) dateContract.getDate();
 	}
 	
 	/*
@@ -285,7 +286,7 @@ public class View extends JFrame{
 		tfLastName.setColumns(10);
 		
 		dateContract = new JDateChooser();
-		dateContract.setMinSelectableDate(new Date());
+		dateContract.setMinSelectableDate(Date.valueOf(LocalDate.now()));
 		dateContract.setBounds(93, 61, 102, 20);
 		addPersonPanel.add(dateContract);
 		

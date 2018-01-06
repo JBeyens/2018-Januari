@@ -1,11 +1,11 @@
 package model.entities;
 
-import java.util.Date;
+import java.sql.Date;
 import javax.annotation.Generated;
 import javax.persistence.metamodel.SingularAttribute;
 import javax.persistence.metamodel.StaticMetamodel;
 
-@Generated(value="Dali", date="2018-01-01T21:36:12.545+0100")
+@Generated(value="Dali", date="2018-01-06T20:20:38.360+0100")
 @StaticMetamodel(Person.class)
 public class Person_ {
 	public static volatile SingularAttribute<Person, Integer> id;

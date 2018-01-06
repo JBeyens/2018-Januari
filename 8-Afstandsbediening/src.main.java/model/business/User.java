@@ -44,7 +44,7 @@ public class User implements AdminObserver{
 
 	@Override
 	public void update(long frequency) {
-		getRemote().setFrequency(frequency);
+		this.remote.setFrequency(frequency);
 	}
 	
 }

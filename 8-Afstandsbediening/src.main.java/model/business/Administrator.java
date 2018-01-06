@@ -84,9 +84,19 @@ public class Administrator implements AdminSubject{
 		}
 	}
 
-	//check! try out
 	public void checkId(User user){
-		notifyAllObservers();
+		if(user.getRemote().getIsActive() && checkDateExpired(user.getPerson().getEndOfContract()))
+			notifyAllObservers();
+	}
+	
+	private boolean checkDateExpired(Date date){
+		int result = date.compareTo(Date.valueOf(LocalDate.now()));
+		
+		if(result >= 0)
+			return true;
+		
+		else
+			return false;
 	}
 	
 	/**

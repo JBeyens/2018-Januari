@@ -9,7 +9,6 @@ import model.business.User;
 import model.entities.Address;
 import model.entities.Person;
 import model.entities.Remote;
-import values.RegisterPersonResult;
 
 import static org.junit.Assert.*;
 
@@ -34,15 +33,18 @@ public class UserTest {
 		admin.setFrequency(newFrequency);
 
 		person = createPersonMock();
-		//user = new User(person);
+		user = new User(person, person.getRemote(), admin);
 	}
 
 
 	@Test
-	public void Verify_And_Update_Frequency_Remote_When_Remote_Is_Not_Null_Expect_Succesfull() {
-		admin.registerPerson(user.getPerson());
-		admin.notifyAllObservers();	
-		assertEquals(user.getPerson().getRemote().getFrequency(), admin.getFrequency());
+	public void Verify_And_Update_Frequency_Remote_When_Remote_Is_Active_Contract_OK_Expect_Succesfull() {
+		admin.addObserver(user);
+		Boolean bool = user.openGate();
+
+		
+		assertEquals(user.getRemote().getFrequency(), admin.getFrequency());
+		assertTrue(bool);
 	}
 
 	//@Test
@@ -54,12 +56,13 @@ public class UserTest {
 		assertNotEquals(user.getPerson().getRemote().getFrequency(), admin.getFrequency());
 	}
 
-	@Test
+	//@Test
 	public void Verify_And_Update_Frequency_Remote_When_Remote_Is_Not_Active() {
 		user.getPerson().getRemote().setIsActive(false);
-		admin.notifyAllObservers();
+		Boolean bool = user.openGate();
 
-		assertNotEquals(user.getPerson().getRemote().getFrequency(), admin.getFrequency());
+		assertNotEquals(user.getRemote().getFrequency(), admin.getFrequency());
+		assertFalse(bool);
 	}
 
 	private Person createPersonMock() {
