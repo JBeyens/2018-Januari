@@ -40,23 +40,24 @@ public class UserTest {
 
 	@Test
 	public void Verify_And_Update_Frequency_Remote_When_Remote_Is_Not_Null_Expect_Succesfull() {
-		admin.registerPerson(person);
+		admin.registerPerson(user.getPerson());
 		admin.notifyAllObservers();	
 		assertEquals(user.getPerson().getRemote().getFrequency(), admin.getFrequency());
 	}
 
 	//@Test
 	public void Verify_And_Update_Frequency_Remote_When_Contract_Has_Expired_Expect_Expired() {
-		person.setEndOfContract(Date.valueOf(LocalDate.of(2000, 1, 1)));
+		user.getPerson().setEndOfContract(Date.valueOf(LocalDate.of(2000, 1, 1)));
 
 		admin.notifyAllObservers();
 
 		assertNotEquals(user.getPerson().getRemote().getFrequency(), admin.getFrequency());
 	}
 
-	//@Test
+	@Test
 	public void Verify_And_Update_Frequency_Remote_When_Remote_Is_Not_Active() {
 		user.getPerson().getRemote().setIsActive(false);
+		admin.deActivatePerson(user.getPerson());
 		admin.notifyAllObservers();
 
 		assertNotEquals(user.getPerson().getRemote().getFrequency(), admin.getFrequency());
