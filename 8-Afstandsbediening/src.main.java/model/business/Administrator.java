@@ -24,7 +24,7 @@ public class Administrator implements AdminSubject{
 		log = DefaultSettings.getLogger(this.getClass().getSimpleName());
 		this.users = new ArrayList<>();
 		loadUsersFromDB();
-		this.setFrequency(DefaultSettings.RANDOM.nextLong());
+		this.setFrequency(DefaultSettings.RANDOM.nextInt(999999));
 	}
 
 	
