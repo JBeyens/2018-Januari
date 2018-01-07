@@ -12,6 +12,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.Table;
 
@@ -24,7 +25,10 @@ import javax.persistence.Table;
  */
 
 @Entity
-@NamedQuery(name ="activePersonRemote", query= "select p from Person p where p.remote.isActive = true")
+@NamedQueries({
+	@NamedQuery(name ="Person.allPersonsWithActiveRemote", query= "select p from Person p where p.remote.isActive = true"),
+	@NamedQuery(name ="Person.allPersonsWithRemote", query= "select p from Person p where p.remoteId is not null"),
+})
 @Table(name ="Person")
 public class Person implements Serializable {
 	/**
