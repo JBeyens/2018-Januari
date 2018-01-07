@@ -43,6 +43,7 @@ public class ControllerRemote {
 	}
 	
 	public void start(){
+		view.setVisible(true);
 	}
 	
 	/*
