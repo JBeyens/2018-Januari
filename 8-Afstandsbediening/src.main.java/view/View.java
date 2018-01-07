@@ -85,6 +85,8 @@ public class View extends JFrame{
 	private JDateChooser dateContract;
 	private JLabel lblNewLabel;
 	private JLabel lblAccessIsGranted;
+	private JButton addTabBtnClearDatabase;
+	private JButton addTabBtnGenerateData;
 	
 	
 	
@@ -107,6 +109,18 @@ public class View extends JFrame{
 	
 	
 	/** METHODS FOR 'EntranceTab' **/
+	// Controller fills combobox with data from DB
+	public void addUsers(ArrayList<User> userList){
+		for (User user : userList) {
+			entranceTabListUsers.addItem(user);
+		}
+	}
+	
+	// Getter for selected user
+	public User getUserForGate() {
+		return (User)entranceTabListUsers.getSelectedItem();
+	}
+
 	// Setters	for text in labels
 	public void setEntranceTabLblSerialNumberUser(String serialNumber) {
 		this.entranceTabLblSerialNumberUser.setText(serialNumber); }
@@ -203,15 +217,6 @@ public class View extends JFrame{
 		listInactiveRemote.setModel(model);
 	}
 	
-	/*
-	 * Controller fills combobox with data from DB
-	 */
-	public void addUsers(ArrayList<User> userList){
-		for (User user : userList) {
-			entranceTabListUsers.addItem(user);
-		}
-	}
-	
 	// Returns date choosen by user
 	public Date getDate(){
 		return (Date) dateContract.getDate();
@@ -256,10 +261,6 @@ public class View extends JFrame{
 		return listInactiveRemote.getSelectedValue();
 	}
 	
-	public User getUserForGate() {
-		return (User)entranceTabListUsers.getSelectedItem();
-	}
-	
 	/*
 	 * Controller sends all inhabitants information through DAO
 	 * List display in table
@@ -298,14 +299,14 @@ public class View extends JFrame{
 		addPersonPanel.setLayout(null);
 		
 		JScrollPane scrollRemote = new JScrollPane();
-		scrollRemote.setBounds(10, 92, 200, 130);
+		scrollRemote.setBounds(10, 100, 400, 150);
 		addPersonPanel.add(scrollRemote);
 		listInactiveRemote = new JList<Remote>();
 		scrollRemote.setViewportView(listInactiveRemote);
 		listInactiveRemote.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
 		
 		JScrollPane scrollAddress = new JScrollPane();
-		scrollAddress.setBounds(220, 92, 199, 130);
+		scrollAddress.setBounds(10, 275, 400, 150);
 		addPersonPanel.add(scrollAddress);
 		listAddress = new JList<Address>();
 		scrollAddress.setViewportView(listAddress);
@@ -313,7 +314,15 @@ public class View extends JFrame{
 		
 		btnAddPerson = new JButton("Add");
 		btnAddPerson.setBounds(200, 32, 89, 23);
-		addPersonPanel.add(btnAddPerson);
+		addPersonPanel.add(btnAddPerson);		
+		
+		addTabBtnClearDatabase = new JButton("Clear database");
+		addTabBtnClearDatabase.setBounds(415, 10, 150, 25);
+		addPersonPanel.add(addTabBtnClearDatabase);
+		
+		addTabBtnGenerateData = new JButton("Generate data");
+		addTabBtnGenerateData.setBounds(415, 45, 150, 25);
+		addPersonPanel.add(addTabBtnGenerateData);
 		
 		JLabel lblFirstname = new JLabel("Firstname");
 		lblFirstname.setBounds(10, 11, 73, 14);
@@ -485,6 +494,7 @@ public class View extends JFrame{
 		
 		tabbedPane.addTab("Request entrance", new ImageIcon(getScaledImage(iconGate.getImage(), 30, 30)), entranceTab, "Simulates request from inhabitant");
 		tabbedPane.addTab("Add", new ImageIcon(getScaledImage(iconAdd.getImage(), 30, 30)), addPersonPanel, "Add a new person");
+
 		tabbedPane.addTab("Overview", new ImageIcon(getScaledImage(iconPlane.getImage(), 30, 30)), overView, "Overview inhabitants");
 		entranceTab.setLayout(null);
 		
