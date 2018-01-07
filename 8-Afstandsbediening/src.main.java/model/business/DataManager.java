@@ -46,21 +46,26 @@ public final class DataManager {
 		log.debug("Asking datalayer to retrieve all remotes");
 		return (ArrayList<Remote>) EntityDAO.REMOTE_DAO.findAll();
 	}
-	
-	// Returns inactive remotes by namedquery JPA
+
+	// Returns all persons with a remote
+	public static ArrayList<Person> getAllPersonsWithRemote(){
+		log.debug("Asking datalayer to retrieve all persons with remote");
+		return (ArrayList<Person>) EntityDAO.PERSON_DAO.executeNamedQuery("Person.allPersonsWithRemote");
+	}
+	// Returns persons with active remotes by namedquery JPA
 	public static ArrayList<Person> getAllPersonsWithActiveRemote(){
 		log.debug("Asking datalayer to retrieve all persons with active remote");
-		return (ArrayList<Person>) EntityDAO.PERSON_DAO.executeNamedQuery("activePersonRemote");
-	}
+		return (ArrayList<Person>) EntityDAO.PERSON_DAO.executeNamedQuery("Person.allPersonsWithActiveRemote");
+	}	
 	// Returns inactive remotes by namedquery JPA
 	public static ArrayList<Remote> getUnusedRemotes(){
 		log.debug("Asking datalayer to retrieve all unused remotes");
-		return (ArrayList<Remote>) EntityDAO.REMOTE_DAO.executeNamedQuery("findUnusedRemotes");
+		return (ArrayList<Remote>) EntityDAO.REMOTE_DAO.executeNamedQuery("Remote.findUnusedRemotes");
 	}
 	// Returns unused addresses by namedquery JPA
 	public static ArrayList<Address> getUnusedAddress(){
 		log.debug("Asking datalayer to retrieve all unused addresses");
-		return (ArrayList<Address>) EntityDAO.ADDRESS_DAO.executeNamedQuery("findUnusedAddress");
+		return (ArrayList<Address>) EntityDAO.ADDRESS_DAO.executeNamedQuery("Address.findUnusedAddress");
 	} 	
 
 	
@@ -72,5 +77,5 @@ public final class DataManager {
 	public static void updateRemote(Remote remote) {
 		log.debug("Asking datalayer to update " + Remote.class.getSimpleName() + " '" + remote.toString() + "'");
 		EntityDAO.REMOTE_DAO.update(remote);
-	}		
+	}	
 }
