@@ -76,6 +76,7 @@ public class Administrator implements AdminSubject{
 			return RegisterPersonResult.noRemote;
 		
 		user.getRemote().setIsActive(true);
+		DataManager.updatePerson(user.getPerson());
 		DataManager.updateRemote(user.getRemote()); 
 		
 		users.add( user );
@@ -94,8 +95,13 @@ public class Administrator implements AdminSubject{
 		if (userFromList == null)
 			return DeactivatePersonResult.notFound;
 		
+		// 2x in case they don't reference the same user instance
 		user.getRemote().setIsActive(false);
 		DataManager.updateRemote(user.getRemote());
+		if (user != userFromList) {
+			userFromList.getRemote().setIsActive(false);
+			DataManager.updateRemote(userFromList.getRemote());
+		}
 		
 		users.remove(userFromList);
 		return DeactivatePersonResult.succesfull;

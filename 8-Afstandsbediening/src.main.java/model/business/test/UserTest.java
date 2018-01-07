@@ -1,13 +1,18 @@
 package model.business.test;
 
+import org.apache.log4j.Logger;
+import org.eclipse.persistence.internal.indirection.UnitOfWorkQueryValueHolder;
+import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 
 import model.business.Administrator;
+import model.business.DataManager;
 import model.business.User;
 import model.entities.Address;
 import model.entities.Person;
 import model.entities.Remote;
+import values.DefaultSettings;
 
 import static org.junit.Assert.*;
 
@@ -25,6 +30,7 @@ public class UserTest {
 	private User user;
 	private Administrator admin;
 	private long newFrequency = 111;
+	private Logger log = DefaultSettings.getLogger(getClass().getSimpleName());
 
 	@Before
 	public void setUp() {
@@ -38,30 +44,42 @@ public class UserTest {
 
 	@Test
 	public void Open_Gate_When_Remote_Is_Active_Contract_OK_Acces_Granted() {
-		admin.addObserver(user);
-		user.getRemote().setIsActive(true);
+		admin.registerUser(user);
 		
 		Boolean bool = user.openGate();
+		
+		// Clean-up
+		admin.deactivateUser(user);
+		DataManager.deleteAddress(user.getPerson().getAdress());
+		DataManager.deleteRemote(user.getRemote());
+		DataManager.deletePerson(user.getPerson());
 
+		// Assert test
+		assertTrue(user.getRemote().getIsActive());
 		assertEquals(user.getRemote().getFrequency(), admin.getFrequency());
 		assertTrue(bool);
 	}
 
 	@Test
 	public void Open_Gate__When_Contract_Has_Expired_Acces_Denied() {
-		admin.addObserver(user);
-		user.getRemote().setIsActive(true);
+		admin.registerUser(user);
 		user.getPerson().setEndOfContract(Date.valueOf(LocalDate.of(2000, 1, 1)));
 
 		Boolean bool = user.openGate();
+		
+		// Clean-up
+		admin.deactivateUser(user);
+		DataManager.deletePerson(user.getPerson());
 
+		// Assert test
+		assertTrue(user.getRemote().getIsActive());
 		assertNotEquals(user.getPerson().getRemote().getFrequency(), admin.getFrequency());
 		assertFalse(bool);
 	}
 
 	@Test
 	public void Open_Gate_When_Remote_Is_Not_Active_Acces_Denied() {
-		admin.addObserver(user);
+		admin.registerUser(user);
 		user.getPerson().getRemote().setIsActive(false);
 		Boolean bool = user.openGate();
 
@@ -83,5 +101,9 @@ public class UserTest {
 
 		return person;
 	}
-
+	
+	//Clean up file
+	@After
+	public void tearDown(){
+	}
 }

@@ -20,7 +20,7 @@ public class DefaultSettings {
 		// Configure log4j settings:
 		DOMConfigurator.configure("src.main.java/log4j.xml");
 		logger = Logger.getLogger(name);
-		logger.setLevel(Level.OFF);
+		logger.setLevel(Level.INFO);
 		return logger;
 	}
 }

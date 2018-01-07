@@ -29,7 +29,7 @@
 	<logger name="com.journaldev.log4j" additivity="false">
 		<level value="DEBUG" />
 		<appender-ref ref="file" />
-<!-- 		<appender-ref ref="console" /> -->
+ 		<appender-ref ref="console" /> 
 	</logger>
 
 	<logger name="com.journaldev.log4j.logic" additivity="false">

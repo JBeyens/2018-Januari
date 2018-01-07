@@ -78,4 +78,19 @@ public final class DataManager {
 		log.debug("Asking datalayer to update " + Remote.class.getSimpleName() + " '" + remote.toString() + "'");
 		EntityDAO.REMOTE_DAO.update(remote);
 	}	
+
+	
+	// DATABASE DELETE OPERATIONS
+	public static void deleteAddress(Address address) {
+		log.debug("Asking datalayer to delete " + Address.class.getSimpleName() + " '" + address.toString() + "'");
+		EntityDAO.ADDRESS_DAO.delete(address);
+	}	
+	public static void deletePerson(Person person) {
+		log.debug("Asking datalayer to delete " + Person.class.getSimpleName() + " '" + person.toString() + "'");
+		EntityDAO.PERSON_DAO.delete(person);
+	}
+	public static void deleteRemote(Remote remote) {
+		log.debug("Asking datalayer to delete " + Remote.class.getSimpleName() + " '" + remote.toString() + "'");
+		EntityDAO.REMOTE_DAO.delete(remote);
+	}	
 }
