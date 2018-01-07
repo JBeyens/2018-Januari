@@ -4,7 +4,6 @@ import java.awt.Graphics2D;
 import java.awt.Image;
 import java.awt.RenderingHints;
 import java.awt.event.ActionListener;
-import java.awt.event.ItemEvent;
 import java.awt.event.ItemListener;
 import java.awt.image.BufferedImage;
 import java.net.URL;
@@ -49,27 +48,29 @@ import java.awt.Dimension;
  */
 
 public class View extends JFrame{
-	/**FIELDS FOR 'Ask Entrance' tab**/
-	private JComboBox<User> listUsers;
-	private JButton btnAskEntrance;
+	/** FIELDS FOR 'Entrance Tab' **/
+	private JPanel entranceTab;
+	private JComboBox<User> entranceTabListUsers;
+	private JButton entranceTabBtnAskEntrance;
 	
-	private JLabel lblSerialNumberUser;
-	private JLabel lblFrequencyUser;
-	private JLabel lblRegisteredUser;
+	private JLabel entranceTabLblSerialNumberUser;
+	private JLabel entranceTabLblFrequencyUser;
+	private JLabel entranceTabLblRegisteredUser;
 	
-	private JLabel lblFirstNameUser;
-	private JLabel lblLastNameUser;
-	private JLabel lblEndOfContractUser;
-	private JLabel lblAddressUser;
+	private JLabel entranceTabLblFirstNameUser;
+	private JLabel entranceTabLblLastNameUser;
+	private JLabel entranceTabLblEndOfContractUser;
+	private JLabel entranceTabLblAddressUser;
 	
-	private JLabel lblFrequencyGate;
+	private JLabel entranceTabLblFrequencyGate;
+	private JLabel entranceTabLblRequest;
 	
 	
+	/** FIELDS FOR OTHER TABS **/
 	private static final long serialVersionUID = 1L;
 	private JTabbedPane tabbedPane;
 	private JPanel addPersonPanel;
 	private JPanel overView;
-	private JPanel simulateGate;
 	private JTable table;
 	private JButton btnRefresh;
 	private JList<Remote> listInactiveRemote;
@@ -78,8 +79,10 @@ public class View extends JFrame{
 	private JTextField tfLastName;
 	private JButton btnAddPerson;
 	private JDateChooser dateContract;
-	private JLabel lblRequest;
 	
+	
+	
+	/** CONSTRUCTOR **/
 	public View(){
 		setSize(new Dimension(625, 500));
 		setResizable(false);
@@ -88,42 +91,65 @@ public class View extends JFrame{
 		setUpTabbedPane();
 	}
 	
-	/*
-	 * To display any message to the User
-	 */
+	
+	/** METHODS INDEPENDANT FROM TAB **/
+	// To display any message in new message dialog
 	public void showMessage(String message){
 		JOptionPane.showMessageDialog(null, message);
 	}
 	
-	/*
-	 * Displays acces denied/granted
-	 */
-	public void setRequest(Boolean bool){
+	
+	
+	/** METHODS FOR 'EntranceTab' **/
+	// Setters	for text in labels
+	public void setEntranceTabLblSerialNumberUser(String serialNumber) {
+		this.entranceTabLblSerialNumberUser.setText(serialNumber); }
+	public void setEntranceTabLblFrequencyUser(String frequencyRemote) {
+		this.entranceTabLblFrequencyUser.setText(frequencyRemote); } 
+	public void setEntranceTabLblRegisteredUser(boolean isActive) { // Sets text for true or false
+		this.entranceTabLblRegisteredUser.setText( (isActive ? "Yes" : "No") );} 
+	public void setEntranceTabLblFirstNameUser(String firstName) {
+		this.entranceTabLblFirstNameUser.setText(firstName); } 
+	public void setEntranceTabLblLastNameUser(String lastName) {
+		this.entranceTabLblLastNameUser.setText(lastName); } 
+	public void setEntranceTabLblEndOfContractUser(String endOfContract) {
+		this.entranceTabLblEndOfContractUser.setText(endOfContract); } 
+	public void setEntranceTabLblAddressUser(String address) {
+		this.entranceTabLblAddressUser.setText(address); } 
+	public void setEntranceTabLblFrequencyGate(String frequencyGate) {
+		this.entranceTabLblFrequencyGate.setText(frequencyGate); } 
+	
+	// Displays acces denied/granted
+	public void setEntranceTabRequest(Boolean bool){
 
 		if(bool){
-			lblRequest.setBackground(Color.GREEN);
-			lblRequest.setText("Access granted");
+			entranceTabLblRequest.setBackground(Color.GREEN);
+			entranceTabLblRequest.setText("Access granted");
 		}
 		
 		else{
-			lblRequest.setBackground(Color.RED);
-			lblRequest.setText("Acces denied");
+			entranceTabLblRequest.setBackground(Color.RED);
+			entranceTabLblRequest.setText("Acces denied");
 		}
 	}
-	
-	/*
-	 * Controller subscrives to this button
-	 */
-	public void addAskEntranceListener(ActionListener e){
-		this.btnAskEntrance.addActionListener(e);
+
+	// Controller subscribes to this button
+	public void entranceTabAddAskEntranceListener(ActionListener e){
+		this.entranceTabBtnAskEntrance.addActionListener(e);
+	}
+	// Controller subscribes to this list event
+	public void entranceTabAddUserListItemListener(ItemListener i) {
+		this.entranceTabListUsers.addItemListener(i);
 	}
 	
-	/*
-	 * Controller subscribes to this button
-	 */
+	
+	
+	/** METHODS FOR OTHER TABS **/
+	// Controller subscribes to this button
 	public void addOVerViewUpdateListener(ActionListener e){
 		this.btnRefresh.addActionListener(e);
 	}
+	
 	
 	/*
 	 * Controller subscribes to this button
@@ -164,37 +190,25 @@ public class View extends JFrame{
 	 */
 	public void addUsers(ArrayList<User> userList){
 		for (User user : userList) {
-			listUsers.addItem(user);
+			entranceTabListUsers.addItem(user);
 		}
 	}
 	
-	/*
-	 * Returns date choosen by user
-	 */
+	// Returns date choosen by user
 	public Date getDate(){
 		return (Date) dateContract.getDate();
 	}
 	
-	/*
-	 * set date
-	 */
+	// Sets date 
 	public void setDate(Date date){
 		this.dateContract.setDate(date);
 	}
 	
-	/*
-	 * Returns user firstname
-	 */
-	public String getFirstName(){
-		return tfFirstName.getText();
-	}
-	
-	/*
-	 * Sets firstname texfield
-	 */
-	public void setFirstName(String name){
-		this.tfFirstName.setText(name);
-	}
+	// Getter&Setter for firstname PersonTab
+	public String getFirstNamePersonTab(){
+		return tfFirstName.getText(); }
+	public void setFirstNamePersonTab(String name){
+		this.tfFirstName.setText(name);	}
 	
 	/*
 	 * Returns user lastname
@@ -225,7 +239,7 @@ public class View extends JFrame{
 	}
 	
 	public User getUserForGate() {
-		return (User)listUsers.getSelectedItem();
+		return (User)entranceTabListUsers.getSelectedItem();
 	}
 	
 	/*
@@ -317,103 +331,101 @@ public class View extends JFrame{
 	private void setUpGate(){	
 		JLabel lblChooseUser = new JLabel("Choose user");
 		lblChooseUser.setBounds(10, 19, 100, 14);
-		simulateGate.add(lblChooseUser);
+		entranceTab.add(lblChooseUser);
 		
-		listUsers = new JComboBox<User>();
-		listUsers.setBounds(10, 44, 409, 20);
-		listUsers.addItemListener(new UserLabelsItemListener());
-		simulateGate.add(listUsers);
+		entranceTabListUsers = new JComboBox<User>();
+		entranceTabListUsers.setBounds(10, 44, 409, 20);
+		entranceTab.add(entranceTabListUsers);
 		
-		btnAskEntrance = new JButton("Ask Entrance");
-		btnAskEntrance.setBounds(300, 10, 119, 23);
-		simulateGate.add(btnAskEntrance);
+		entranceTabBtnAskEntrance = new JButton("Ask Entrance");
+		entranceTabBtnAskEntrance.setBounds(300, 221, 119, 23);
+		entranceTab.add(entranceTabBtnAskEntrance);
 		
 		// Remote data
 		JLabel lblRemote = new JLabel("REMOTE");
 		lblRemote.setBounds(10, 75, 127, 14);
-		simulateGate.add(lblRemote);
+		entranceTab.add(lblRemote);
 		
 		JLabel lblSerialNumber = new JLabel("Serial number");
 		lblSerialNumber.setBounds(10, 100, 80, 14);
-		simulateGate.add(lblSerialNumber);
+		entranceTab.add(lblSerialNumber);
 		
-		lblSerialNumberUser = new JLabel("...");
-		lblSerialNumberUser.setBounds(100, 100, 160, 14);
-		simulateGate.add(lblSerialNumberUser);
+		entranceTabLblSerialNumberUser = new JLabel("...");
+		entranceTabLblSerialNumberUser.setBounds(100, 100, 160, 14);
+		entranceTab.add(entranceTabLblSerialNumberUser);
 		
 		JLabel lblFrequency = new JLabel("Frequency");
 		lblFrequency.setBounds(10, 125, 65, 14);
-		simulateGate.add(lblFrequency);
+		entranceTab.add(lblFrequency);
 		
-		lblFrequencyUser = new JLabel("...");
-		lblFrequencyUser.setBounds(100, 125, 160, 14);
-		simulateGate.add(lblFrequencyUser);
+		entranceTabLblFrequencyUser = new JLabel("...");
+		entranceTabLblFrequencyUser.setBounds(100, 125, 160, 14);
+		entranceTab.add(entranceTabLblFrequencyUser);
 		
 		JLabel lblRegistered = new JLabel("Activated");
 		lblRegistered.setBounds(10, 150, 65, 14);
-		simulateGate.add(lblRegistered);
+		entranceTab.add(lblRegistered);
 		
-		lblRegisteredUser = new JLabel("...");
-		lblRegisteredUser.setBounds(100, 150, 160, 14);
-		simulateGate.add(lblRegisteredUser);
+		entranceTabLblRegisteredUser = new JLabel("...");
+		entranceTabLblRegisteredUser.setBounds(100, 150, 160, 14);
+		entranceTab.add(entranceTabLblRegisteredUser);
 
 		// User data
 		JLabel lblUserData = new JLabel("USER DATA");
 		lblUserData.setBounds(300, 75, 138, 14);
-		simulateGate.add(lblUserData);
+		entranceTab.add(lblUserData);
 		
 		JLabel lblFirstName = new JLabel("First name");
 		lblFirstName.setBounds(300, 100, 80, 14);
-		simulateGate.add(lblFirstName);
+		entranceTab.add(lblFirstName);
 		
-		lblFirstNameUser = new JLabel("...");
-		lblFirstNameUser.setBounds(390, 100, 160, 14);
-		simulateGate.add(lblFirstNameUser);
+		entranceTabLblFirstNameUser = new JLabel("...");
+		entranceTabLblFirstNameUser.setBounds(390, 100, 160, 14);
+		entranceTab.add(entranceTabLblFirstNameUser);
 		
 		JLabel lblLastName = new JLabel("Last name");
 		lblLastName.setBounds(300, 125, 80, 14);
-		simulateGate.add(lblLastName);
+		entranceTab.add(lblLastName);
 		
-		lblLastNameUser = new JLabel("...");
-		lblLastNameUser.setBounds(390, 125, 160, 14);
-		simulateGate.add(lblLastNameUser);
+		entranceTabLblLastNameUser = new JLabel("...");
+		entranceTabLblLastNameUser.setBounds(390, 125, 160, 14);
+		entranceTab.add(entranceTabLblLastNameUser);
 		
 		JLabel lblAddress = new JLabel("Address");
 		lblAddress.setBounds(300, 175, 46, 14);
-		simulateGate.add(lblAddress);
+		entranceTab.add(lblAddress);
 		
-		lblAddressUser = new JLabel("...");
-		lblAddressUser.setVerticalAlignment(SwingConstants.TOP);
-		lblAddressUser.setBounds(390, 175, 160, 50);
-		simulateGate.add(lblAddressUser);
+		entranceTabLblAddressUser = new JLabel("...");
+		entranceTabLblAddressUser.setVerticalAlignment(SwingConstants.TOP);
+		entranceTabLblAddressUser.setBounds(390, 175, 160, 50);
+		entranceTab.add(entranceTabLblAddressUser);
 		
 		JLabel lblEndOfContract = new JLabel("End of contract");
 		lblEndOfContract.setBounds(300, 150, 80, 14);
-		simulateGate.add(lblEndOfContract);
+		entranceTab.add(lblEndOfContract);
 		
-		lblEndOfContractUser = new JLabel("...");
-		lblEndOfContractUser.setBounds(390, 150, 160, 14);
-		simulateGate.add(lblEndOfContractUser);
+		entranceTabLblEndOfContractUser = new JLabel("...");
+		entranceTabLblEndOfContractUser.setBounds(390, 150, 160, 14);
+		entranceTab.add(entranceTabLblEndOfContractUser);
 		
 		JLabel lblGate = new JLabel("GATE");
 		lblGate.setBounds(10, 200, 46, 14);
-		simulateGate.add(lblGate);
+		entranceTab.add(lblGate);
 		
 		lblFrequency = new JLabel("Frequency"); // already made this label for frequency remote, so simply reference it to new label
 		lblFrequency.setBounds(10, 225, 80, 14);
-		simulateGate.add(lblFrequency);
+		entranceTab.add(lblFrequency);
 		
-		lblFrequencyGate = new JLabel("...");
-		lblFrequencyGate.setBounds(100, 225, 160, 14);
-		simulateGate.add(lblFrequencyGate);
+		entranceTabLblFrequencyGate = new JLabel("...");
+		entranceTabLblFrequencyGate.setBounds(100, 225, 160, 14);
+		entranceTab.add(entranceTabLblFrequencyGate);
+			
 		
-		
-		
-		lblRequest = new JLabel("", SwingConstants.CENTER);
-		lblRequest.setBackground(Color.GRAY);
-		lblRequest.setBounds(10, 290, 409, 62);
-		lblRequest.setOpaque(true);
-		simulateGate.add(lblRequest);
+		entranceTabLblRequest = new JLabel("", SwingConstants.CENTER);
+		entranceTabLblRequest.setBackground(Color.GRAY);
+		entranceTabLblRequest.setBounds(10, 290, 409, 62);
+		entranceTabLblRequest.setOpaque(true);
+		entranceTab.add(entranceTabLblRequest);
 	}
 	
 	/*
@@ -423,7 +435,7 @@ public class View extends JFrame{
 		tabbedPane = new JTabbedPane();
 		addPersonPanel = new JPanel();
 		overView = new JPanel();
-		simulateGate = new JPanel();
+		entranceTab = new JPanel();
 		
 		setUpGate();
 		setUpOverView();
@@ -438,10 +450,10 @@ public class View extends JFrame{
 		URL uPlane = getClass().getResource("plane.jpg");
 		ImageIcon iconPlane = new ImageIcon(uPlane);
 		
-		tabbedPane.addTab("Request entrance", new ImageIcon(getScaledImage(iconGate.getImage(), 30, 30)), simulateGate, "Simulates request from inhabitant");
+		tabbedPane.addTab("Request entrance", new ImageIcon(getScaledImage(iconGate.getImage(), 30, 30)), entranceTab, "Simulates request from inhabitant");
 		tabbedPane.addTab("Add", new ImageIcon(getScaledImage(iconAdd.getImage(), 30, 30)), addPersonPanel, "Add a new person");
 		tabbedPane.addTab("Overview", new ImageIcon(getScaledImage(iconPlane.getImage(), 30, 30)), overView, "Overview inhabitants");
-		simulateGate.setLayout(null);
+		entranceTab.setLayout(null);
 
 		getContentPane().add(tabbedPane);
 	}
@@ -490,17 +502,5 @@ public class View extends JFrame{
 	    g2.dispose();
 
 	    return resizedImg;
-	}
-	
-	
-	/*
-	 * Listener for 'On selected user changed' (3rd tab)
-	 */
-	private class UserLabelsItemListener implements ItemListener{
-		@Override
-		public void itemStateChanged(ItemEvent e) {
-			// TODO Auto-generated method stub
-			
-		}	
 	}
 }

@@ -2,6 +2,10 @@ package controller;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.ItemEvent;
+import java.awt.event.ItemListener;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 
 import org.apache.log4j.Logger;
@@ -25,22 +29,23 @@ public class ControllerRemote {
 	private Logger log;
 	private Administrator gateAdmin;
 	private View view;
+	DateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
 	
 	public ControllerRemote(){
 		log = DefaultSettings.getLogger("Controller");
 		gateAdmin = new Administrator();
 		view = new View();		
-		
-		view.addAskEntranceListener(new AskEntranceListener());
+	}
+	
+	public void start(){		
+		view.entranceTabAddAskEntranceListener(new AskEntranceListener());
 		view.addOVerViewUpdateListener(new RefreshOverViewListener());
 		view.addAddPersonListener(new AddPersonListener());
+		view.entranceTabAddUserListItemListener(new UserLabelsItemListener());
 		
 		setInactiveRemote();
 		setUnusedAddress();
 		setUsers();
-	}
-	
-	public void start(){
 		view.setVisible(true);
 	}
 	
@@ -79,7 +84,7 @@ public class ControllerRemote {
 	} 
 	
 	/*
-	 * Listener for ask entrance button (1st tab)
+	 * Listener for ask entrance button (Ask Entrance tab)
 	 */
 	private class AskEntranceListener implements ActionListener{
 		@Override
@@ -87,8 +92,27 @@ public class ControllerRemote {
 			User selectedUser = view.getUserForGate();
 			boolean isGateOpening = selectedUser.openGate();
 			log.info("-> The entrance was " + (isGateOpening?"":"not ") + "granted!");
-			view.setRequest(isGateOpening);
+			view.setEntranceTabRequest(isGateOpening);
 		}		
+	}	
+	
+	/*
+	 * Listener for user list combo box (Ask Entrance tab)
+	 */
+	private class UserLabelsItemListener implements ItemListener{
+		@Override
+		public void itemStateChanged(ItemEvent e) {
+			User user = view.getUserForGate(); 
+			
+			view.setEntranceTabLblSerialNumberUser(	user.getRemote().getSerialNumber());
+			view.setEntranceTabLblFrequencyUser( 	Double.toString( user.getRemote().getFrequency()));
+			view.setEntranceTabLblRegisteredUser(	user.getRemote().getIsActive());
+			view.setEntranceTabLblFirstNameUser(	user.getPerson().getFirstname());
+			view.setEntranceTabLblLastNameUser(		user.getPerson().getLastname()); 
+			view.setEntranceTabLblEndOfContractUser(dateFormat.format(user.getPerson().getEndOfContract()));
+			view.setEntranceTabLblAddressUser(		user.getPerson().getAdress().toString());
+			view.setEntranceTabLblFrequencyGate(	Double.toString(user.getGate().getFrequency()));
+		}
 	}
 	
 	/*
@@ -99,7 +123,7 @@ public class ControllerRemote {
 		public void actionPerformed(ActionEvent e) {
 			try {				
 				Person person = new Person();
-				person.setFirstname(view.getFirstName());
+				person.setFirstname(view.getFirstNamePersonTab());
 				person.setLastname(view.getLastName());
 				person.setEndOfContract(view.getDate());
 				
@@ -111,7 +135,7 @@ public class ControllerRemote {
 				
 				DataManager.updatePerson(person);
 				
-				view.setFirstName("");
+				view.setFirstNamePersonTab("");
 				view.setLastName("");
 				view.setDate(null);
 			} 
