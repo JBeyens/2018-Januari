@@ -13,7 +13,9 @@ import model.business.DataManager;
 import model.business.User;
 import model.entities.Address;
 import model.entities.Person;
+import values.DeactivatePersonResult;
 import values.DefaultSettings;
+import values.RegisterPersonResult;
 import view.View;
 
 
@@ -37,9 +39,11 @@ public class ControllerRemote {
 	
 	public void start(){		
 		view.entranceTabAddAskEntranceListener(new AskEntranceListener());
+		view.entranceTabAddRegisterUserListener(new RegisterUserListener());
+		view.entranceTabAddDeactivateUserListener(new DeactivateUserListener());
+		view.entranceTabAddUserListItemListener(new SetEntranceLabelsToSelectedUser());
 		view.addOVerViewUpdateListener(new RefreshOverViewListener());
 		view.addAddPersonListener(new AddPersonListener());
-		view.entranceTabAddUserListItemListener(new SetEntranceLabelsToSelectedUser());
 		
 		setInactiveRemote();
 		setUnusedAddress();
@@ -97,10 +101,29 @@ public class ControllerRemote {
 		view.setEntranceTablLblAddressCityUser(   a.getPostalCode() + " " + a.getCity());
 		view.setEntranceTablLblAddressCountryUser(a.getCountry());
 	}
+
 	
-	/*
-	 * Listener for ask entrance button (Ask Entrance tab)
-	 */
+	// Listener for register user button (Ask Entrance tab)
+	private class RegisterUserListener implements ActionListener{
+		@Override
+		public void actionPerformed(ActionEvent e) {
+			RegisterPersonResult result = gateAdmin.registerUser(view.getUserForGate());
+			
+			view.showMessage(result.toString());
+			setUserToEntranceLabels();
+		}		
+	}		
+	// Listener for deactivate user button (Ask Entrance tab)
+	private class DeactivateUserListener implements ActionListener{
+		@Override
+		public void actionPerformed(ActionEvent e) {
+			DeactivatePersonResult result = gateAdmin.deactivateUser(view.getUserForGate());
+
+			view.showMessage(result.toString());
+			setUserToEntranceLabels();
+		}		
+	}	
+	// Listener for ask entrance button (Ask Entrance tab)
 	private class AskEntranceListener implements ActionListener{
 		@Override
 		public void actionPerformed(ActionEvent e) {

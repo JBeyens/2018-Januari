@@ -51,6 +51,8 @@ public class View extends JFrame{
 	/** FIELDS FOR 'Entrance Tab' **/
 	private JPanel entranceTab;
 	private JComboBox<User> entranceTabListUsers;
+	private JButton entranceTabBtnRegister;
+	private JButton entranceTabBtnDeactivate;
 	private JButton entranceTabBtnAskEntrance;
 	
 	private JLabel entranceTabLblSerialNumberUser;
@@ -81,6 +83,8 @@ public class View extends JFrame{
 	private JTextField tfLastName;
 	private JButton btnAddPerson;
 	private JDateChooser dateContract;
+	private JLabel lblNewLabel;
+	private JLabel lblAccessIsGranted;
 	
 	
 	
@@ -130,15 +134,23 @@ public class View extends JFrame{
 
 		if(bool){
 			entranceTabLblRequest.setBackground(Color.GREEN);
-			entranceTabLblRequest.setText("Access granted");
+			entranceTabLblRequest.setText("Access granted (frequency mathes)!");
 		}
 		
 		else{
 			entranceTabLblRequest.setBackground(Color.RED);
-			entranceTabLblRequest.setText("Acces denied");
+			entranceTabLblRequest.setText("Acces denied (frequency doesn't match)!");
 		}
 	}
 
+	// Controller subscribes to this button
+	public void entranceTabAddRegisterUserListener(ActionListener e){
+		this.entranceTabBtnRegister.addActionListener(e);
+	}
+	// Controller subscribes to this button
+	public void entranceTabAddDeactivateUserListener(ActionListener e){
+		this.entranceTabBtnDeactivate.addActionListener(e);
+	}
 	// Controller subscribes to this button
 	public void entranceTabAddAskEntranceListener(ActionListener e){
 		this.entranceTabBtnAskEntrance.addActionListener(e);
@@ -339,8 +351,16 @@ public class View extends JFrame{
 		lblChooseUser.setBounds(10, 19, 100, 14);
 		entranceTab.add(lblChooseUser);
 		
+		entranceTabBtnDeactivate = new JButton("Deactivate user");
+		entranceTabBtnDeactivate.setBounds(425, 15, 150, 23);
+		entranceTab.add(entranceTabBtnDeactivate);
+		
+		entranceTabBtnRegister = new JButton("Register user");
+		entranceTabBtnRegister.setBounds(250, 15, 150, 23);
+		entranceTab.add(entranceTabBtnRegister);
+		
 		entranceTabListUsers = new JComboBox<User>();
-		entranceTabListUsers.setBounds(10, 44, 550, 20);
+		entranceTabListUsers.setBounds(10, 44, 565, 20);
 		entranceTab.add(entranceTabListUsers);
 		
 		entranceTabBtnAskEntrance = new JButton("Ask Entrance");
@@ -409,6 +429,18 @@ public class View extends JFrame{
 		entranceTabLblEndOfContractUser.setBounds(400, 150, 160, 14);
 		entranceTab.add(entranceTabLblEndOfContractUser);
 		
+		entranceTablLblAddressStreetUser = new JLabel("...");
+		entranceTablLblAddressStreetUser.setBounds(400, 175, 160, 14);
+		entranceTab.add(entranceTablLblAddressStreetUser);
+		
+		entranceTablLblAddressCityUser = new JLabel("...");
+		entranceTablLblAddressCityUser.setBounds(400, 195, 160, 14);
+		entranceTab.add(entranceTablLblAddressCityUser);
+		
+		entranceTablLblAddressCountryUser = new JLabel("...");
+		entranceTablLblAddressCountryUser.setBounds(400, 215, 160, 14);
+		entranceTab.add(entranceTablLblAddressCountryUser);
+		
 		JLabel lblGate = new JLabel("GATE");
 		lblGate.setBounds(10, 200, 46, 14);
 		entranceTab.add(lblGate);
@@ -456,17 +488,13 @@ public class View extends JFrame{
 		tabbedPane.addTab("Overview", new ImageIcon(getScaledImage(iconPlane.getImage(), 30, 30)), overView, "Overview inhabitants");
 		entranceTab.setLayout(null);
 		
-		entranceTablLblAddressStreetUser = new JLabel("...");
-		entranceTablLblAddressStreetUser.setBounds(400, 175, 160, 14);
-		entranceTab.add(entranceTablLblAddressStreetUser);
+		lblNewLabel = new JLabel("Frequency will only be updated for registered users with a valid contract");
+		lblNewLabel.setBounds(10, 389, 409, 14);
+		entranceTab.add(lblNewLabel);
 		
-		entranceTablLblAddressCityUser = new JLabel("...");
-		entranceTablLblAddressCityUser.setBounds(400, 195, 160, 14);
-		entranceTab.add(entranceTablLblAddressCityUser);
-		
-		entranceTablLblAddressCountryUser = new JLabel("...");
-		entranceTablLblAddressCountryUser.setBounds(400, 215, 160, 14);
-		entranceTab.add(entranceTablLblAddressCountryUser);
+		lblAccessIsGranted = new JLabel("Access is granted to all users who have the correct frequency!");
+		lblAccessIsGranted.setBounds(10, 364, 409, 14);
+		entranceTab.add(lblAccessIsGranted);
 
 		getContentPane().add(tabbedPane);
 	}
