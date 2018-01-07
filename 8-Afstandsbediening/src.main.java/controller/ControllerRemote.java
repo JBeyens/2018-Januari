@@ -2,14 +2,15 @@ package controller;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.ArrayList;
 
 import javax.swing.JFrame;
 
 import org.apache.log4j.Logger;
 
+import model.business.Administrator;
 import model.business.DataManager;
-import model.business.GateModule;
-import model.business.RemoteModule;
+import model.business.User;
 import model.entities.Person;
 import values.DefaultSettings;
 import view.View;
@@ -24,14 +25,13 @@ import view.View;
 
 public class ControllerRemote {
 	private Logger log;
+	private Administrator gateAdmin;
 	private View view;
-	private GateModule gateModule;
 	
 	public ControllerRemote(){
 		log = DefaultSettings.getLogger("Controller");
-		gateModule = new GateModule();
-		
-		view = new View();
+		gateAdmin = new Administrator();
+		view = new View();		
 		
 		view.addAskEntranceListener(new AskEntranceListener());
 		view.addOVerViewUpdateListener(new RefreshOverViewListener());
@@ -39,11 +39,11 @@ public class ControllerRemote {
 		
 		setInactiveRemote();
 		setUnusedAddress();
-		setRemotes();
+		setUsers();
 	}
 	
 	public void start(){
-		this.view.setSize(600, 500);
+		this.view.setSize(750, 500);
 		this.view.setResizable(false);
 		this.view.setVisible(true);
 		this.view.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -59,8 +59,14 @@ public class ControllerRemote {
 	/*
 	 * Add all persons to list for simulation
 	 */	
-	private void setRemotes(){
-		view.addRemotes( DataManager.getAllRemotes() );
+	private void setUsers(){
+		ArrayList<Person> persons = DataManager.getAllPersonsWithRemote();
+		ArrayList<User> users = new ArrayList<>();
+		for (Person person : persons) {
+			users.add(new User(person, person.getRemote(), gateAdmin));
+		}
+		
+		view.addUsers( users );
 	}
 	
 	/*
@@ -83,8 +89,8 @@ public class ControllerRemote {
 	private class AskEntranceListener implements ActionListener{
 		@Override
 		public void actionPerformed(ActionEvent e) {
-			RemoteModule remoteModule = new RemoteModule(view.getRemoteForGate());
-			boolean isGateOpening = remoteModule.askOpenGate(gateModule);
+			User selectedUser = view.getUserForGate();
+			boolean isGateOpening = selectedUser.openGate();
 			log.info("-> The entrance was " + (isGateOpening?"":"not ") + "granted!");
 			view.setRequest(isGateOpening);
 		}		
