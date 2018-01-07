@@ -27,7 +27,7 @@ import javax.persistence.Table;
 @Entity
 @NamedQueries({
 	@NamedQuery(name ="Person.allPersonsWithActiveRemote", query= "select p from Person p where p.remote.isActive = true"),
-	@NamedQuery(name ="Person.allPersonsWithRemote", query= "select p from Person p where p.remoteId is not null"),
+	@NamedQuery(name ="Person.allPersonsWithRemote", query= "select p from Person p where p.remote is not null"),
 })
 @Table(name ="Person")
 public class Person implements Serializable {
