@@ -6,8 +6,6 @@ import org.junit.Before;
 import org.junit.Test;
 
 import model.business.RemoteModule;
-import model.business.interfaces.IGateModule;
-import model.business.interfaces.IRemoteModule;
 import model.entities.Remote;
 
 /**
@@ -37,13 +35,13 @@ public class RemoteModuleTest {
 	@Test
 	public void Ask_Open_Gate_Should_Fail_If_Not_Verified_By_Gate() {
 		GateModuleMock gateModule = new GateModuleMock(newFrequency, false);
-		assertFalse(remoteModule.askOpenGate(gateModule));
+		assertFalse(remoteModule.askOpenGate());//gateModule));
 	}
 	
 	@Test
 	public void Ask_Open_Gate_Should_Fail_If_Verified_By_Gate() {
 		GateModuleMock gateModule = new GateModuleMock(newFrequency, true);
-		assertTrue(remoteModule.askOpenGate(gateModule));
+		assertTrue(remoteModule.askOpenGate());//gateModule));
 	}
 	
 	@Test
@@ -54,25 +52,15 @@ public class RemoteModuleTest {
 	/**
 	 * New class to mock GateModule behavior so RemoteModule can be tested.
 	 **/
-	private class GateModuleMock implements IGateModule {
+	private class GateModuleMock {//implements IGateModule {
 		private long frequency;
 		private boolean verifySuccesfull;
 		
 		public GateModuleMock(long frequency, boolean willVerifyBeSuccesfull) {
 			this.frequency = frequency;
 			this.verifySuccesfull = willVerifyBeSuccesfull;
-		}
-
-		@Override
-		public void verifyAndUpdateFrequencyRemote(IRemoteModule remote) {
-			if (verifySuccesfull)
-				remote.setFrequency(getFrequency());			
-		}
-
-		@Override
-		public long getFrequency() {
-			return frequency;
-		}
+		}			
+		
 		
 	}
 }

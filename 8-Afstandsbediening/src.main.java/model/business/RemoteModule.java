@@ -1,7 +1,5 @@
 package model.business;
 
-import model.business.interfaces.IGateModule;
-import model.business.interfaces.IRemoteModule;
 import model.entities.Remote;
 
 /**
@@ -10,7 +8,7 @@ import model.entities.Remote;
  * @Project Afstandsbediening
  * @Doel This is the software used by the remote
  */
-public class RemoteModule implements IRemoteModule {
+public class RemoteModule  {
 	// FIELDS
 	private Remote remote;
 	
@@ -23,7 +21,6 @@ public class RemoteModule implements IRemoteModule {
 	/** 
 	 * Updates the frequency in the remote
 	 **/
-	@Override
 	public void setFrequency(long frequency) {
 		remote.setFrequency(frequency);
 	}
@@ -31,15 +28,14 @@ public class RemoteModule implements IRemoteModule {
 	/**
 	 *  Will return true if the remote is allowed to open the gate. Will return false otherwise.
 	 **/
-	public boolean askOpenGate(IGateModule gate) {
-		gate.verifyAndUpdateFrequencyRemote(this);
-		return remote.getFrequency() == gate.getFrequency();
+	public boolean askOpenGate() {
+		//gate.verifyAndUpdateFrequencyRemote(this);
+		return remote.getFrequency() == 0;
 	}
 	
 	/** 
 	 * Returns the serial Id number of the remote.
 	 **/
-	@Override
 	public String getSerialNumber() {
 		return remote.getSerialNumber();
 	}
