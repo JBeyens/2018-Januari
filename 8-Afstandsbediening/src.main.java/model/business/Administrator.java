@@ -9,9 +9,9 @@ import org.apache.log4j.Logger;
 import model.business.interfaces.AdminSubject;
 import model.business.DataManager;
 import model.entities.Person;
-import values.RegisterPersonResult;
+import values.UserRegistrationResult;
 import values.DefaultSettings;
-import values.DeactivatePersonResult;
+import values.UserDeactivationResult;
 
 public class Administrator implements AdminSubject{
 	/** FIELDS **/
@@ -67,20 +67,20 @@ public class Administrator implements AdminSubject{
 	 * @return AddPersonResult - Enum which contains possible outcomes of the situation
 	 **/
 	@Override
-	public RegisterPersonResult registerUser(User user) { 
+	public UserRegistrationResult registerUser(User user) { 
 		// DO NOT return the string of this enum. Playing with MAGIC STRINGS in business code is bad practice!
 		if (findUserInList(user.getPerson()) != null) // Check if person is already in list
-			return RegisterPersonResult.alreadyInList;
+			return UserRegistrationResult.alreadyInList;
 		
 		if (user.getRemote() == null)
-			return RegisterPersonResult.noRemote;
+			return UserRegistrationResult.noRemote;
 		
 		user.getRemote().setIsActive(true);
 		DataManager.updatePerson(user.getPerson());
 		DataManager.updateRemote(user.getRemote()); 
 		
 		users.add( user );
-		return RegisterPersonResult.succesfull;
+		return UserRegistrationResult.succesfull;
 	}
 	
 	/**
@@ -88,12 +88,12 @@ public class Administrator implements AdminSubject{
 	 * @return AddRemovePersonResult - Enum which contains possible outcomes of the situation
 	 */
 	@Override
-	public DeactivatePersonResult deactivateUser(User user) {
+	public UserDeactivationResult deactivateUser(User user) {
 		// DO NOT return the string of this enum. Playing with MAGIC STRINGS in business code is bad practice!
 		User userFromList = findUserInList(user.getPerson());
 		
 		if (userFromList == null)
-			return DeactivatePersonResult.notFound;
+			return UserDeactivationResult.notFound;
 		
 		// 2x in case they don't reference the same user instance
 		user.getRemote().setIsActive(false);
@@ -104,7 +104,7 @@ public class Administrator implements AdminSubject{
 		}
 		
 		users.remove(userFromList);
-		return DeactivatePersonResult.succesfull;
+		return UserDeactivationResult.succesfull;
 	}	
 
 	

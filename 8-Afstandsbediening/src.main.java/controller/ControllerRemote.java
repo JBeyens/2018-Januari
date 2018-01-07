@@ -13,9 +13,9 @@ import model.business.DataManager;
 import model.business.User;
 import model.entities.Address;
 import model.entities.Person;
-import values.DeactivatePersonResult;
+import values.UserDeactivationResult;
 import values.DefaultSettings;
-import values.RegisterPersonResult;
+import values.UserRegistrationResult;
 import view.View;
 
 
@@ -107,7 +107,7 @@ public class ControllerRemote {
 	private class RegisterUserListener implements ActionListener{
 		@Override
 		public void actionPerformed(ActionEvent e) {
-			RegisterPersonResult result = gateAdmin.registerUser(view.getUserForGate());
+			UserRegistrationResult result = gateAdmin.registerUser(view.getUserForGate());
 			
 			view.showMessage(result.toString());
 			setUserToEntranceLabels();
@@ -117,7 +117,7 @@ public class ControllerRemote {
 	private class DeactivateUserListener implements ActionListener{
 		@Override
 		public void actionPerformed(ActionEvent e) {
-			DeactivatePersonResult result = gateAdmin.deactivateUser(view.getUserForGate());
+			UserDeactivationResult result = gateAdmin.deactivateUser(view.getUserForGate());
 
 			view.showMessage(result.toString());
 			setUserToEntranceLabels();
