@@ -67,11 +67,9 @@ public class Administrator implements AdminSubject{
 	 * Checks the Id of the inputted user. If it is registered & has valid contract, the user frequency will be correctly updated.
 	 **/
 	public void checkIdForUpdate(User unknownUser){
-		User userFromList = findUserInList(unknownUser.getPerson());
+		User userFromList = findUserInList(unknownUser.getPerson()); // If found in list --> then is active
 		if ( isDateInFuture( userFromList.getPerson().getEndOfContract() ) )
 			unknownUser.update(frequency);
-		else 
-			unknownUser.update(0);
 	}
 	
 	/**
