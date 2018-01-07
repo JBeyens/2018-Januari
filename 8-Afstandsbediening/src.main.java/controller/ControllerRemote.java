@@ -43,10 +43,6 @@ public class ControllerRemote {
 	}
 	
 	public void start(){
-		this.view.setSize(750, 500);
-		this.view.setResizable(false);
-		this.view.setVisible(true);
-		this.view.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 	}
 	
 	/*
