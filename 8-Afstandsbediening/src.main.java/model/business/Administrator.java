@@ -9,8 +9,6 @@ import org.apache.log4j.Logger;
 import model.business.interfaces.AdminSubject;
 import model.business.DataManager;
 import model.entities.Person;
-import model.entities.Remote;
-import net.bytebuddy.asm.Advice.Return;
 import values.RegisterPersonResult;
 import values.DefaultSettings;
 import values.DeactivatePersonResult;
@@ -29,7 +27,9 @@ public class Administrator implements AdminSubject{
 		loadListenersFromDB();
 	}
 
-	/** METHODS **/
+	
+	
+	/** PUBLIC METHODS **/
 	/**
 	 * Getter for list of subscribed users
 	 **/
@@ -39,7 +39,7 @@ public class Administrator implements AdminSubject{
 	}
 	
 	/**
-	 * Getter & setter for frequency. Setter will also notify all saved 
+	 * Getter & setter for frequency. Setter will also notify all registered users.
 	 **/
 	public long getFrequency() {
 		log.debug("Getting frequency");
@@ -49,17 +49,6 @@ public class Administrator implements AdminSubject{
 		log.debug("Setting frequency");
 		this.frequency = frequency;
 		notifyAllObservers();
-	}
-
-	
-	/**
-	 * Loads all persons from database and adds Users for each person with Remote and with Remote set to active
-	 **/
-	private void loadListenersFromDB() {
-		ArrayList<Person> allPersons = DataManager.getAllPersonsWithActiveRemote();
-		
-		for (Person person : allPersons) 
-			users.add(new User(person, person.getRemote(), this));				
 	}
 	
 	/**
@@ -75,47 +64,33 @@ public class Administrator implements AdminSubject{
 	}
 
 	/**
-	 * Notify function for observer pattern
+	 * Checks the Id of the inputted user. If it is registered & has valid contract, the user frequency will be correctly updated.
 	 **/
-	private void notifyAllObservers() {
-		for (User user : users) {
-			user.update(getFrequency());
-		}
-	}
-
-	public long checkIdForFrequency(User unknownUser){
-		User userFromList = findUserInList(unknownUser);
+	public void checkIdForUpdate(User unknownUser){
+		User userFromList = findUserInList(unknownUser.getPerson());
 		if ( isDateInFuture( userFromList.getPerson().getEndOfContract() ) )
-			return getFrequency();
-
-		return 0;
-	}
-	
-	private User findUserInList(User unknownUser) {
-		for (User user : users) {
-			if (user.getRemote().getId() == unknownUser.getRemote().getId() 
-					&& user.getPerson().getId() == unknownUser.getPerson().getId())
-				return user;
-		}
-		return null;
+			unknownUser.update(frequency);
+		else 
+			unknownUser.update(0);
 	}
 	
 	/**
 	 * Registers inputted person (if not registered). 
 	 * @return AddPersonResult - Enum which contains possible outcomes of the situation
 	 **/
-	public String registerPerson(Person person) {
+	public RegisterPersonResult registerPerson(Person person) { 
+		// DO NOT return the string of this enum. Playing with MAGIC STRINGS in business code is bad practice!
 		if (findUserInList(person) != null) // Check if person is already in list
-			return RegisterPersonResult.alreadyInList.toString();
+			return RegisterPersonResult.alreadyInList;
 		
 		if (person.getRemote() == null)
-			return RegisterPersonResult.noRemote.toString();
+			return RegisterPersonResult.noRemote;
 		
 		person.getRemote().setIsActive(true);
 		DataManager.updatePerson(person); 
 		
 		users.add(new User(person, person.getRemote(), this));
-		return RegisterPersonResult.succesfull.toString();
+		return RegisterPersonResult.succesfull;
 	}
 	
 	/**
@@ -123,6 +98,7 @@ public class Administrator implements AdminSubject{
 	 * @return AddRemovePersonResult - Enum which contains possible outcomes of the situation
 	 */
 	public DeactivatePersonResult deActivatePerson(Person person) {
+		// DO NOT return the string of this enum. Playing with MAGIC STRINGS in business code is bad practice!
 		User user = findUserInList(person);
 		
 		if (user == null)
@@ -134,7 +110,29 @@ public class Administrator implements AdminSubject{
 		return DeactivatePersonResult.succesfull;
 	}	
 
+	
+	
+	/** PRIVATE METHODS **/
 
+	/**
+	 * Notify function for observer pattern
+	 **/
+	private void notifyAllObservers() {
+		for (User user : users) {
+			user.update(getFrequency());
+		}
+	}
+	
+	/**
+	 * Loads all persons from database and adds Users for each person with Remote and with Remote set to active
+	 **/
+	private void loadListenersFromDB() {
+		ArrayList<Person> allPersons = DataManager.getAllPersonsWithActiveRemote();
+		
+		for (Person person : allPersons) 
+			users.add(new User(person, person.getRemote(), this));				
+	}
+	
 	/**
 	 * @return Boolean - Is the inputted date is in the future
 	 **/
@@ -149,7 +147,7 @@ public class Administrator implements AdminSubject{
 	private User findUserInList(Person person)
 	{	
 		for (User user : users) {
-			if (user.getPerson() != person) // if (User object does not reference the same person)
+			if (user.getPerson().getId() != person.getId()) // if (User object does not reference the same person)
 				continue;
 			
 			// We found the correct User! 
