@@ -3,7 +3,6 @@ package view;
 import java.awt.Graphics2D;
 import java.awt.Image;
 import java.awt.RenderingHints;
-import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.ItemEvent;
 import java.awt.event.ItemListener;
@@ -39,7 +38,6 @@ import model.entities.Remote;
 
 import javax.swing.JComboBox;
 import java.awt.Color;
-import java.awt.Frame;
 import java.awt.Dimension;
 
 
@@ -51,9 +49,22 @@ import java.awt.Dimension;
  */
 
 public class View extends JFrame{
-	/**
-	 * 
-	 */
+	/**FIELDS FOR 'Ask Entrance' tab**/
+	private JComboBox<User> listUsers;
+	private JButton btnAskEntrance;
+	
+	private JLabel lblSerialNumberUser;
+	private JLabel lblFrequencyUser;
+	private JLabel lblRegisteredUser;
+	
+	private JLabel lblFirstNameUser;
+	private JLabel lblLastNameUser;
+	private JLabel lblEndOfContractUser;
+	private JLabel lblAddressUser;
+	
+	private JLabel lblFrequencyGate;
+	
+	
 	private static final long serialVersionUID = 1L;
 	private JTabbedPane tabbedPane;
 	private JPanel addPersonPanel;
@@ -66,11 +77,8 @@ public class View extends JFrame{
 	private JTextField tfFirstName;
 	private JTextField tfLastName;
 	private JButton btnAddPerson;
-	private JButton btnAskEntrance;
 	private JDateChooser dateContract;
-	private JLabel lblChooseUser;
 	private JLabel lblRequest;
-	private JComboBox<User> listUsers;
 	
 	public View(){
 		setSize(new Dimension(625, 500));
@@ -306,23 +314,104 @@ public class View extends JFrame{
 	/*
 	 * Component setup for gate TabPanel
 	 */
-	private void setUpGate(){			
-		lblChooseUser = new JLabel("Choose user");
+	private void setUpGate(){	
+		JLabel lblChooseUser = new JLabel("Choose user");
 		lblChooseUser.setBounds(10, 19, 100, 14);
 		simulateGate.add(lblChooseUser);
 		
 		listUsers = new JComboBox<User>();
 		listUsers.setBounds(10, 44, 409, 20);
-		simulateGate.add(listUsers);
 		listUsers.addItemListener(new UserLabelsItemListener());
+		simulateGate.add(listUsers);
 		
 		btnAskEntrance = new JButton("Ask Entrance");
 		btnAskEntrance.setBounds(300, 10, 119, 23);
 		simulateGate.add(btnAskEntrance);
 		
+		// Remote data
+		JLabel lblRemote = new JLabel("REMOTE");
+		lblRemote.setBounds(10, 75, 127, 14);
+		simulateGate.add(lblRemote);
+		
+		JLabel lblSerialNumber = new JLabel("Serial number");
+		lblSerialNumber.setBounds(10, 100, 80, 14);
+		simulateGate.add(lblSerialNumber);
+		
+		lblSerialNumberUser = new JLabel("...");
+		lblSerialNumberUser.setBounds(100, 100, 160, 14);
+		simulateGate.add(lblSerialNumberUser);
+		
+		JLabel lblFrequency = new JLabel("Frequency");
+		lblFrequency.setBounds(10, 125, 65, 14);
+		simulateGate.add(lblFrequency);
+		
+		lblFrequencyUser = new JLabel("...");
+		lblFrequencyUser.setBounds(100, 125, 160, 14);
+		simulateGate.add(lblFrequencyUser);
+		
+		JLabel lblRegistered = new JLabel("Activated");
+		lblRegistered.setBounds(10, 150, 65, 14);
+		simulateGate.add(lblRegistered);
+		
+		lblRegisteredUser = new JLabel("...");
+		lblRegisteredUser.setBounds(100, 150, 160, 14);
+		simulateGate.add(lblRegisteredUser);
+
+		// User data
+		JLabel lblUserData = new JLabel("USER DATA");
+		lblUserData.setBounds(300, 75, 138, 14);
+		simulateGate.add(lblUserData);
+		
+		JLabel lblFirstName = new JLabel("First name");
+		lblFirstName.setBounds(300, 100, 80, 14);
+		simulateGate.add(lblFirstName);
+		
+		lblFirstNameUser = new JLabel("...");
+		lblFirstNameUser.setBounds(390, 100, 160, 14);
+		simulateGate.add(lblFirstNameUser);
+		
+		JLabel lblLastName = new JLabel("Last name");
+		lblLastName.setBounds(300, 125, 80, 14);
+		simulateGate.add(lblLastName);
+		
+		lblLastNameUser = new JLabel("...");
+		lblLastNameUser.setBounds(390, 125, 160, 14);
+		simulateGate.add(lblLastNameUser);
+		
+		JLabel lblAddress = new JLabel("Address");
+		lblAddress.setBounds(300, 175, 46, 14);
+		simulateGate.add(lblAddress);
+		
+		lblAddressUser = new JLabel("...");
+		lblAddressUser.setVerticalAlignment(SwingConstants.TOP);
+		lblAddressUser.setBounds(390, 175, 160, 50);
+		simulateGate.add(lblAddressUser);
+		
+		JLabel lblEndOfContract = new JLabel("End of contract");
+		lblEndOfContract.setBounds(300, 150, 80, 14);
+		simulateGate.add(lblEndOfContract);
+		
+		lblEndOfContractUser = new JLabel("...");
+		lblEndOfContractUser.setBounds(390, 150, 160, 14);
+		simulateGate.add(lblEndOfContractUser);
+		
+		JLabel lblGate = new JLabel("GATE");
+		lblGate.setBounds(10, 200, 46, 14);
+		simulateGate.add(lblGate);
+		
+		lblFrequency = new JLabel("Frequency"); // already made this label for frequency remote, so simply reference it to new label
+		lblFrequency.setBounds(10, 225, 80, 14);
+		simulateGate.add(lblFrequency);
+		
+		lblFrequencyGate = new JLabel("...");
+		lblFrequencyGate.setBounds(100, 225, 160, 14);
+		simulateGate.add(lblFrequencyGate);
+		
+		
+		
 		lblRequest = new JLabel("", SwingConstants.CENTER);
 		lblRequest.setBackground(Color.GRAY);
-		lblRequest.setBounds(10, 160, 409, 62);
+		lblRequest.setBounds(10, 290, 409, 62);
 		lblRequest.setOpaque(true);
 		simulateGate.add(lblRequest);
 	}
@@ -350,34 +439,9 @@ public class View extends JFrame{
 		ImageIcon iconPlane = new ImageIcon(uPlane);
 		
 		tabbedPane.addTab("Request entrance", new ImageIcon(getScaledImage(iconGate.getImage(), 30, 30)), simulateGate, "Simulates request from inhabitant");
-		simulateGate.setLayout(null);
-		
-		JLabel lblSerialNumber = new JLabel("Serial number");
-		lblSerialNumber.setBounds(10, 74, 80, 14);
-		simulateGate.add(lblSerialNumber);
-		
-		JLabel lblFrequency = new JLabel("Frequency");
-		lblFrequency.setBounds(10, 99, 65, 14);
-		simulateGate.add(lblFrequency);
-		
-		JLabel lblRegistered = new JLabel("Registered");
-		lblRegistered.setBounds(10, 124, 65, 14);
-		simulateGate.add(lblRegistered);
-		
-		JLabel lblSerialNumberFromRemote = new JLabel("...");
-		lblSerialNumberFromRemote.setBounds(100, 74, 46, 14);
-		simulateGate.add(lblSerialNumberFromRemote);
-		
-		JLabel lblFrequencyFromRemote = new JLabel("...");
-		lblFrequencyFromRemote.setBounds(100, 99, 46, 14);
-		simulateGate.add(lblFrequencyFromRemote);
-		
-		JLabel lblRegisteredFromRemote = new JLabel("...");
-		lblRegisteredFromRemote.setBounds(100, 124, 46, 14);
-		simulateGate.add(lblRegisteredFromRemote);
-
 		tabbedPane.addTab("Add", new ImageIcon(getScaledImage(iconAdd.getImage(), 30, 30)), addPersonPanel, "Add a new person");
 		tabbedPane.addTab("Overview", new ImageIcon(getScaledImage(iconPlane.getImage(), 30, 30)), overView, "Overview inhabitants");
+		simulateGate.setLayout(null);
 
 		getContentPane().add(tabbedPane);
 	}
