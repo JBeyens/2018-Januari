@@ -11,6 +11,7 @@ import org.apache.log4j.Logger;
 import model.business.Administrator;
 import model.business.DataManager;
 import model.business.User;
+import model.entities.Address;
 import model.entities.Person;
 import values.DefaultSettings;
 import view.View;
@@ -80,6 +81,23 @@ public class ControllerRemote {
 		view.setOverview( DataManager.getAllPersons() );
 	} 
 	
+	private void setUserToEntranceLabels() 
+	{		
+		User user = view.getUserForGate();
+		view.setEntranceTabLblSerialNumberUser(	user.getRemote().getSerialNumber());
+		view.setEntranceTabLblFrequencyUser( 	Double.toString( user.getRemote().getFrequency()));
+		view.setEntranceTabLblRegisteredUser(	user.getRemote().getIsActive());
+		view.setEntranceTabLblFirstNameUser(	user.getPerson().getFirstname());
+		view.setEntranceTabLblLastNameUser(		user.getPerson().getLastname()); 
+		view.setEntranceTabLblEndOfContractUser(DefaultSettings.DATE_FORMAT.format(user.getPerson().getEndOfContract()));
+		view.setEntranceTabLblFrequencyGate(	Double.toString(user.getGate().getFrequency()));
+
+		Address a = user.getPerson().getAdress();
+		view.setEntranceTablLblAddressStreetUser( a.getStreet() + " " + a.getNumber() + "/" + a.getMailBox());
+		view.setEntranceTablLblAddressCityUser(   a.getPostalCode() + " " + a.getCity());
+		view.setEntranceTablLblAddressCountryUser(a.getCountry());
+	}
+	
 	/*
 	 * Listener for ask entrance button (Ask Entrance tab)
 	 */
@@ -90,7 +108,7 @@ public class ControllerRemote {
 			boolean isGateOpening = selectedUser.openGate();
 			log.info("-> The entrance was " + (isGateOpening?"":"not ") + "granted!");
 			view.setEntranceTabRequest(isGateOpening);
-			UserToLabels.SetUserToEntranceLabels(view, view.getUserForGate());
+			setUserToEntranceLabels();
 		}		
 	}	
 	
@@ -99,8 +117,7 @@ public class ControllerRemote {
 		
 		@Override
 		public void itemStateChanged(ItemEvent e) {
-			User user = view.getUserForGate();				
-			UserToLabels.SetUserToEntranceLabels(view, user);
+			setUserToEntranceLabels();
 		}
 	}
 	
