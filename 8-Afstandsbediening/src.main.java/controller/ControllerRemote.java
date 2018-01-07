@@ -2,10 +2,6 @@ package controller;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.awt.event.ItemEvent;
-import java.awt.event.ItemListener;
-import java.text.DateFormat;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 
 import org.apache.log4j.Logger;
@@ -15,6 +11,7 @@ import model.business.DataManager;
 import model.business.User;
 import model.entities.Person;
 import values.DefaultSettings;
+import view.SetEntranceLabelsToSelectedUser;
 import view.View;
 
 
@@ -29,7 +26,6 @@ public class ControllerRemote {
 	private Logger log;
 	private Administrator gateAdmin;
 	private View view;
-	DateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
 	
 	public ControllerRemote(){
 		log = DefaultSettings.getLogger("Controller");
@@ -41,7 +37,7 @@ public class ControllerRemote {
 		view.entranceTabAddAskEntranceListener(new AskEntranceListener());
 		view.addOVerViewUpdateListener(new RefreshOverViewListener());
 		view.addAddPersonListener(new AddPersonListener());
-		view.entranceTabAddUserListItemListener(new UserLabelsItemListener());
+		view.entranceTabAddUserListItemListener(new SetEntranceLabelsToSelectedUser(view));
 		
 		setInactiveRemote();
 		setUnusedAddress();
@@ -95,25 +91,6 @@ public class ControllerRemote {
 			view.setEntranceTabRequest(isGateOpening);
 		}		
 	}	
-	
-	/*
-	 * Listener for user list combo box (Ask Entrance tab)
-	 */
-	private class UserLabelsItemListener implements ItemListener{
-		@Override
-		public void itemStateChanged(ItemEvent e) {
-			User user = view.getUserForGate(); 
-			
-			view.setEntranceTabLblSerialNumberUser(	user.getRemote().getSerialNumber());
-			view.setEntranceTabLblFrequencyUser( 	Double.toString( user.getRemote().getFrequency()));
-			view.setEntranceTabLblRegisteredUser(	user.getRemote().getIsActive());
-			view.setEntranceTabLblFirstNameUser(	user.getPerson().getFirstname());
-			view.setEntranceTabLblLastNameUser(		user.getPerson().getLastname()); 
-			view.setEntranceTabLblEndOfContractUser(dateFormat.format(user.getPerson().getEndOfContract()));
-			view.setEntranceTabLblAddressUser(		user.getPerson().getAdress().toString());
-			view.setEntranceTabLblFrequencyGate(	Double.toString(user.getGate().getFrequency()));
-		}
-	}
 	
 	/*
 	 * Listeren for addPerson button (2nd tab)
