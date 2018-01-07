@@ -2,6 +2,8 @@ package controller;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.ItemEvent;
+import java.awt.event.ItemListener;
 import java.util.ArrayList;
 
 import org.apache.log4j.Logger;
@@ -11,7 +13,6 @@ import model.business.DataManager;
 import model.business.User;
 import model.entities.Person;
 import values.DefaultSettings;
-import view.SetEntranceLabelsToSelectedUser;
 import view.View;
 
 
@@ -37,7 +38,7 @@ public class ControllerRemote {
 		view.entranceTabAddAskEntranceListener(new AskEntranceListener());
 		view.addOVerViewUpdateListener(new RefreshOverViewListener());
 		view.addAddPersonListener(new AddPersonListener());
-		view.entranceTabAddUserListItemListener(new SetEntranceLabelsToSelectedUser(view));
+		view.entranceTabAddUserListItemListener(new SetEntranceLabelsToSelectedUser());
 		
 		setInactiveRemote();
 		setUnusedAddress();
@@ -91,6 +92,24 @@ public class ControllerRemote {
 			view.setEntranceTabRequest(isGateOpening);
 		}		
 	}	
+	
+	// Listener for user list combo box (Ask Entrance tab)
+	private class SetEntranceLabelsToSelectedUser implements ItemListener {
+		
+		@Override
+		public void itemStateChanged(ItemEvent e) {
+			User user = view.getUserForGate(); 
+				
+			view.setEntranceTabLblSerialNumberUser(	user.getRemote().getSerialNumber());
+			view.setEntranceTabLblFrequencyUser( 	Double.toString( user.getRemote().getFrequency()));
+			view.setEntranceTabLblRegisteredUser(	user.getRemote().getIsActive());
+			view.setEntranceTabLblFirstNameUser(	user.getPerson().getFirstname());
+			view.setEntranceTabLblLastNameUser(		user.getPerson().getLastname()); 
+			view.setEntranceTabLblEndOfContractUser(DefaultSettings.DATE_FORMAT.format(user.getPerson().getEndOfContract()));
+			view.setEntranceTabLblAddressUser(		user.getPerson().getAdress().toString());
+			view.setEntranceTabLblFrequencyGate(	Double.toString(user.getGate().getFrequency()));
+		}
+	}
 	
 	/*
 	 * Listeren for addPerson button (2nd tab)
