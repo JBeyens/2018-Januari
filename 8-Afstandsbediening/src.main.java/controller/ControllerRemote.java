@@ -14,6 +14,7 @@ import model.business.User;
 import model.entities.Person;
 import values.DefaultSettings;
 import view.View;
+import view.ViewUserToLabels;
 
 
 /**
@@ -90,6 +91,7 @@ public class ControllerRemote {
 			boolean isGateOpening = selectedUser.openGate();
 			log.info("-> The entrance was " + (isGateOpening?"":"not ") + "granted!");
 			view.setEntranceTabRequest(isGateOpening);
+			ViewUserToLabels.SetUserToEntranceLabels(view, view.getUserForGate());
 		}		
 	}	
 	
@@ -98,16 +100,8 @@ public class ControllerRemote {
 		
 		@Override
 		public void itemStateChanged(ItemEvent e) {
-			User user = view.getUserForGate(); 
-				
-			view.setEntranceTabLblSerialNumberUser(	user.getRemote().getSerialNumber());
-			view.setEntranceTabLblFrequencyUser( 	Double.toString( user.getRemote().getFrequency()));
-			view.setEntranceTabLblRegisteredUser(	user.getRemote().getIsActive());
-			view.setEntranceTabLblFirstNameUser(	user.getPerson().getFirstname());
-			view.setEntranceTabLblLastNameUser(		user.getPerson().getLastname()); 
-			view.setEntranceTabLblEndOfContractUser(DefaultSettings.DATE_FORMAT.format(user.getPerson().getEndOfContract()));
-			view.setEntranceTabLblAddressUser(		user.getPerson().getAdress().toString());
-			view.setEntranceTabLblFrequencyGate(	Double.toString(user.getGate().getFrequency()));
+			User user = view.getUserForGate();				
+			ViewUserToLabels.SetUserToEntranceLabels(view, user);
 		}
 	}
 	
