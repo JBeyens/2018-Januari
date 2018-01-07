@@ -22,9 +22,9 @@ public class Administrator implements AdminSubject{
 	/** CONSTRUCTOR **/
 	public Administrator(){
 		log = DefaultSettings.getLogger(this.getClass().getSimpleName());
-		this.setFrequency(DefaultSettings.RANDOM.nextLong());
 		this.users = new ArrayList<>();
-		loadListenersFromDB();
+		loadUsersFromDB();
+		this.setFrequency(DefaultSettings.RANDOM.nextLong());
 	}
 
 	
@@ -126,7 +126,7 @@ public class Administrator implements AdminSubject{
 	/**
 	 * Loads all persons from database and adds Users for each person with Remote and with Remote set to active
 	 **/
-	private void loadListenersFromDB() {
+	private void loadUsersFromDB() {
 		ArrayList<Person> allPersons = DataManager.getAllPersonsWithActiveRemote();
 		
 		for (Person person : allPersons) 
