@@ -25,23 +25,24 @@ public class User implements AdminObserver{
 	}
 
 	/** METHODS 
-	 *  Getter & setter for 'Person'
+	 *  Getter for 'Person'
 	 **/
 	public Person getPerson() {
 		return person;
 	}
-	public void setPerson(Person person) {
-		this.person = person;
-	}
 
 	/**
-	 * Getter & setter for 'Remote'
+	 * Getter for 'Remote'
 	 **/
 	public Remote getRemote() {
 		return remote;
 	}
-	public void setRemote(Remote remote) {
-		this.remote = remote;
+
+	/**
+	 * Getter for 'Gate/Administrator'
+	 **/
+	public Administrator getGate() {
+		return gate;
 	}
 
 	/**
