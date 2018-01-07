@@ -14,7 +14,6 @@ import model.business.User;
 import model.entities.Person;
 import values.DefaultSettings;
 import view.View;
-import view.ViewUserToLabels;
 
 
 /**
@@ -91,7 +90,7 @@ public class ControllerRemote {
 			boolean isGateOpening = selectedUser.openGate();
 			log.info("-> The entrance was " + (isGateOpening?"":"not ") + "granted!");
 			view.setEntranceTabRequest(isGateOpening);
-			ViewUserToLabels.SetUserToEntranceLabels(view, view.getUserForGate());
+			UserToLabels.SetUserToEntranceLabels(view, view.getUserForGate());
 		}		
 	}	
 	
@@ -101,7 +100,7 @@ public class ControllerRemote {
 		@Override
 		public void itemStateChanged(ItemEvent e) {
 			User user = view.getUserForGate();				
-			ViewUserToLabels.SetUserToEntranceLabels(view, user);
+			UserToLabels.SetUserToEntranceLabels(view, user);
 		}
 	}
 	

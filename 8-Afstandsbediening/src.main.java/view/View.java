@@ -60,7 +60,9 @@ public class View extends JFrame{
 	private JLabel entranceTabLblFirstNameUser;
 	private JLabel entranceTabLblLastNameUser;
 	private JLabel entranceTabLblEndOfContractUser;
-	private JLabel entranceTabLblAddressUser;
+	private JLabel entranceTablLblAddressStreetUser;
+	private JLabel entranceTablLblAddressCityUser;
+	private JLabel entranceTablLblAddressCountryUser;
 	
 	private JLabel entranceTabLblFrequencyGate;
 	private JLabel entranceTabLblRequest;
@@ -114,8 +116,12 @@ public class View extends JFrame{
 		this.entranceTabLblLastNameUser.setText(lastName); } 
 	public void setEntranceTabLblEndOfContractUser(String endOfContract) {
 		this.entranceTabLblEndOfContractUser.setText(endOfContract); } 
-	public void setEntranceTabLblAddressUser(String address) {
-		this.entranceTabLblAddressUser.setText(address); } 
+	public void setEntranceTablLblAddressStreetUser(String street) {
+		this.entranceTablLblAddressStreetUser.setText(street); } 
+	public void setEntranceTablLblAddressCityUser(String city) {
+		this.entranceTablLblAddressCityUser.setText(city); } 
+	public void setEntranceTablLblAddressCountryUser(String country) {
+		this.entranceTablLblAddressCountryUser.setText(country); } 
 	public void setEntranceTabLblFrequencyGate(String frequencyGate) {
 		this.entranceTabLblFrequencyGate.setText(frequencyGate); } 
 	
@@ -334,11 +340,11 @@ public class View extends JFrame{
 		entranceTab.add(lblChooseUser);
 		
 		entranceTabListUsers = new JComboBox<User>();
-		entranceTabListUsers.setBounds(10, 44, 409, 20);
+		entranceTabListUsers.setBounds(10, 44, 550, 20);
 		entranceTab.add(entranceTabListUsers);
 		
 		entranceTabBtnAskEntrance = new JButton("Ask Entrance");
-		entranceTabBtnAskEntrance.setBounds(300, 221, 119, 23);
+		entranceTabBtnAskEntrance.setBounds(10, 250, 250, 23);
 		entranceTab.add(entranceTabBtnAskEntrance);
 		
 		// Remote data
@@ -376,36 +382,31 @@ public class View extends JFrame{
 		entranceTab.add(lblUserData);
 		
 		JLabel lblFirstName = new JLabel("First name");
-		lblFirstName.setBounds(300, 100, 80, 14);
+		lblFirstName.setBounds(300, 100, 100, 14);
 		entranceTab.add(lblFirstName);
 		
 		entranceTabLblFirstNameUser = new JLabel("...");
-		entranceTabLblFirstNameUser.setBounds(390, 100, 160, 14);
+		entranceTabLblFirstNameUser.setBounds(400, 100, 160, 14);
 		entranceTab.add(entranceTabLblFirstNameUser);
 		
 		JLabel lblLastName = new JLabel("Last name");
-		lblLastName.setBounds(300, 125, 80, 14);
+		lblLastName.setBounds(300, 125, 100, 14);
 		entranceTab.add(lblLastName);
 		
 		entranceTabLblLastNameUser = new JLabel("...");
-		entranceTabLblLastNameUser.setBounds(390, 125, 160, 14);
+		entranceTabLblLastNameUser.setBounds(400, 125, 160, 14);
 		entranceTab.add(entranceTabLblLastNameUser);
 		
 		JLabel lblAddress = new JLabel("Address");
-		lblAddress.setBounds(300, 175, 46, 14);
+		lblAddress.setBounds(300, 175, 100, 14);
 		entranceTab.add(lblAddress);
 		
-		entranceTabLblAddressUser = new JLabel("...");
-		entranceTabLblAddressUser.setVerticalAlignment(SwingConstants.TOP);
-		entranceTabLblAddressUser.setBounds(390, 175, 160, 50);
-		entranceTab.add(entranceTabLblAddressUser);
-		
 		JLabel lblEndOfContract = new JLabel("End of contract");
-		lblEndOfContract.setBounds(300, 150, 80, 14);
+		lblEndOfContract.setBounds(300, 150, 100, 14);
 		entranceTab.add(lblEndOfContract);
 		
 		entranceTabLblEndOfContractUser = new JLabel("...");
-		entranceTabLblEndOfContractUser.setBounds(390, 150, 160, 14);
+		entranceTabLblEndOfContractUser.setBounds(400, 150, 160, 14);
 		entranceTab.add(entranceTabLblEndOfContractUser);
 		
 		JLabel lblGate = new JLabel("GATE");
@@ -454,6 +455,18 @@ public class View extends JFrame{
 		tabbedPane.addTab("Add", new ImageIcon(getScaledImage(iconAdd.getImage(), 30, 30)), addPersonPanel, "Add a new person");
 		tabbedPane.addTab("Overview", new ImageIcon(getScaledImage(iconPlane.getImage(), 30, 30)), overView, "Overview inhabitants");
 		entranceTab.setLayout(null);
+		
+		entranceTablLblAddressStreetUser = new JLabel("...");
+		entranceTablLblAddressStreetUser.setBounds(400, 175, 160, 14);
+		entranceTab.add(entranceTablLblAddressStreetUser);
+		
+		entranceTablLblAddressCityUser = new JLabel("...");
+		entranceTablLblAddressCityUser.setBounds(400, 195, 160, 14);
+		entranceTab.add(entranceTablLblAddressCityUser);
+		
+		entranceTablLblAddressCountryUser = new JLabel("...");
+		entranceTablLblAddressCountryUser.setBounds(400, 215, 160, 14);
+		entranceTab.add(entranceTablLblAddressCountryUser);
 
 		getContentPane().add(tabbedPane);
 	}
