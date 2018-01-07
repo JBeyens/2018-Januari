@@ -3,7 +3,10 @@ package view;
 import java.awt.Graphics2D;
 import java.awt.Image;
 import java.awt.RenderingHints;
+import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.ItemEvent;
+import java.awt.event.ItemListener;
 import java.awt.image.BufferedImage;
 import java.net.URL;
 import java.sql.Date;
@@ -36,6 +39,8 @@ import model.entities.Remote;
 
 import javax.swing.JComboBox;
 import java.awt.Color;
+import java.awt.Frame;
+import java.awt.Dimension;
 
 
 /**
@@ -63,13 +68,15 @@ public class View extends JFrame{
 	private JButton btnAddPerson;
 	private JButton btnAskEntrance;
 	private JDateChooser dateContract;
-	private JLabel lblChooseRemote;
+	private JLabel lblChooseUser;
 	private JLabel lblRequest;
 	private JComboBox<User> listUsers;
 	
 	public View(){
+		setSize(new Dimension(625, 500));
+		setResizable(false);
+		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		this.setTitle("Gate Administration");
-		setExtendedState(JFrame.MAXIMIZED_BOTH);
 		setUpTabbedPane();
 	}
 	
@@ -300,19 +307,21 @@ public class View extends JFrame{
 	 * Component setup for gate TabPanel
 	 */
 	private void setUpGate(){			
-		lblChooseRemote = new JLabel("Choose remote");
-		lblChooseRemote.setBounds(10, 19, 100, 14);
-		simulateGate.add(lblChooseRemote);
+		lblChooseUser = new JLabel("Choose user");
+		lblChooseUser.setBounds(10, 19, 100, 14);
+		simulateGate.add(lblChooseUser);
 		
 		listUsers = new JComboBox<User>();
 		listUsers.setBounds(10, 44, 409, 20);
 		simulateGate.add(listUsers);
+		listUsers.addItemListener(new UserLabelsItemListener());
 		
 		btnAskEntrance = new JButton("Ask Entrance");
 		btnAskEntrance.setBounds(300, 10, 119, 23);
 		simulateGate.add(btnAskEntrance);
 		
 		lblRequest = new JLabel("", SwingConstants.CENTER);
+		lblRequest.setBackground(Color.GRAY);
 		lblRequest.setBounds(10, 160, 409, 62);
 		lblRequest.setOpaque(true);
 		simulateGate.add(lblRequest);
@@ -342,6 +351,30 @@ public class View extends JFrame{
 		
 		tabbedPane.addTab("Request entrance", new ImageIcon(getScaledImage(iconGate.getImage(), 30, 30)), simulateGate, "Simulates request from inhabitant");
 		simulateGate.setLayout(null);
+		
+		JLabel lblSerialNumber = new JLabel("Serial number");
+		lblSerialNumber.setBounds(10, 74, 80, 14);
+		simulateGate.add(lblSerialNumber);
+		
+		JLabel lblFrequency = new JLabel("Frequency");
+		lblFrequency.setBounds(10, 99, 65, 14);
+		simulateGate.add(lblFrequency);
+		
+		JLabel lblRegistered = new JLabel("Registered");
+		lblRegistered.setBounds(10, 124, 65, 14);
+		simulateGate.add(lblRegistered);
+		
+		JLabel lblSerialNumberFromRemote = new JLabel("...");
+		lblSerialNumberFromRemote.setBounds(100, 74, 46, 14);
+		simulateGate.add(lblSerialNumberFromRemote);
+		
+		JLabel lblFrequencyFromRemote = new JLabel("...");
+		lblFrequencyFromRemote.setBounds(100, 99, 46, 14);
+		simulateGate.add(lblFrequencyFromRemote);
+		
+		JLabel lblRegisteredFromRemote = new JLabel("...");
+		lblRegisteredFromRemote.setBounds(100, 124, 46, 14);
+		simulateGate.add(lblRegisteredFromRemote);
 
 		tabbedPane.addTab("Add", new ImageIcon(getScaledImage(iconAdd.getImage(), 30, 30)), addPersonPanel, "Add a new person");
 		tabbedPane.addTab("Overview", new ImageIcon(getScaledImage(iconPlane.getImage(), 30, 30)), overView, "Overview inhabitants");
@@ -393,5 +426,17 @@ public class View extends JFrame{
 	    g2.dispose();
 
 	    return resizedImg;
+	}
+	
+	
+	/*
+	 * Listener for 'On selected user changed' (3rd tab)
+	 */
+	private class UserLabelsItemListener implements ItemListener{
+		@Override
+		public void itemStateChanged(ItemEvent e) {
+			// TODO Auto-generated method stub
+			
+		}	
 	}
 }
