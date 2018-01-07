@@ -1,8 +1,10 @@
 package model.business.interfaces;
 
 import model.business.User;
+import values.DeactivatePersonResult;
+import values.RegisterPersonResult;
 
 public interface AdminSubject {
-	void addObserver(User o);
-	void removeObserver(User o);
+	RegisterPersonResult registerUser(User observer);
+	DeactivatePersonResult deactivateUser(User observer);
 }

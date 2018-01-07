@@ -50,61 +50,54 @@ public class Administrator implements AdminSubject{
 		this.frequency = frequency;
 		notifyAllObservers();
 	}
-	
-	/**
-	 * Add- & remove function for observer pattern
-	 **/
-	@Override
-	public void addObserver(User o) {
-		this.users.add(o);
-	}
-	@Override
-	public void removeObserver(User o) {
-		this.users.remove(o);
-	}
 
 	/**
 	 * Checks the Id of the inputted user. If it is registered & has valid contract, the user frequency will be correctly updated.
 	 **/
 	public void checkIdForUpdate(User unknownUser){
-		User userFromList = findUserInList(unknownUser.getPerson()); // If found in list --> then is active
+		User userFromList = findUserInList(unknownUser.getPerson()); // If found in list --> then is ACTIVE
+		if ( userFromList == null ) // If not found in list --> then is NOT ACTIVE
+			return;
 		if ( isDateInFuture( userFromList.getPerson().getEndOfContract() ) )
 			unknownUser.update(frequency);
 	}
 	
 	/**
-	 * Registers inputted person (if not registered). 
+	 * Add function for observer pattern. Registers inputted person (if not registered). 
 	 * @return AddPersonResult - Enum which contains possible outcomes of the situation
 	 **/
-	public RegisterPersonResult registerPerson(Person person) { 
+	@Override
+	public RegisterPersonResult registerUser(User user) { 
 		// DO NOT return the string of this enum. Playing with MAGIC STRINGS in business code is bad practice!
-		if (findUserInList(person) != null) // Check if person is already in list
+		if (findUserInList(user.getPerson()) != null) // Check if person is already in list
 			return RegisterPersonResult.alreadyInList;
 		
-		if (person.getRemote() == null)
+		if (user.getRemote() == null)
 			return RegisterPersonResult.noRemote;
 		
-		person.getRemote().setIsActive(true);
-		DataManager.updatePerson(person); 
+		user.getRemote().setIsActive(true);
+		DataManager.updateRemote(user.getRemote()); 
 		
-		users.add(new User(person, person.getRemote(), this));
+		users.add( user );
 		return RegisterPersonResult.succesfull;
 	}
 	
 	/**
-	 * Remove existing person (if registered). 
+	 * Remove function for observer pattern. Deactivates & removes inputted person.
 	 * @return AddRemovePersonResult - Enum which contains possible outcomes of the situation
 	 */
-	public DeactivatePersonResult deActivatePerson(Person person) {
+	@Override
+	public DeactivatePersonResult deactivateUser(User user) {
 		// DO NOT return the string of this enum. Playing with MAGIC STRINGS in business code is bad practice!
-		User user = findUserInList(person);
+		User userFromList = findUserInList(user.getPerson());
 		
-		if (user == null)
+		if (userFromList == null)
 			return DeactivatePersonResult.notFound;
 		
-		user.getPerson().getRemote().setIsActive(false);
-		DataManager.updatePerson(person);
-		users.remove(user);
+		user.getRemote().setIsActive(false);
+		DataManager.updateRemote(user.getRemote());
+		
+		users.remove(userFromList);
 		return DeactivatePersonResult.succesfull;
 	}	
 
