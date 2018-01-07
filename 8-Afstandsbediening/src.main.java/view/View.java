@@ -29,6 +29,7 @@ import javax.swing.SwingConstants;
 
 import com.toedter.calendar.JDateChooser;
 
+import model.business.User;
 import model.entities.Address;
 import model.entities.Person;
 import model.entities.Remote;
@@ -64,7 +65,7 @@ public class View extends JFrame{
 	private JDateChooser dateContract;
 	private JLabel lblChooseRemote;
 	private JLabel lblRequest;
-	private JComboBox<Remote> listRemote;
+	private JComboBox<User> listUsers;
 	
 	public View(){
 		this.setTitle("Gate Administration");
@@ -146,9 +147,9 @@ public class View extends JFrame{
 	/*
 	 * Controller fills combobox with data from DB
 	 */
-	public void addRemotes(ArrayList<Remote> list){
-		for (Remote remote : list) {
-			listRemote.addItem(remote);
+	public void addUsers(ArrayList<User> userList){
+		for (User user : userList) {
+			listUsers.addItem(user);
 		}
 	}
 	
@@ -208,8 +209,8 @@ public class View extends JFrame{
 		return listInactiveRemote.getSelectedValue();
 	}
 	
-	public Remote getRemoteForGate() {
-		return (Remote)listRemote.getSelectedItem();
+	public User getUserForGate() {
+		return (User)listUsers.getSelectedItem();
 	}
 	
 	/*
@@ -303,9 +304,9 @@ public class View extends JFrame{
 		lblChooseRemote.setBounds(10, 19, 100, 14);
 		simulateGate.add(lblChooseRemote);
 		
-		listRemote = new JComboBox<Remote>();
-		listRemote.setBounds(10, 44, 409, 20);
-		simulateGate.add(listRemote);
+		listUsers = new JComboBox<User>();
+		listUsers.setBounds(10, 44, 409, 20);
+		simulateGate.add(listUsers);
 		
 		btnAskEntrance = new JButton("Ask Entrance");
 		btnAskEntrance.setBounds(300, 10, 119, 23);
