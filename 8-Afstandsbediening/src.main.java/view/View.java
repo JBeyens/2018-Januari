@@ -83,8 +83,6 @@ public class View extends JFrame{
 	private JTextField tfLastName;
 	private JButton btnAddPerson;
 	private JDateChooser dateContract;
-	private JLabel lblNewLabel;
-	private JLabel lblAccessIsGranted;
 	private JButton addTabBtnClearDatabase;
 	private JButton addTabBtnGenerateData;
 	
@@ -148,12 +146,12 @@ public class View extends JFrame{
 
 		if(bool){
 			entranceTabLblRequest.setBackground(Color.GREEN);
-			entranceTabLblRequest.setText("Access granted (frequency mathes)!");
+			entranceTabLblRequest.setText("Access granted!");
 		}
 		
 		else{
 			entranceTabLblRequest.setBackground(Color.RED);
-			entranceTabLblRequest.setText("Acces denied (frequency doesn't match)!");
+			entranceTabLblRequest.setText("Acces denied!");
 		}
 	}
 
@@ -465,9 +463,17 @@ public class View extends JFrame{
 		
 		entranceTabLblRequest = new JLabel("", SwingConstants.CENTER);
 		entranceTabLblRequest.setBackground(Color.GRAY);
-		entranceTabLblRequest.setBounds(10, 290, 409, 62);
+		entranceTabLblRequest.setBounds(10, 290, 565, 62);
 		entranceTabLblRequest.setOpaque(true);
 		entranceTab.add(entranceTabLblRequest);
+		
+		JLabel lblFreqUpdated = new JLabel("Frequency will only be updated for registered users with a valid contract");
+		lblFreqUpdated.setBounds(10, 389, 565, 14);
+		entranceTab.add(lblFreqUpdated);
+		
+		JLabel lblAccessIsGranted = new JLabel("Access is granted to all registered users who have the correct frequency!");
+		lblAccessIsGranted.setBounds(10, 364, 565, 14);
+		entranceTab.add(lblAccessIsGranted);
 	}
 	
 	/*
@@ -498,13 +504,7 @@ public class View extends JFrame{
 		tabbedPane.addTab("Overview", new ImageIcon(getScaledImage(iconPlane.getImage(), 30, 30)), overView, "Overview inhabitants");
 		entranceTab.setLayout(null);
 		
-		lblNewLabel = new JLabel("Frequency will only be updated for registered users with a valid contract");
-		lblNewLabel.setBounds(10, 389, 409, 14);
-		entranceTab.add(lblNewLabel);
-		
-		lblAccessIsGranted = new JLabel("Access is granted to all users who have the correct frequency!");
-		lblAccessIsGranted.setBounds(10, 364, 409, 14);
-		entranceTab.add(lblAccessIsGranted);
+
 
 		getContentPane().add(tabbedPane);
 	}
