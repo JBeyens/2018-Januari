@@ -49,14 +49,12 @@ public class User implements AdminObserver{
 	 * Method to let the remote send a signal to the gate to open it
 	 * @return Boolean - Is gate opening or not
 	 **/
-	public boolean openGate(){
-		checkIdForUpdate();
-		
-		return gate.getFrequency() == remote.getFrequency();		
+	public boolean openGate(){	
+		return (checkIdForUpdate() && gate.getFrequency() == remote.getFrequency());		
 	}
 	
-	private void checkIdForUpdate(){
-		gate.checkIdForUpdate(this);
+	private boolean checkIdForUpdate(){
+		return gate.checkIdForUpdate(this);
 	}
 
 	/**
