@@ -65,9 +65,6 @@ public class User implements AdminObserver{
 		this.remote.setFrequency(frequency);
 	}
 
-	/**
-	 * Method for observer pattern where the frequency of the user remote can be updated
-	 **/
 	@Override
 	public String toString() {
 		return getPerson() + ": remote " + getRemote().getSerialNumber();
