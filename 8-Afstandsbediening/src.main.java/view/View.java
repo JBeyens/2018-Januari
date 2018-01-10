@@ -182,11 +182,14 @@ public class View extends JFrame{
 	
 	
 	/** METHODS FOR 'AddPerson' TAB **/
+	
+	
+	
+	/** METHODS FOR 'Overview' TAB **/
 	// Controller subscribes to this button
 	public void addOverviewUpdateListener(ActionListener e){
 		this.overviewBtnRefresh.addActionListener(e);
 	}
-	/** METHODS FOR 'Overview' TAB **/
 	
 	
 	/*
