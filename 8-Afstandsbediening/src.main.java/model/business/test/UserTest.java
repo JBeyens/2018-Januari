@@ -69,7 +69,7 @@ public class UserTest {
 	@Test
 	public void Open_Gate_When_Remote_Is_Not_Active_Acces_Denied() {
 		admin.registerUser(user);
-		user.getPerson().getRemote().setIsActive(false);
+		admin.deactivateUser(user);
 		
 		Boolean bool = user.openGate();
 
