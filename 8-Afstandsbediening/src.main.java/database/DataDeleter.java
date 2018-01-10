@@ -1,4 +1,4 @@
-package test.database;
+package database;
 
 import org.apache.log4j.Logger;
 
@@ -11,7 +11,7 @@ import values.DefaultSettings;
  * @Project Afstandsbediening
  * @Doel Clears all data from Database
  */
-public class ClearDummyData {
+public class DataDeleter {
 	private static Logger logger;
 
 	public static void main(String[] args) {
