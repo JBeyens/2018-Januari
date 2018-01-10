@@ -6,7 +6,6 @@ import java.time.LocalDate;
 import org.fluttercode.datafactory.impl.DataFactory;
 
 import model.entities.Address;
-import model.entities.EntityDAO;
 import model.entities.Person;
 import model.entities.Remote;
 import values.DefaultSettings;
