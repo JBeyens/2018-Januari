@@ -148,9 +148,12 @@ public class View extends JFrame{
 			entranceTabListUsers.addItem(user);
 		}
 	}
-	// Displays acces denied/granted (if no value given, will set color to default & removes text)
+	// Displays acces denied/granted (if null input, then will set to default)
 	public void setEntranceTabRequest(Boolean bool){
-		showMessage(Boolean.toString(bool));
+		if(bool == null) {
+			entranceTabLblRequest.setBackground(Color.GRAY);
+			entranceTabLblRequest.setText("");
+		}
 		if(bool){
 			entranceTabLblRequest.setBackground(Color.GREEN);
 			entranceTabLblRequest.setText("Access granted!");
@@ -160,10 +163,6 @@ public class View extends JFrame{
 			entranceTabLblRequest.setText("Acces denied!");
 		}
 	}
-	public void setEntranceTabRequest() {
-		entranceTabLblRequest.setBackground(Color.GRAY);
-		entranceTabLblRequest.setText("");
-		} 
 
 	// Controller subscribes to this button
 	public void entranceTabAddRegisterUserListener(ActionListener e){

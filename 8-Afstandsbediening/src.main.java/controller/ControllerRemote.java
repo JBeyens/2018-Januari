@@ -78,7 +78,7 @@ public class ControllerRemote {
 		view.setEntranceTablLblAddressCountryUser("...");
 		view.setEntranceTabLblFrequencyGate(	"...");
 		
-		view.setEntranceTabRequest();
+		view.setEntranceTabRequest(null);
 	} 
 	
 	/*
