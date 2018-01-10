@@ -1,9 +1,9 @@
-package database;
+package utility;
 
 import org.apache.log4j.Logger;
 
 import model.entities.EntityDAO;
-import values.DefaultSettings;
+import net.bytebuddy.asm.Advice.This;
 
 /**
  * @Author Ben Vandevorst & Jef Beyens
@@ -15,17 +15,24 @@ public final class DataDeleter {
 	private static Logger logger;
 
 	public static void main(String[] args) {
-		logger = DefaultSettings.getLogger("ClearData");
+		performDeletion();
+		System.exit(0);
+	}
+	
+	public static boolean performDeletion() {
+		logger = Utility.getLogger(This.class.getSimpleName());
 		try {
+			logger.info("Starting to delete database... ");
 			removePerson();	
 			removeAddress();	
 			removeRemote();
+			logger.info("Deleting data -> DONE!");
+			return true;
 
 		} catch (Exception e) {
 			e.printStackTrace();
+			return false;
 		}
-		logger.info("Deleting data -> DONE!");
-		System.exit(0);
 	}
 
 	private static void removeRemote() {

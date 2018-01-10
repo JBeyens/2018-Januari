@@ -1,4 +1,4 @@
-package values;
+package utility;
 
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
@@ -8,7 +8,7 @@ import org.apache.log4j.Level;
 import org.apache.log4j.Logger;
 import org.apache.log4j.xml.DOMConfigurator;
 
-public class DefaultSettings {
+public class Utility {
 	public static Random RANDOM = new Random();
 	public static DateFormat DATE_FORMAT = new SimpleDateFormat("dd/MM/yyyy");
 	private static Logger logger;

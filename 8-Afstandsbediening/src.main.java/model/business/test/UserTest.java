@@ -12,7 +12,7 @@ import model.entities.Address;
 import model.entities.EntityDAO;
 import model.entities.Person;
 import model.entities.Remote;
-import values.DefaultSettings;
+import utility.Utility;
 
 import static org.junit.Assert.*;
 
@@ -30,7 +30,7 @@ public class UserTest {
 	private User user;
 	private Administrator admin;
 	private long newFrequency = 111;
-	private Logger log = DefaultSettings.getLogger(getClass().getSimpleName());
+	private Logger log = Utility.getLogger(getClass().getSimpleName());
 
 	@Before
 	public void setUp() {

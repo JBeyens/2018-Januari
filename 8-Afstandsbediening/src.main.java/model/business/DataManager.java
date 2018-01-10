@@ -8,7 +8,7 @@ import model.entities.Address;
 import model.entities.EntityDAO;
 import model.entities.Person;
 import model.entities.Remote;
-import values.DefaultSettings;
+import utility.Utility;
 
 /*
  * Business layer for retrieval/storage of data from/to database
@@ -17,7 +17,7 @@ import values.DefaultSettings;
 //remove interface
 public final class DataManager {
 	// FIELDS
-	private static Logger log = DefaultSettings.getLogger(DataManager.class.getSimpleName());
+	private static Logger log = Utility.getLogger(DataManager.class.getSimpleName());
 
 	
 	// DATABASE READ OPERATIONS

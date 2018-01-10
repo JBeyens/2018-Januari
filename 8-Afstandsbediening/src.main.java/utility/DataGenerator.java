@@ -1,4 +1,4 @@
-package database;
+package utility;
 
 import java.sql.Date;
 import java.time.LocalDate;
@@ -14,7 +14,7 @@ import model.entities.Address;
 import model.entities.EntityDAO;
 import model.entities.Person;
 import model.entities.Remote;
-import values.DefaultSettings;
+import net.bytebuddy.asm.Advice.This;
 
 
 /**
@@ -30,7 +30,7 @@ public class DataGenerator {
 	private static Person person;
 	private static HashMap<Integer, Address> nrToAdress;
 
-	private static Logger logger = DefaultSettings.getLogger("GenerateData");
+	private static Logger logger = Utility.getLogger("GenerateData");
 	private static Date contractDate = getDate();	
 	private static Integer amountOfAddresses = 30;
 	private static DataFactory factory = new DataFactory();
@@ -40,18 +40,28 @@ public class DataGenerator {
 	private static Integer postalCode = 3000;
 	private static String city = "Leuven";
 	private static String country = "Belgi" + Character.toString((char)235);
+
+
+	public static void main(String[] args) {
+		performDataGeneration();
+		System.exit(0);
+	}
 	
-	public final static void main(String[] args) {
+	public static boolean performDataGeneration() {
+		logger = Utility.getLogger(This.class.getSimpleName());
 		try {
+			logger.info("Starting to create data... ");
 			createActivePersonsRemotesAddresses();
 			createInActiveRemote();
 			createInActivePerson();
 			createInActiveAddress();
+			logger.info("Creating data -> DONE!");
+			return true;
+
 		} catch (Exception e) {
 			e.printStackTrace();
+			return false;
 		}
-		logger.info("Finished creating dummy data!");
-		System.exit(0);
 	}
 	
 	private static Date getDate() {		

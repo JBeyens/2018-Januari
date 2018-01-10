@@ -5,12 +5,12 @@ import java.time.LocalDate;
 
 import org.fluttercode.datafactory.impl.DataFactory;
 
-import database.DataDeleter;
-import database.DataGenerator;
 import model.entities.Address;
 import model.entities.Person;
 import model.entities.Remote;
-import values.DefaultSettings;
+import utility.DataDeleter;
+import utility.DataGenerator;
+import utility.Utility;
 
 public class TestUser {
 
@@ -33,8 +33,8 @@ public class TestUser {
 		
 		person.setFirstname(factory.getFirstName());
 		person.setLastname(factory.getLastName());
-		person.setAdress(new Address("Kersenlaan", 10, DefaultSettings.RANDOM.nextInt(), 3300, "Leuven", "Ijsland"));
-		person.setRemote(new Remote(Long.toString( DefaultSettings.RANDOM.nextLong()), 100));
+		person.setAdress(new Address("Kersenlaan", 10, Utility.RANDOM.nextInt(), 3300, "Leuven", "Ijsland"));
+		person.setRemote(new Remote(Long.toString( Utility.RANDOM.nextLong()), 100));
 		person.setEndOfContract(Date.valueOf(LocalDate.of(2018, 7, 1)));
 
 		System.out.println("Registering this person to administrator... (person will also be saved to database in process)");
