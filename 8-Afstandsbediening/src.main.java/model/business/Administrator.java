@@ -9,8 +9,8 @@ import org.apache.log4j.Logger;
 import model.business.interfaces.AdminSubject;
 import model.business.DataManager;
 import model.entities.Person;
+import utility.Utility;
 import values.UserRegistrationResult;
-import values.DefaultSettings;
 import values.UserDeactivationResult;
 
 public class Administrator implements AdminSubject{
@@ -21,10 +21,10 @@ public class Administrator implements AdminSubject{
 	
 	/** CONSTRUCTOR **/
 	public Administrator(){
-		log = DefaultSettings.getLogger(this.getClass().getSimpleName());
+		log = Utility.getLogger(this.getClass().getSimpleName());
 		this.users = new ArrayList<>();
 		loadUsersFromDB();
-		this.setFrequency(DefaultSettings.RANDOM.nextInt(999999));
+		this.setFrequency(Utility.RANDOM.nextInt(999999));
 	}
 
 	
@@ -110,7 +110,14 @@ public class Administrator implements AdminSubject{
 		users.remove(userFromList);
 		return UserDeactivationResult.succesfull;
 	}	
-
+	
+	/**
+	 * Throws away all registered users and reloads the list of users from database
+	 */
+	public void refreshUsersFromDB() {
+		users.clear();
+		loadUsersFromDB();
+	}
 	
 	
 	/** PRIVATE METHODS **/
@@ -127,7 +134,7 @@ public class Administrator implements AdminSubject{
 	/**
 	 * Loads all persons from database and adds Users for each person with Remote and with Remote set to active
 	 **/
-	private void loadUsersFromDB() {
+	public void loadUsersFromDB() {
 		ArrayList<Person> allPersons = DataManager.getAllPersonsWithActiveRemote();
 		
 		for (Person person : allPersons) 

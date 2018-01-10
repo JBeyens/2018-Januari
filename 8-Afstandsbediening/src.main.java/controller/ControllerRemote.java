@@ -13,8 +13,10 @@ import model.business.DataManager;
 import model.business.User;
 import model.entities.Address;
 import model.entities.Person;
+import utility.DataDeleter;
+import utility.DataGenerator;
+import utility.Utility;
 import values.UserDeactivationResult;
-import values.DefaultSettings;
 import values.UserRegistrationResult;
 import view.View;
 
@@ -32,7 +34,7 @@ public class ControllerRemote {
 	private View view;
 	
 	public ControllerRemote(){
-		log = DefaultSettings.getLogger("Controller");
+		log = Utility.getLogger("Controller");
 		gateAdmin = new Administrator();
 		view = new View();		
 	}
@@ -44,11 +46,17 @@ public class ControllerRemote {
 		view.entranceTabAddUserListItemListener(new SetEntranceLabelsToSelectedUser());
 		view.addOverviewUpdateListener(new RefreshOverViewListener());
 		view.addPersonTabBtnAddListener(new AddPersonListener());
+		view.addPersonTabBtnClearDatabaseListener(new DataDeletionListener());
+		view.addPersonTabBtnGenerateDataListener(new DataGenerationListener());
 		
+		loadDataToView();
+		view.setVisible(true);
+	}
+	
+	private void loadDataToView() {
 		setInactiveRemote();
 		setUnusedAddress();
 		setUsers();
-		view.setVisible(true);
 	}
 	
 	/*
@@ -93,7 +101,7 @@ public class ControllerRemote {
 		view.setEntranceTabLblRegisteredUser(	user.getRemote().getIsActive());
 		view.setEntranceTabLblFirstNameUser(	user.getPerson().getFirstname());
 		view.setEntranceTabLblLastNameUser(		user.getPerson().getLastname()); 
-		view.setEntranceTabLblEndOfContractUser(DefaultSettings.DATE_FORMAT.format(user.getPerson().getEndOfContract()));
+		view.setEntranceTabLblEndOfContractUser(Utility.DATE_FORMAT.format(user.getPerson().getEndOfContract()));
 		view.setEntranceTabLblFrequencyGate(	Double.toString(user.getGate().getFrequency()));
 
 		Address a = user.getPerson().getAdress();
@@ -134,7 +142,6 @@ public class ControllerRemote {
 			setUserToEntranceLabels();
 		}		
 	}	
-	
 	// Listener for user list combo box (Ask Entrance tab)
 	private class SetEntranceLabelsToSelectedUser implements ItemListener {
 		
@@ -144,9 +151,7 @@ public class ControllerRemote {
 		}
 	}
 	
-	/*
-	 * Listeren for addPerson button (2nd tab)
-	 */
+	// Listeren for adding a new Person to the database (Add Person tab)	 
 	private class AddPersonListener implements ActionListener{
 		@Override
 		public void actionPerformed(ActionEvent e) {
@@ -181,10 +186,30 @@ public class ControllerRemote {
 			}
 		}	
 	}
+	// Listeren for clearing the database (Add Person tab)
+	private class DataDeletionListener implements ActionListener{
+		@Override
+		public void actionPerformed(ActionEvent e) {
+			boolean isSuccesfull = DataDeleter.performDeletion();
+			gateAdmin.refreshUsersFromDB();
+			loadDataToView();
+			view.showMessage(isSuccesfull ? "Data deletion successful!" : "Deletion of data failed...");
+		}
+		
+	}
+	// Listeren for clearing the database (Add Person tab)
+	private class DataGenerationListener implements ActionListener{
+		@Override
+		public void actionPerformed(ActionEvent e) {
+			boolean isSuccesfull = DataGenerator.performDataGeneration();
+			gateAdmin.refreshUsersFromDB();
+			loadDataToView();
+			view.showMessage(isSuccesfull ? "Data generation successful!" : "Generation of data failed...");
+		}
+		
+	}
 	
-	/*
-	 * Listener for update button (3rd tab)
-	 */
+	// Listener for update the overview table (Overview tab)
 	private class RefreshOverViewListener implements ActionListener{
 		@Override
 		public void actionPerformed(ActionEvent e) {
