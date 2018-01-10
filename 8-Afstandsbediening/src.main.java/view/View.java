@@ -143,7 +143,7 @@ public class View extends JFrame{
 
 	// Setter fills combobox with inputted data
 	public void setEntranceTabUsers(ArrayList<User> userList){
-		entranceTabListUsers.removeAll();
+		entranceTabListUsers.removeAllItems();
 		for (User user : userList) {
 			entranceTabListUsers.addItem(user);
 		}
@@ -184,7 +184,7 @@ public class View extends JFrame{
 	public String getAddPersonTabLastName(){
 		return addPersonTabTfLastName.getText(); }
 	public Date getAddPersonTabDate(){
-		return (Date) addPersonTabEndDateContract.getDate(); }
+		return new Date(addPersonTabEndDateContract.getDate().getTime()); }
 	public Address getAddPersonTabChosenAddress(){
 		return addPersonTabAddressList.getSelectedValue(); }
 	public Remote getAddPersonTabChosenRemote(){
