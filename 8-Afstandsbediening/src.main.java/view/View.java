@@ -154,7 +154,7 @@ public class View extends JFrame{
 			entranceTabLblRequest.setBackground(Color.GRAY);
 			entranceTabLblRequest.setText("");
 		}
-		if(bool){
+		else if(bool){
 			entranceTabLblRequest.setBackground(Color.GREEN);
 			entranceTabLblRequest.setText("Access granted!");
 		}		
