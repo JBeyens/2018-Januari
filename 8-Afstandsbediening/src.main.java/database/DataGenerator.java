@@ -1,4 +1,4 @@
-package test.database;
+package database;
 
 import java.sql.Date;
 import java.time.LocalDate;
@@ -24,7 +24,7 @@ import values.DefaultSettings;
 	@Doel Generates dummy data for database
  */
 
-public class GenerateDummyData {
+public class DataGenerator {
 	private static Remote remote;
 	private static Address address;
 	private static Person person;
