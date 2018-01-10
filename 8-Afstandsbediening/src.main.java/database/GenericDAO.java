@@ -103,7 +103,7 @@ public class GenericDAO<T> {
 		try {
 			transaction.begin();
 			
-			manager.merge(entity);
+			manager.persist(entity);
 			transaction.commit();
 		} catch (HibernateException e) {
 			if (transaction != null)
@@ -192,4 +192,5 @@ public class GenericDAO<T> {
 			manager.clear();
 		}		
 	}
+	
 }
