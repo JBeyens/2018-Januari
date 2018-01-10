@@ -41,7 +41,7 @@ public class DataGenerator {
 	private static String city = "Leuven";
 	private static String country = "Belgi" + Character.toString((char)235);
 	
-	public static void main(String[] args) {
+	public final static void main(String[] args) {
 		try {
 			createActivePersonsRemotesAddresses();
 			createInActiveRemote();
