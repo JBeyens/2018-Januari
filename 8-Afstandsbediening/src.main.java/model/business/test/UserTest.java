@@ -24,7 +24,7 @@ import java.sql.Date;
  * @Datum 02/01/2018
  * @Project Afstandsbediening
  * @Doel Test of GateModule
- */
+ */ 
 public class UserTest {
 	private Person person;
 	private User user;
