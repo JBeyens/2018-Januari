@@ -49,15 +49,37 @@ public class ControllerRemote {
 		view.addPersonTabBtnClearDatabaseListener(new DataDeletionListener());
 		view.addPersonTabBtnGenerateDataListener(new DataGenerationListener());
 		
+		resetEntranceTabLabels();
 		loadDataToView();
 		view.setVisible(true);
 	}
 	
+	/**
+	 * Loads data from database to view
+	 **/
 	private void loadDataToView() {
 		setInactiveRemote();
 		setUnusedAddress();
 		setUsers();
 	}
+	
+	/**
+	 * Sets the labels in the entrance tab to standard strings
+	 **/
+	private void resetEntranceTabLabels() {
+		view.setEntranceTabLblSerialNumberUser(	"...");
+		view.setEntranceTabLblFrequencyUser(	"...");
+		view.setEntranceTabLblRegisteredUser(	false);
+		view.setEntranceTabLblFirstNameUser(	"...");
+		view.setEntranceTabLblLastNameUser(		"...");
+		view.setEntranceTabLblEndOfContractUser("...");
+		view.setEntranceTablLblAddressStreetUser("...");
+		view.setEntranceTablLblAddressCityUser(	"...");
+		view.setEntranceTablLblAddressCountryUser("...");
+		view.setEntranceTabLblFrequencyGate(	"...");
+		
+		view.setEntranceTabRequest();
+	} 
 	
 	/*
 	 * Creates list of al inactive Remotes => not given to a inhabitant
@@ -96,18 +118,23 @@ public class ControllerRemote {
 	private void setUserToEntranceLabels() 
 	{		
 		User user = view.getUserForGate();
-		view.setEntranceTabLblSerialNumberUser(	user==null ? "" : user.getRemote().getSerialNumber());
-		view.setEntranceTabLblFrequencyUser( 	user==null ? "" : Double.toString( user.getRemote().getFrequency()));
-		view.setEntranceTabLblRegisteredUser(	user==null ? false : user.getRemote().getIsActive());
-		view.setEntranceTabLblFirstNameUser(	user==null ? "" : user.getPerson().getFirstname());
-		view.setEntranceTabLblLastNameUser(		user==null ? "" : user.getPerson().getLastname()); 
-		view.setEntranceTabLblEndOfContractUser(user==null ? "" : Utility.DATE_FORMAT.format(user.getPerson().getEndOfContract()));
-		view.setEntranceTabLblFrequencyGate(	user==null ? "" : Double.toString(user.getGate().getFrequency()));
+		if (user == null) {
+			resetEntranceTabLabels();
+			return;
+		}
+		
+		view.setEntranceTabLblSerialNumberUser(user.getRemote().getSerialNumber());
+		view.setEntranceTabLblFrequencyUser( Double.toString( user.getRemote().getFrequency()));
+		view.setEntranceTabLblRegisteredUser(user.getRemote().getIsActive());
+		view.setEntranceTabLblFirstNameUser(user.getPerson().getFirstname());
+		view.setEntranceTabLblLastNameUser(	user.getPerson().getLastname()); 
+		view.setEntranceTabLblEndOfContractUser(Utility.DATE_FORMAT.format(user.getPerson().getEndOfContract()));
+		view.setEntranceTabLblFrequencyGate(Double.toString(user.getGate().getFrequency()));
 
-		Address a = user == null ? null : user.getPerson().getAdress();
-		view.setEntranceTablLblAddressStreetUser( a==null ? "" : a.getStreet() + " " + a.getNumber() + "/" + a.getMailBox());
-		view.setEntranceTablLblAddressCityUser(   a==null ? "" : a.getPostalCode() + " " + a.getCity());
-		view.setEntranceTablLblAddressCountryUser(a==null ? "" : a.getCountry());
+		Address a = user.getPerson().getAdress();
+		view.setEntranceTablLblAddressStreetUser( a.getStreet() + " " + a.getNumber() + "/" + a.getMailBox());
+		view.setEntranceTablLblAddressCityUser(   a.getPostalCode() + " " + a.getCity());
+		view.setEntranceTablLblAddressCountryUser(a.getCountry());
 	}
 
 	

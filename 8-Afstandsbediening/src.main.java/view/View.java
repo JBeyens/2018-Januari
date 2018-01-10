@@ -148,19 +148,22 @@ public class View extends JFrame{
 			entranceTabListUsers.addItem(user);
 		}
 	}
-	// Displays acces denied/granted
+	// Displays acces denied/granted (if no value given, will set color to default & removes text)
 	public void setEntranceTabRequest(Boolean bool){
-
+		showMessage(Boolean.toString(bool));
 		if(bool){
 			entranceTabLblRequest.setBackground(Color.GREEN);
 			entranceTabLblRequest.setText("Access granted!");
-		}
-		
+		}		
 		else{
 			entranceTabLblRequest.setBackground(Color.RED);
 			entranceTabLblRequest.setText("Acces denied!");
 		}
 	}
+	public void setEntranceTabRequest() {
+		entranceTabLblRequest.setBackground(Color.GRAY);
+		entranceTabLblRequest.setText("");
+		} 
 
 	// Controller subscribes to this button
 	public void entranceTabAddRegisterUserListener(ActionListener e){
@@ -184,7 +187,7 @@ public class View extends JFrame{
 	public String getAddPersonTabLastName(){
 		return addPersonTabTfLastName.getText(); }
 	public Date getAddPersonTabDate(){
-		return new Date(addPersonTabEndDateContract.getDate().getTime()); }
+		return addPersonTabEndDateContract.getDate()==null ? null : new Date(addPersonTabEndDateContract.getDate().getTime()); }
 	public Address getAddPersonTabChosenAddress(){
 		return addPersonTabAddressList.getSelectedValue(); }
 	public Remote getAddPersonTabChosenRemote(){
@@ -327,7 +330,7 @@ public class View extends JFrame{
 		lblSerialNumber.setBounds(10, 100, 80, 14);
 		entranceTab.add(lblSerialNumber);
 		
-		entranceTabLblSerialNumberUser = new JLabel("...");
+		entranceTabLblSerialNumberUser = new JLabel();
 		entranceTabLblSerialNumberUser.setBounds(100, 100, 160, 14);
 		entranceTab.add(entranceTabLblSerialNumberUser);
 		
@@ -335,7 +338,7 @@ public class View extends JFrame{
 		lblFrequency.setBounds(10, 125, 65, 14);
 		entranceTab.add(lblFrequency);
 		
-		entranceTabLblFrequencyUser = new JLabel("...");
+		entranceTabLblFrequencyUser = new JLabel();
 		entranceTabLblFrequencyUser.setBounds(100, 125, 160, 14);
 		entranceTab.add(entranceTabLblFrequencyUser);
 		
@@ -343,7 +346,7 @@ public class View extends JFrame{
 		lblRegistered.setBounds(10, 150, 65, 14);
 		entranceTab.add(lblRegistered);
 		
-		entranceTabLblRegisteredUser = new JLabel("...");
+		entranceTabLblRegisteredUser = new JLabel();
 		entranceTabLblRegisteredUser.setBounds(100, 150, 160, 14);
 		entranceTab.add(entranceTabLblRegisteredUser);
 
@@ -356,7 +359,7 @@ public class View extends JFrame{
 		lblFirstName.setBounds(300, 100, 100, 14);
 		entranceTab.add(lblFirstName);
 		
-		entranceTabLblFirstNameUser = new JLabel("...");
+		entranceTabLblFirstNameUser = new JLabel();
 		entranceTabLblFirstNameUser.setBounds(400, 100, 160, 14);
 		entranceTab.add(entranceTabLblFirstNameUser);
 		
@@ -364,7 +367,7 @@ public class View extends JFrame{
 		lblLastName.setBounds(300, 125, 100, 14);
 		entranceTab.add(lblLastName);
 		
-		entranceTabLblLastNameUser = new JLabel("...");
+		entranceTabLblLastNameUser = new JLabel();
 		entranceTabLblLastNameUser.setBounds(400, 125, 160, 14);
 		entranceTab.add(entranceTabLblLastNameUser);
 		
@@ -376,19 +379,19 @@ public class View extends JFrame{
 		lblEndOfContract.setBounds(300, 150, 100, 14);
 		entranceTab.add(lblEndOfContract);
 		
-		entranceTabLblEndOfContractUser = new JLabel("...");
+		entranceTabLblEndOfContractUser = new JLabel();
 		entranceTabLblEndOfContractUser.setBounds(400, 150, 160, 14);
 		entranceTab.add(entranceTabLblEndOfContractUser);
 		
-		entranceTablLblAddressStreetUser = new JLabel("...");
+		entranceTablLblAddressStreetUser = new JLabel();
 		entranceTablLblAddressStreetUser.setBounds(400, 175, 160, 14);
 		entranceTab.add(entranceTablLblAddressStreetUser);
 		
-		entranceTablLblAddressCityUser = new JLabel("...");
+		entranceTablLblAddressCityUser = new JLabel();
 		entranceTablLblAddressCityUser.setBounds(400, 195, 160, 14);
 		entranceTab.add(entranceTablLblAddressCityUser);
 		
-		entranceTablLblAddressCountryUser = new JLabel("...");
+		entranceTablLblAddressCountryUser = new JLabel();
 		entranceTablLblAddressCountryUser.setBounds(400, 215, 160, 14);
 		entranceTab.add(entranceTablLblAddressCountryUser);
 		
@@ -400,7 +403,7 @@ public class View extends JFrame{
 		lblFrequency.setBounds(10, 225, 80, 14);
 		entranceTab.add(lblFrequency);
 		
-		entranceTabLblFrequencyGate = new JLabel("...");
+		entranceTabLblFrequencyGate = new JLabel();
 		entranceTabLblFrequencyGate.setBounds(100, 225, 160, 14);
 		entranceTab.add(entranceTabLblFrequencyGate);
 			
@@ -411,13 +414,13 @@ public class View extends JFrame{
 		entranceTabLblRequest.setOpaque(true);
 		entranceTab.add(entranceTabLblRequest);
 		
-		JLabel lblFreqUpdated = new JLabel("Frequency will only be updated for registered users with a valid contract");
-		lblFreqUpdated.setBounds(10, 389, 565, 14);
-		entranceTab.add(lblFreqUpdated);
-		
 		JLabel lblAccessIsGranted = new JLabel("Access is granted to all registered users who have the correct frequency!");
 		lblAccessIsGranted.setBounds(10, 364, 565, 14);
 		entranceTab.add(lblAccessIsGranted);
+		
+		JLabel lblFreqUpdated = new JLabel("Frequency will only be updated for registered users with a valid contract");
+		lblFreqUpdated.setBounds(10, 389, 565, 14);
+		entranceTab.add(lblFreqUpdated);
 	}
 	
 	/*
