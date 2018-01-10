@@ -48,8 +48,12 @@ import java.awt.Dimension;
  */
 
 public class View extends JFrame{
-	/** FIELDS FOR 'Entrance Tab' **/
+	private static final long serialVersionUID = 1L;
+	private JTabbedPane tabbedPane;
+	
+	/** FIELDS FOR 'Entrance' TAB **/
 	private JPanel entranceTab;
+	
 	private JComboBox<User> entranceTabListUsers;
 	private JButton entranceTabBtnRegister;
 	private JButton entranceTabBtnDeactivate;
@@ -69,22 +73,25 @@ public class View extends JFrame{
 	private JLabel entranceTabLblFrequencyGate;
 	private JLabel entranceTabLblRequest;
 	
+
+	/** FIELDS FOR 'AddPerson' TAB **/
+	private JPanel addPersonTab;	
 	
-	/** FIELDS FOR OTHER TABS **/
-	private static final long serialVersionUID = 1L;
-	private JTabbedPane tabbedPane;
-	private JPanel addPersonPanel;
-	private JPanel overView;
-	private JTable table;
-	private JButton btnRefresh;
-	private JList<Remote> listInactiveRemote;
-	private JList<Address> listAddress;
-	private JTextField tfFirstName;
-	private JTextField tfLastName;
-	private JButton btnAddPerson;
-	private JDateChooser dateContract;
-	private JButton addTabBtnClearDatabase;
-	private JButton addTabBtnGenerateData;
+	private JButton addPersonBtnAdd;
+	private JButton addPersonBtnClearDatabase;
+	private JButton addPersonBtnGenerateData;	
+	private JList<Remote> addPersonListInactiveRemote;
+	private JList<Address> addPersonListAddress;
+	
+	private JTextField addPersonTfFirstName;
+	private JTextField addPersonTfLastName;
+	private JDateChooser addPersonDateContract;
+	
+	
+	/** FIELDS FOR 'Overview' TAB **/
+	private JPanel overviewTab;
+	private JTable overviewTable;	
+	private JButton overviewBtnRefresh;
 	
 	
 	
@@ -174,18 +181,19 @@ public class View extends JFrame{
 	
 	
 	
-	/** METHODS FOR OTHER TABS **/
+	/** METHODS FOR 'AddPerson' TAB **/
 	// Controller subscribes to this button
-	public void addOVerViewUpdateListener(ActionListener e){
-		this.btnRefresh.addActionListener(e);
+	public void addOverviewUpdateListener(ActionListener e){
+		this.overviewBtnRefresh.addActionListener(e);
 	}
+	/** METHODS FOR 'Overview' TAB **/
 	
 	
 	/*
 	 * Controller subscribes to this button
 	 */
 	public void addAddPersonListener(ActionListener e){
-		this.btnAddPerson.addActionListener(e);
+		this.addPersonBtnAdd.addActionListener(e);
 	}
 	
 	/*
@@ -199,7 +207,7 @@ public class View extends JFrame{
 			model.addElement(address);
 		}
 		
-		listAddress.setModel(model);
+		addPersonListAddress.setModel(model);
 	}
 	
 	/*
@@ -212,51 +220,51 @@ public class View extends JFrame{
 		for (Remote remote : list)
 			model.addElement(remote);
 		
-		listInactiveRemote.setModel(model);
+		addPersonListInactiveRemote.setModel(model);
 	}
 	
 	// Returns date choosen by user
 	public Date getDate(){
-		return (Date) dateContract.getDate();
+		return (Date) addPersonDateContract.getDate();
 	}
 	
 	// Sets date 
 	public void setDate(Date date){
-		this.dateContract.setDate(date);
+		this.addPersonDateContract.setDate(date);
 	}
 	
 	// Getter&Setter for firstname PersonTab
 	public String getFirstNamePersonTab(){
-		return tfFirstName.getText(); }
+		return addPersonTfFirstName.getText(); }
 	public void setFirstNamePersonTab(String name){
-		this.tfFirstName.setText(name);	}
+		this.addPersonTfFirstName.setText(name);	}
 	
 	/*
 	 * Returns user lastname
 	 */
 	public String getLastName(){
-		return tfLastName.getText();
+		return addPersonTfLastName.getText();
 	}
 	
 	/*
 	 * Sets firstname texfield
 	 */
 	public void setLastName(String name){
-		this.tfLastName.setText(name);
+		this.addPersonTfLastName.setText(name);
 	}
 	
 	/*
 	 * Returns user address
 	 */
 	public Address getAddress(){
-		return listAddress.getSelectedValue();
+		return addPersonListAddress.getSelectedValue();
 	}
 	
 	/*
 	 * Returns user remote
 	 */
 	public Remote getRemote(){
-		return listInactiveRemote.getSelectedValue();
+		return addPersonListInactiveRemote.getSelectedValue();
 	}
 	
 	/*
@@ -264,7 +272,7 @@ public class View extends JFrame{
 	 * List display in table
 	 */
 	public void setOverview(ArrayList<Person> list){
-		DefaultTableModel model = (DefaultTableModel) table.getModel();
+		DefaultTableModel model = (DefaultTableModel) overviewTable.getModel();
 		model.setRowCount(0);
 		
 		Object[] row = new Object[9];
@@ -290,70 +298,42 @@ public class View extends JFrame{
 		}
 	}
 	
+	
 	/*
-	 * Components setup for AddPerson tab
+	 * Component setup for parent TabPanel
 	 */
-	private void setUpAddPerson(){
-		addPersonPanel.setLayout(null);
+	private void setUpTabbedPane(){
+		tabbedPane = new JTabbedPane();
+		addPersonTab = new JPanel();
+		overviewTab = new JPanel();
+		entranceTab = new JPanel();
 		
-		JScrollPane scrollRemote = new JScrollPane();
-		scrollRemote.setBounds(10, 100, 400, 150);
-		addPersonPanel.add(scrollRemote);
-		listInactiveRemote = new JList<Remote>();
-		scrollRemote.setViewportView(listInactiveRemote);
-		listInactiveRemote.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
+		setUpEntrance();
+		setUpOverView();
+		setUpAddPerson();
 		
-		JScrollPane scrollAddress = new JScrollPane();
-		scrollAddress.setBounds(10, 275, 400, 150);
-		addPersonPanel.add(scrollAddress);
-		listAddress = new JList<Address>();
-		scrollAddress.setViewportView(listAddress);
-		listAddress.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
+		URL uAdd = getClass().getResource("add.png");
+		ImageIcon iconAdd = new ImageIcon(uAdd);
 		
-		btnAddPerson = new JButton("Add");
-		btnAddPerson.setBounds(200, 32, 89, 23);
-		addPersonPanel.add(btnAddPerson);		
+		URL uGate = getClass().getResource("gate.png");
+		ImageIcon iconGate = new ImageIcon(uGate);
 		
-		addTabBtnClearDatabase = new JButton("Clear database");
-		addTabBtnClearDatabase.setBounds(415, 10, 150, 25);
-		addPersonPanel.add(addTabBtnClearDatabase);
+		URL uPlane = getClass().getResource("plane.jpg");
+		ImageIcon iconPlane = new ImageIcon(uPlane);
 		
-		addTabBtnGenerateData = new JButton("Generate data");
-		addTabBtnGenerateData.setBounds(415, 45, 150, 25);
-		addPersonPanel.add(addTabBtnGenerateData);
-		
-		JLabel lblFirstname = new JLabel("Firstname");
-		lblFirstname.setBounds(10, 11, 73, 14);
-		addPersonPanel.add(lblFirstname);
-		
-		JLabel lblLastname = new JLabel("Lastname");
-		lblLastname.setBounds(10, 36, 73, 14);
-		addPersonPanel.add(lblLastname);
-		
-		tfFirstName = new JTextField();
-		tfFirstName.setBounds(93, 8, 86, 20);
-		addPersonPanel.add(tfFirstName);
-		tfFirstName.setColumns(10);
-		
-		tfLastName = new JTextField();
-		tfLastName.setBounds(93, 33, 86, 20);
-		addPersonPanel.add(tfLastName);
-		tfLastName.setColumns(10);
-		
-		dateContract = new JDateChooser();
-		dateContract.setMinSelectableDate(Date.valueOf(LocalDate.now()));
-		dateContract.setBounds(93, 61, 102, 20);
-		addPersonPanel.add(dateContract);
-		
-		JLabel lblContract = new JLabel("Contract");
-		lblContract.setBounds(10, 61, 73, 14);
-		addPersonPanel.add(lblContract);
+		tabbedPane.addTab("Request entrance", new ImageIcon(getScaledImage(iconGate.getImage(), 30, 30)), entranceTab, "Simulates request from inhabitant");
+		tabbedPane.addTab("Add", new ImageIcon(getScaledImage(iconAdd.getImage(), 30, 30)), addPersonTab, "Add a new person");
+
+		tabbedPane.addTab("Overview", new ImageIcon(getScaledImage(iconPlane.getImage(), 30, 30)), overviewTab, "Overview inhabitants");
+		entranceTab.setLayout(null);
+
+		getContentPane().add(tabbedPane);
 	}
 	
 	/*
 	 * Component setup for gate TabPanel
 	 */
-	private void setUpGate(){	
+	private void setUpEntrance(){	
 		JLabel lblChooseUser = new JLabel("Choose user");
 		lblChooseUser.setBounds(10, 19, 100, 14);
 		entranceTab.add(lblChooseUser);
@@ -477,44 +457,11 @@ public class View extends JFrame{
 	}
 	
 	/*
-	 * Component setup for parent TabPanel
-	 */
-	private void setUpTabbedPane(){
-		tabbedPane = new JTabbedPane();
-		addPersonPanel = new JPanel();
-		overView = new JPanel();
-		entranceTab = new JPanel();
-		
-		setUpGate();
-		setUpOverView();
-		setUpAddPerson();
-		
-		URL uAdd = getClass().getResource("add.png");
-		ImageIcon iconAdd = new ImageIcon(uAdd);
-		
-		URL uGate = getClass().getResource("gate.png");
-		ImageIcon iconGate = new ImageIcon(uGate);
-		
-		URL uPlane = getClass().getResource("plane.jpg");
-		ImageIcon iconPlane = new ImageIcon(uPlane);
-		
-		tabbedPane.addTab("Request entrance", new ImageIcon(getScaledImage(iconGate.getImage(), 30, 30)), entranceTab, "Simulates request from inhabitant");
-		tabbedPane.addTab("Add", new ImageIcon(getScaledImage(iconAdd.getImage(), 30, 30)), addPersonPanel, "Add a new person");
-
-		tabbedPane.addTab("Overview", new ImageIcon(getScaledImage(iconPlane.getImage(), 30, 30)), overView, "Overview inhabitants");
-		entranceTab.setLayout(null);
-		
-
-
-		getContentPane().add(tabbedPane);
-	}
-	
-	/*
 	 * Component setup for overview tab
 	 */
 	private void setUpOverView(){
-		table = new JTable();
-		table.setModel(new DefaultTableModel(
+		overviewTable = new JTable();
+		overviewTable.setModel(new DefaultTableModel(
 			new Object[][] {
 			},
 			new String[] {
@@ -522,23 +469,82 @@ public class View extends JFrame{
 			}
 		));
 		
-		JTableHeader header = table.getTableHeader();
+		JTableHeader header = overviewTable.getTableHeader();
 		
-		btnRefresh = new JButton("Update");
-		btnRefresh.setBounds(181, 5, 84, 23);
+		overviewBtnRefresh = new JButton("Update");
+		overviewBtnRefresh.setBounds(181, 5, 84, 23);
 		
-		overView.setLayout(null);
+		overviewTab.setLayout(null);
 		
-		btnRefresh.setIcon(null);
+		overviewBtnRefresh.setIcon(null);
 		
-		overView.add(btnRefresh);
-		overView.add(header);
+		overviewTab.add(overviewBtnRefresh);
+		overviewTab.add(header);
 		
 		JScrollPane scroll = new JScrollPane();
 		scroll.setBounds(25, 33, 550, 400);
-		scroll.setViewportView(table);
-		overView.add(scroll);
-
+		scroll.setViewportView(overviewTable);
+		overviewTab.add(scroll);
+	}
+	
+	/*
+	 * Components setup for AddPerson tab
+	 */
+	private void setUpAddPerson(){
+		addPersonTab.setLayout(null);
+		
+		JScrollPane scrollRemote = new JScrollPane();
+		scrollRemote.setBounds(10, 100, 400, 150);
+		addPersonTab.add(scrollRemote);
+		addPersonListInactiveRemote = new JList<Remote>();
+		scrollRemote.setViewportView(addPersonListInactiveRemote);
+		addPersonListInactiveRemote.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
+		
+		JScrollPane scrollAddress = new JScrollPane();
+		scrollAddress.setBounds(10, 275, 400, 150);
+		addPersonTab.add(scrollAddress);
+		addPersonListAddress = new JList<Address>();
+		scrollAddress.setViewportView(addPersonListAddress);
+		addPersonListAddress.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
+		
+		addPersonBtnAdd = new JButton("Add");
+		addPersonBtnAdd.setBounds(200, 32, 89, 23);
+		addPersonTab.add(addPersonBtnAdd);		
+		
+		addPersonBtnClearDatabase = new JButton("Clear database");
+		addPersonBtnClearDatabase.setBounds(415, 10, 150, 25);
+		addPersonTab.add(addPersonBtnClearDatabase);
+		
+		addPersonBtnGenerateData = new JButton("Generate data");
+		addPersonBtnGenerateData.setBounds(415, 45, 150, 25);
+		addPersonTab.add(addPersonBtnGenerateData);
+		
+		JLabel lblFirstname = new JLabel("Firstname");
+		lblFirstname.setBounds(10, 11, 73, 14);
+		addPersonTab.add(lblFirstname);
+		
+		JLabel lblLastname = new JLabel("Lastname");
+		lblLastname.setBounds(10, 36, 73, 14);
+		addPersonTab.add(lblLastname);
+		
+		JLabel lblContract = new JLabel("Contract");
+		lblContract.setBounds(10, 61, 73, 14);
+		addPersonTab.add(lblContract);
+		
+		addPersonTfFirstName = new JTextField();
+		addPersonTfFirstName.setBounds(93, 8, 86, 20);
+		addPersonTab.add(addPersonTfFirstName);
+		addPersonTfFirstName.setColumns(10);
+		
+		addPersonTfLastName = new JTextField();
+		addPersonTfLastName.setBounds(93, 33, 86, 20);
+		addPersonTab.add(addPersonTfLastName);
+		addPersonTfLastName.setColumns(10);
+		
+		addPersonDateContract = new JDateChooser();
+		addPersonDateContract.setMinSelectableDate(Date.valueOf(LocalDate.now()));
+		addPersonDateContract.setBounds(93, 61, 102, 20);
+		addPersonTab.add(addPersonDateContract);
 	}
 	
 	/*

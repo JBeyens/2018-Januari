@@ -42,7 +42,7 @@ public class ControllerRemote {
 		view.entranceTabAddRegisterUserListener(new RegisterUserListener());
 		view.entranceTabAddDeactivateUserListener(new DeactivateUserListener());
 		view.entranceTabAddUserListItemListener(new SetEntranceLabelsToSelectedUser());
-		view.addOVerViewUpdateListener(new RefreshOverViewListener());
+		view.addOverviewUpdateListener(new RefreshOverViewListener());
 		view.addAddPersonListener(new AddPersonListener());
 		
 		setInactiveRemote();
