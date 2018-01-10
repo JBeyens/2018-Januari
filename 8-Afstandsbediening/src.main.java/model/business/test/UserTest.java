@@ -9,6 +9,7 @@ import model.business.Administrator;
 import model.business.DataManager;
 import model.business.User;
 import model.entities.Address;
+import model.entities.EntityDAO;
 import model.entities.Person;
 import model.entities.Remote;
 import values.DefaultSettings;
@@ -38,48 +39,41 @@ public class UserTest {
 
 		person = createPersonMock();
 		user = new User(person, person.getRemote(), admin);
+		
+		EntityDAO.PERSON_DAO.create(person);
 	}
 
 
 	@Test
 	public void Open_Gate_When_Remote_Is_Active_Contract_OK_Acces_Granted() {
 		admin.registerUser(user);
-		
-		Boolean bool = user.openGate();
-		
-		// Clean-up
-		
 
-		// Assert test
+		Boolean bool = user.openGate();
+
 		assertTrue(user.getRemote().getIsActive());
 		assertEquals(user.getRemote().getFrequency(), admin.getFrequency());
 		assertTrue(bool);
 	}
 
-	//@Test
+	@Test
 	public void Open_Gate__When_Contract_Has_Expired_Acces_Denied() {
 		admin.registerUser(user);
 		user.getPerson().setEndOfContract(Date.valueOf(LocalDate.of(2000, 1, 1)));
 
 		Boolean bool = user.openGate();
 		
-		// Clean-up
-//		admin.deactivateUser(user);
-//		DataManager.deletePerson(user.getPerson());
-
-		// Assert test
-		assertTrue(user.getRemote().getIsActive());
 		assertNotEquals(user.getPerson().getRemote().getFrequency(), admin.getFrequency());
 		assertFalse(bool);
 	}
 
-	//@Test
+	@Test
 	public void Open_Gate_When_Remote_Is_Not_Active_Acces_Denied() {
 		admin.registerUser(user);
 		user.getPerson().getRemote().setIsActive(false);
+		
 		Boolean bool = user.openGate();
 
-		assertNotEquals(user.getRemote().getFrequency(), admin.getFrequency());
+		assertFalse(user.getRemote().getIsActive());
 		assertFalse(bool);
 	}
 
@@ -99,11 +93,9 @@ public class UserTest {
 	}
 	
 	//Clean up file
-	/*@After
+	@After
 	public void tearDown(){
 		admin.deactivateUser(user);
-		DataManager.deleteAddress(user.getPerson().getAdress());
-		DataManager.deleteRemote(user.getRemote());
-		DataManager.deletePerson(user.getPerson());
-	}*/
+		EntityDAO.PERSON_DAO.delete(person);
+	}
 }

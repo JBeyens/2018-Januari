@@ -102,8 +102,8 @@ public class GenericDAO<T> {
 		
 		try {
 			transaction.begin();
-			
 			manager.persist(entity);
+			manager.flush();
 			transaction.commit();
 		} catch (HibernateException e) {
 			if (transaction != null)
@@ -121,6 +121,7 @@ public class GenericDAO<T> {
 	      try {
 	         transaction.begin();
 			 manager.merge(entity);
+			 manager.flush();
 	         transaction.commit();
 	      } catch (HibernateException e) {
 	         if (transaction!=null) 
@@ -140,6 +141,7 @@ public class GenericDAO<T> {
 			transaction.begin();
 			obj = (T) manager.merge(entity);
 			manager.remove(obj);
+			manager.flush();
 			transaction.commit();
 		} catch (HibernateException e) {
 			if (transaction != null)
@@ -159,7 +161,7 @@ public class GenericDAO<T> {
 			
 			obj = (T)manager.find(genericClass, entityId);
 			manager.remove(obj);
-			
+			manager.flush();
 			transaction.commit();
 		} catch (HibernateException e) {
 			if (transaction != null)
