@@ -76,7 +76,7 @@ public class ControllerRemote {
 			users.add(new User(person, person.getRemote(), gateAdmin));
 		}
 		
-		view.addUsers( users );
+		view.setEntranceTabUsers( users );
 	}
 	
 	/*

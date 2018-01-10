@@ -113,14 +113,7 @@ public class View extends JFrame{
 	
 	
 	
-	/** PUBLIC METHODS FOR 'EntranceTab' **/
-	// Controller fills combobox with data from DB
-	public void addUsers(ArrayList<User> userList){
-		for (User user : userList) {
-			entranceTabListUsers.addItem(user);
-		}
-	}
-	
+	/** PUBLIC METHODS FOR 'EntranceTab' **/	
 	// Getter for selected user
 	public User getUserForGate() {
 		return (User)entranceTabListUsers.getSelectedItem();
@@ -147,7 +140,14 @@ public class View extends JFrame{
 		this.entranceTablLblAddressCountryUser.setText(country); } 
 	public void setEntranceTabLblFrequencyGate(String frequencyGate) {
 		this.entranceTabLblFrequencyGate.setText(frequencyGate); } 
-	
+
+	// Setter fills combobox with inputted data
+	public void setEntranceTabUsers(ArrayList<User> userList){
+		entranceTabListUsers.removeAll();
+		for (User user : userList) {
+			entranceTabListUsers.addItem(user);
+		}
+	}
 	// Displays acces denied/granted
 	public void setEntranceTabRequest(Boolean bool){
 
