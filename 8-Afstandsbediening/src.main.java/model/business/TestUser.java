@@ -6,6 +6,7 @@ import java.time.LocalDate;
 import org.fluttercode.datafactory.impl.DataFactory;
 
 import model.entities.Address;
+import model.entities.EntityDAO;
 import model.entities.Person;
 import model.entities.Remote;
 import values.DefaultSettings;
@@ -56,6 +57,7 @@ public class TestUser {
 			System.out.println("Access granted!");
 		else 
 			System.out.println("Access denied");
+
 		
 		System.exit(0);
 		
