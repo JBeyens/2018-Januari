@@ -5,6 +5,8 @@ import java.time.LocalDate;
 
 import org.fluttercode.datafactory.impl.DataFactory;
 
+import database.DataDeleter;
+import database.DataGenerator;
 import model.entities.Address;
 import model.entities.Person;
 import model.entities.Remote;
@@ -13,6 +15,13 @@ import values.DefaultSettings;
 public class TestUser {
 
 	public static void main(String[] args) {
+		System.out.println("Deleting all the data in the database...");
+		DataDeleter.main(args);
+		System.out.println("--> Done!");
+		System.out.println("Generating data in the database...");
+		DataGenerator.main(args);
+		System.out.println("--> Done!");
+		
 		DataFactory factory = new DataFactory();
 		Administrator admin = new Administrator();
 		
