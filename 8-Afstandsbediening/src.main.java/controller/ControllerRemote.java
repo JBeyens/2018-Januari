@@ -96,18 +96,18 @@ public class ControllerRemote {
 	private void setUserToEntranceLabels() 
 	{		
 		User user = view.getUserForGate();
-		view.setEntranceTabLblSerialNumberUser(	user.getRemote().getSerialNumber());
-		view.setEntranceTabLblFrequencyUser( 	Double.toString( user.getRemote().getFrequency()));
-		view.setEntranceTabLblRegisteredUser(	user.getRemote().getIsActive());
-		view.setEntranceTabLblFirstNameUser(	user.getPerson().getFirstname());
-		view.setEntranceTabLblLastNameUser(		user.getPerson().getLastname()); 
-		view.setEntranceTabLblEndOfContractUser(Utility.DATE_FORMAT.format(user.getPerson().getEndOfContract()));
-		view.setEntranceTabLblFrequencyGate(	Double.toString(user.getGate().getFrequency()));
+		view.setEntranceTabLblSerialNumberUser(	user==null ? "" : user.getRemote().getSerialNumber());
+		view.setEntranceTabLblFrequencyUser( 	user==null ? "" : Double.toString( user.getRemote().getFrequency()));
+		view.setEntranceTabLblRegisteredUser(	user==null ? false : user.getRemote().getIsActive());
+		view.setEntranceTabLblFirstNameUser(	user==null ? "" : user.getPerson().getFirstname());
+		view.setEntranceTabLblLastNameUser(		user==null ? "" : user.getPerson().getLastname()); 
+		view.setEntranceTabLblEndOfContractUser(user==null ? "" : Utility.DATE_FORMAT.format(user.getPerson().getEndOfContract()));
+		view.setEntranceTabLblFrequencyGate(	user==null ? "" : Double.toString(user.getGate().getFrequency()));
 
-		Address a = user.getPerson().getAdress();
-		view.setEntranceTablLblAddressStreetUser( a.getStreet() + " " + a.getNumber() + "/" + a.getMailBox());
-		view.setEntranceTablLblAddressCityUser(   a.getPostalCode() + " " + a.getCity());
-		view.setEntranceTablLblAddressCountryUser(a.getCountry());
+		Address a = user == null ? null : user.getPerson().getAdress();
+		view.setEntranceTablLblAddressStreetUser( a==null ? "" : a.getStreet() + " " + a.getNumber() + "/" + a.getMailBox());
+		view.setEntranceTablLblAddressCityUser(   a==null ? "" : a.getPostalCode() + " " + a.getCity());
+		view.setEntranceTablLblAddressCountryUser(a==null ? "" : a.getCountry());
 	}
 
 	
@@ -115,7 +115,11 @@ public class ControllerRemote {
 	private class RegisterUserListener implements ActionListener{
 		@Override
 		public void actionPerformed(ActionEvent e) {
-			UserRegistrationResult result = gateAdmin.registerUser(view.getUserForGate());
+			User user = view.getUserForGate();
+			if (user == null)
+				return;
+			
+			UserRegistrationResult result = gateAdmin.registerUser(user);
 			
 			view.showMessage(result.toString());
 			setUserToEntranceLabels();
@@ -125,7 +129,10 @@ public class ControllerRemote {
 	private class DeactivateUserListener implements ActionListener{
 		@Override
 		public void actionPerformed(ActionEvent e) {
-			UserDeactivationResult result = gateAdmin.deactivateUser(view.getUserForGate());
+			User user = view.getUserForGate();
+			if (user == null)
+				return;
+			UserDeactivationResult result = gateAdmin.deactivateUser(user);
 
 			view.showMessage(result.toString());
 			setUserToEntranceLabels();
@@ -136,6 +143,9 @@ public class ControllerRemote {
 		@Override
 		public void actionPerformed(ActionEvent e) {
 			User selectedUser = view.getUserForGate();
+			if (selectedUser == null)
+				return;
+			
 			boolean isGateOpening = selectedUser.openGate();
 			log.info("-> The entrance was " + (isGateOpening?"":"not ") + "granted!");
 			view.setEntranceTabRequest(isGateOpening);
@@ -157,9 +167,15 @@ public class ControllerRemote {
 		public void actionPerformed(ActionEvent e) {
 			try {				
 				Person person = new Person();
+				
 				person.setFirstname(view.getAddPersonTabFirstName());
 				person.setLastname(view.getAddPersonTabLastName());
 				person.setEndOfContract(view.getAddPersonTabDate());
+				
+				if (person.getFirstname().trim().isEmpty() || person.getLastname().trim().isEmpty() || person.getEndOfContract() == null) {
+					view.showMessage("Data is missing, cannot add person!");
+					return;
+				}
 				
 				if(view.getAddPersonTabChosenAddress() != null)
 					person.setAdress(view.getAddPersonTabChosenAddress());
