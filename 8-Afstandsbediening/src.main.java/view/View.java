@@ -77,21 +77,21 @@ public class View extends JFrame{
 	/** FIELDS FOR 'AddPerson' TAB **/
 	private JPanel addPersonTab;	
 	
-	private JButton addPersonBtnAdd;
-	private JButton addPersonBtnClearDatabase;
-	private JButton addPersonBtnGenerateData;	
-	private JList<Remote> addPersonListInactiveRemote;
-	private JList<Address> addPersonListAddress;
+	private JButton addPersonTabBtnAdd;
+	private JButton addPersonTabBtnClearDatabase;
+	private JButton addPersonTabBtnGenerateData;	
+	private JList<Remote> addPersonTabInactiveRemoteList;
+	private JList<Address> addPersonTabAddressList;
 	
-	private JTextField addPersonTfFirstName;
-	private JTextField addPersonTfLastName;
-	private JDateChooser addPersonDateContract;
+	private JTextField addPersonTabTfFirstName;
+	private JTextField addPersonTabTfLastName;
+	private JDateChooser addPersonTabEndDateContract;
 	
 	
 	/** FIELDS FOR 'Overview' TAB **/
 	private JPanel overviewTab;
-	private JTable overviewTable;	
-	private JButton overviewBtnRefresh;
+	private JTable overviewTabTable;	
+	private JButton overviewTabBtnRefresh;
 	
 	
 	
@@ -113,7 +113,7 @@ public class View extends JFrame{
 	
 	
 	
-	/** METHODS FOR 'EntranceTab' **/
+	/** PUBLIC METHODS FOR 'EntranceTab' **/
 	// Controller fills combobox with data from DB
 	public void addUsers(ArrayList<User> userList){
 		for (User user : userList) {
@@ -164,118 +164,78 @@ public class View extends JFrame{
 
 	// Controller subscribes to this button
 	public void entranceTabAddRegisterUserListener(ActionListener e){
-		this.entranceTabBtnRegister.addActionListener(e);
-	}
+		this.entranceTabBtnRegister.addActionListener(e); }
 	// Controller subscribes to this button
 	public void entranceTabAddDeactivateUserListener(ActionListener e){
-		this.entranceTabBtnDeactivate.addActionListener(e);
-	}
+		this.entranceTabBtnDeactivate.addActionListener(e); }
 	// Controller subscribes to this button
 	public void entranceTabAddAskEntranceListener(ActionListener e){
-		this.entranceTabBtnAskEntrance.addActionListener(e);
-	}
+		this.entranceTabBtnAskEntrance.addActionListener(e); }
 	// Controller subscribes to this list event
 	public void entranceTabAddUserListItemListener(ItemListener i) {
-		this.entranceTabListUsers.addItemListener(i);
-	}
+		this.entranceTabListUsers.addItemListener(i); }
 	
 	
 	
-	/** METHODS FOR 'AddPerson' TAB **/
-	
-	
-	
-	/** METHODS FOR 'Overview' TAB **/
-	// Controller subscribes to this button
-	public void addOverviewUpdateListener(ActionListener e){
-		this.overviewBtnRefresh.addActionListener(e);
-	}
-	
-	
-	/*
-	 * Controller subscribes to this button
-	 */
-	public void addAddPersonListener(ActionListener e){
-		this.addPersonBtnAdd.addActionListener(e);
-	}
-	
-	/*
-	 * Controller sends unused address through DAO
-	 * List set as model
-	 */
-	public void setUnusedAddress(ArrayList<Address> list){
+	/** PUBLIC METHODS FOR 'AddPerson' TAB **/	
+	// Getters for values filled in or chosen in the 'AddPerson' tab
+	public String getAddPersonTabFirstName(){
+		return addPersonTabTfFirstName.getText(); }
+	public String getAddPersonTabLastName(){
+		return addPersonTabTfLastName.getText(); }
+	public Date getAddPersonTabDate(){
+		return (Date) addPersonTabEndDateContract.getDate(); }
+	public Address getAddPersonTabChosenAddress(){
+		return addPersonTabAddressList.getSelectedValue(); }
+	public Remote getAddPersonTabChosenRemote(){
+		return addPersonTabInactiveRemoteList.getSelectedValue(); }
+
+	// Setters for the fields in the 'AddPerson' tab
+	public void setAddPersonTabFirstName(String name){
+		this.addPersonTabTfFirstName.setText(name);	}
+	public void setAddPersonTabLastName(String name){
+		this.addPersonTabTfLastName.setText(name); }
+	public void setAddPersonTabDate(Date date){
+		this.addPersonTabEndDateContract.setDate(date);	}
+	// Sets given address list to 'AddressList' in the 'AddPerson' tab
+	public void setAddPersonUnusedAddresses(ArrayList<Address> list){
 		DefaultListModel<Address> model = new DefaultListModel<>();
 		
 		for (Address address : list) {
 			model.addElement(address);
 		}
 		
-		addPersonListAddress.setModel(model);
+		addPersonTabAddressList.setModel(model);
 	}
-	
-	/*
-	 * Controller sends inactive remotes through DAO
-	 * List set as model
-	 */
-	public void setInactiveRemote(ArrayList<Remote> list){
+	// Sets given remote list to 'InactiveRemoteList' in the 'AddPerson' tab
+	public void setAddPersonInactiveRemotes(ArrayList<Remote> list){
 		DefaultListModel<Remote> model = new DefaultListModel<>();
 		
 		for (Remote remote : list)
 			model.addElement(remote);
 		
-		addPersonListInactiveRemote.setModel(model);
+		addPersonTabInactiveRemoteList.setModel(model);
 	}
 	
-	// Returns date choosen by user
-	public Date getDate(){
-		return (Date) addPersonDateContract.getDate();
-	}
+
+	// Controller subscribes to these buttons
+	public void addPersonTabBtnAddListener(ActionListener e){
+		this.addPersonTabBtnAdd.addActionListener(e); }
+	public void addPersonTabBtnClearDatabaseListener(ActionListener e){
+		this.addPersonTabBtnClearDatabase.addActionListener(e); }
+	public void addPersonTabBtnGenerateDataListener(ActionListener e){
+		this.addPersonTabBtnGenerateData.addActionListener(e); }
 	
-	// Sets date 
-	public void setDate(Date date){
-		this.addPersonDateContract.setDate(date);
-	}
 	
-	// Getter&Setter for firstname PersonTab
-	public String getFirstNamePersonTab(){
-		return addPersonTfFirstName.getText(); }
-	public void setFirstNamePersonTab(String name){
-		this.addPersonTfFirstName.setText(name);	}
 	
-	/*
-	 * Returns user lastname
-	 */
-	public String getLastName(){
-		return addPersonTfLastName.getText();
-	}
-	
-	/*
-	 * Sets firstname texfield
-	 */
-	public void setLastName(String name){
-		this.addPersonTfLastName.setText(name);
-	}
-	
-	/*
-	 * Returns user address
-	 */
-	public Address getAddress(){
-		return addPersonListAddress.getSelectedValue();
-	}
-	
-	/*
-	 * Returns user remote
-	 */
-	public Remote getRemote(){
-		return addPersonListInactiveRemote.getSelectedValue();
-	}
-	
-	/*
-	 * Controller sends all inhabitants information through DAO
-	 * List display in table
-	 */
-	public void setOverview(ArrayList<Person> list){
-		DefaultTableModel model = (DefaultTableModel) overviewTable.getModel();
+	/** PUBLIC METHODS FOR 'Overview' TAB **/
+	// Controller subscribes to this button
+	public void addOverviewUpdateListener(ActionListener e){
+		this.overviewTabBtnRefresh.addActionListener(e);
+	}	
+	// Method to assign list of persons to the table in the 'Overview' tab
+	public void setOverviewTabTable(ArrayList<Person> list){
+		DefaultTableModel model = (DefaultTableModel) overviewTabTable.getModel();
 		model.setRowCount(0);
 		
 		Object[] row = new Object[9];
@@ -302,9 +262,10 @@ public class View extends JFrame{
 	}
 	
 	
-	/*
-	 * Component setup for parent TabPanel
-	 */
+	
+	
+	/** PRIVATE METHODS **/
+	// Component setup for parent TabPanel
 	private void setUpTabbedPane(){
 		tabbedPane = new JTabbedPane();
 		addPersonTab = new JPanel();
@@ -463,8 +424,8 @@ public class View extends JFrame{
 	 * Component setup for overview tab
 	 */
 	private void setUpOverView(){
-		overviewTable = new JTable();
-		overviewTable.setModel(new DefaultTableModel(
+		overviewTabTable = new JTable();
+		overviewTabTable.setModel(new DefaultTableModel(
 			new Object[][] {
 			},
 			new String[] {
@@ -472,21 +433,21 @@ public class View extends JFrame{
 			}
 		));
 		
-		JTableHeader header = overviewTable.getTableHeader();
+		JTableHeader header = overviewTabTable.getTableHeader();
 		
-		overviewBtnRefresh = new JButton("Update");
-		overviewBtnRefresh.setBounds(181, 5, 84, 23);
+		overviewTabBtnRefresh = new JButton("Update");
+		overviewTabBtnRefresh.setBounds(181, 5, 84, 23);
 		
 		overviewTab.setLayout(null);
 		
-		overviewBtnRefresh.setIcon(null);
+		overviewTabBtnRefresh.setIcon(null);
 		
-		overviewTab.add(overviewBtnRefresh);
+		overviewTab.add(overviewTabBtnRefresh);
 		overviewTab.add(header);
 		
 		JScrollPane scroll = new JScrollPane();
 		scroll.setBounds(25, 33, 550, 400);
-		scroll.setViewportView(overviewTable);
+		scroll.setViewportView(overviewTabTable);
 		overviewTab.add(scroll);
 	}
 	
@@ -499,28 +460,28 @@ public class View extends JFrame{
 		JScrollPane scrollRemote = new JScrollPane();
 		scrollRemote.setBounds(10, 100, 400, 150);
 		addPersonTab.add(scrollRemote);
-		addPersonListInactiveRemote = new JList<Remote>();
-		scrollRemote.setViewportView(addPersonListInactiveRemote);
-		addPersonListInactiveRemote.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
+		addPersonTabInactiveRemoteList = new JList<Remote>();
+		scrollRemote.setViewportView(addPersonTabInactiveRemoteList);
+		addPersonTabInactiveRemoteList.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
 		
 		JScrollPane scrollAddress = new JScrollPane();
 		scrollAddress.setBounds(10, 275, 400, 150);
 		addPersonTab.add(scrollAddress);
-		addPersonListAddress = new JList<Address>();
-		scrollAddress.setViewportView(addPersonListAddress);
-		addPersonListAddress.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
+		addPersonTabAddressList = new JList<Address>();
+		scrollAddress.setViewportView(addPersonTabAddressList);
+		addPersonTabAddressList.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
 		
-		addPersonBtnAdd = new JButton("Add");
-		addPersonBtnAdd.setBounds(200, 32, 89, 23);
-		addPersonTab.add(addPersonBtnAdd);		
+		addPersonTabBtnAdd = new JButton("Add");
+		addPersonTabBtnAdd.setBounds(200, 32, 89, 23);
+		addPersonTab.add(addPersonTabBtnAdd);		
 		
-		addPersonBtnClearDatabase = new JButton("Clear database");
-		addPersonBtnClearDatabase.setBounds(415, 10, 150, 25);
-		addPersonTab.add(addPersonBtnClearDatabase);
+		addPersonTabBtnClearDatabase = new JButton("Clear database");
+		addPersonTabBtnClearDatabase.setBounds(415, 10, 150, 25);
+		addPersonTab.add(addPersonTabBtnClearDatabase);
 		
-		addPersonBtnGenerateData = new JButton("Generate data");
-		addPersonBtnGenerateData.setBounds(415, 45, 150, 25);
-		addPersonTab.add(addPersonBtnGenerateData);
+		addPersonTabBtnGenerateData = new JButton("Generate data");
+		addPersonTabBtnGenerateData.setBounds(415, 45, 150, 25);
+		addPersonTab.add(addPersonTabBtnGenerateData);
 		
 		JLabel lblFirstname = new JLabel("Firstname");
 		lblFirstname.setBounds(10, 11, 73, 14);
@@ -534,20 +495,20 @@ public class View extends JFrame{
 		lblContract.setBounds(10, 61, 73, 14);
 		addPersonTab.add(lblContract);
 		
-		addPersonTfFirstName = new JTextField();
-		addPersonTfFirstName.setBounds(93, 8, 86, 20);
-		addPersonTab.add(addPersonTfFirstName);
-		addPersonTfFirstName.setColumns(10);
+		addPersonTabTfFirstName = new JTextField();
+		addPersonTabTfFirstName.setBounds(93, 8, 86, 20);
+		addPersonTab.add(addPersonTabTfFirstName);
+		addPersonTabTfFirstName.setColumns(10);
 		
-		addPersonTfLastName = new JTextField();
-		addPersonTfLastName.setBounds(93, 33, 86, 20);
-		addPersonTab.add(addPersonTfLastName);
-		addPersonTfLastName.setColumns(10);
+		addPersonTabTfLastName = new JTextField();
+		addPersonTabTfLastName.setBounds(93, 33, 86, 20);
+		addPersonTab.add(addPersonTabTfLastName);
+		addPersonTabTfLastName.setColumns(10);
 		
-		addPersonDateContract = new JDateChooser();
-		addPersonDateContract.setMinSelectableDate(Date.valueOf(LocalDate.now()));
-		addPersonDateContract.setBounds(93, 61, 102, 20);
-		addPersonTab.add(addPersonDateContract);
+		addPersonTabEndDateContract = new JDateChooser();
+		addPersonTabEndDateContract.setMinSelectableDate(Date.valueOf(LocalDate.now()));
+		addPersonTabEndDateContract.setBounds(93, 61, 102, 20);
+		addPersonTab.add(addPersonTabEndDateContract);
 	}
 	
 	/*

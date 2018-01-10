@@ -43,7 +43,7 @@ public class ControllerRemote {
 		view.entranceTabAddDeactivateUserListener(new DeactivateUserListener());
 		view.entranceTabAddUserListItemListener(new SetEntranceLabelsToSelectedUser());
 		view.addOverviewUpdateListener(new RefreshOverViewListener());
-		view.addAddPersonListener(new AddPersonListener());
+		view.addPersonTabBtnAddListener(new AddPersonListener());
 		
 		setInactiveRemote();
 		setUnusedAddress();
@@ -55,7 +55,7 @@ public class ControllerRemote {
 	 * Creates list of al inactive Remotes => not given to a inhabitant
 	 */
 	private void setInactiveRemote(){	
-		view.setInactiveRemote( DataManager.getUnusedRemotes() );
+		view.setAddPersonInactiveRemotes( DataManager.getUnusedRemotes() );
 	}
 	
 	/*
@@ -75,14 +75,14 @@ public class ControllerRemote {
 	 * JPA Namedquery (Address class) => unused Addresses returned
 	 */
 	private void setUnusedAddress(){
-		view.setUnusedAddress( DataManager.getUnusedAddress() );
+		view.setAddPersonUnusedAddresses( DataManager.getUnusedAddress() );
 	}
 	
 	/*
 	 * Query list of all active inhabitants and pass them to view
 	 */
 	private void setOverView(){
-		view.setOverview( DataManager.getAllPersons() );
+		view.setOverviewTabTable( DataManager.getAllPersons() );
 	} 
 	
 	private void setUserToEntranceLabels() 
@@ -152,21 +152,21 @@ public class ControllerRemote {
 		public void actionPerformed(ActionEvent e) {
 			try {				
 				Person person = new Person();
-				person.setFirstname(view.getFirstNamePersonTab());
-				person.setLastname(view.getLastName());
-				person.setEndOfContract(view.getDate());
+				person.setFirstname(view.getAddPersonTabFirstName());
+				person.setLastname(view.getAddPersonTabLastName());
+				person.setEndOfContract(view.getAddPersonTabDate());
 				
-				if(view.getAddress() != null)
-					person.setAdress(view.getAddress());
+				if(view.getAddPersonTabChosenAddress() != null)
+					person.setAdress(view.getAddPersonTabChosenAddress());
 				
-				if(view.getRemote() != null)
-					person.setRemote(view.getRemote());
+				if(view.getAddPersonTabChosenRemote() != null)
+					person.setRemote(view.getAddPersonTabChosenRemote());
 				
 				DataManager.updatePerson(person);
 				
-				view.setFirstNamePersonTab("");
-				view.setLastName("");
-				view.setDate(null);
+				view.setAddPersonTabFirstName("");
+				view.setAddPersonTabLastName("");
+				view.setAddPersonTabDate(null);
 			} 
 			catch (Exception e1) {
 				e1.printStackTrace();
