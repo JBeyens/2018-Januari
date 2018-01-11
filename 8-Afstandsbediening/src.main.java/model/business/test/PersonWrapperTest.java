@@ -21,7 +21,7 @@ import java.sql.Date;
  * @Project Afstandsbediening
  * @Doel Test of Users
  */ 
-public class UserTest {
+public class PersonWrapperTest {
 	private Person person;
 	private PersonWrapper user;
 	private Administrator admin;
