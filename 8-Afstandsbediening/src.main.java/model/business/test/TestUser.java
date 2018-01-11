@@ -6,7 +6,7 @@ import java.time.LocalDate;
 import org.fluttercode.datafactory.impl.DataFactory;
 
 import model.business.Administrator;
-import model.business.User;
+import model.business.PersonWrapper;
 import model.entities.Address;
 import model.entities.Person;
 import model.entities.Remote;
@@ -40,30 +40,30 @@ public class TestUser {
 		person.setEndOfContract(Date.valueOf(LocalDate.of(2018, 7, 1)));
 
 		System.out.println("Registering this person to administrator... (person will also be saved to database in process)");
-		User remote = new User(person, person.getRemote(), admin);
-		System.out.println(admin.registerUser(new User(person, person.getRemote(), admin)).toString());
+		PersonWrapper user = new PersonWrapper(person, admin);
+		System.out.println(admin.registerUser(new PersonWrapper(person, admin)).toString());
 		
 		System.out.println("Made new remote and registered person '" + person.toString() + "' to it.");
 		System.out.println("Trying to open gate with this remote...");
-		if (remote.openGate())
+		if (user.openGate())
 			System.out.println("Access granted!");
 		else 
 			System.out.println("Access denied");
 
 		
-		remote.getPerson().getRemote().setIsActive(false);
+		user.getRemote().setIsActive(false);
 		System.out.println("Remote set inactive!");
 		System.out.println("Trying to open gate with this remote...");
-		if (remote.openGate())
+		if (user.openGate())
 			System.out.println("Access granted!");
 		else 
 			System.out.println("Access denied");
 		
-		remote.getPerson().getRemote().setIsActive(true);
-		remote.getPerson().setEndOfContract(Date.valueOf(LocalDate.of(2000, 1, 1)));
+		user.getRemote().setIsActive(true);
+		user.setEndOfContract(Date.valueOf(LocalDate.of(2000, 1, 1)));
 		System.out.println("Contract person has expired!");
 		System.out.println("Trying to open gate with this remote...");
-		if (remote.openGate())
+		if (user.openGate())
 			System.out.println("Access granted!");
 		else 
 			System.out.println("Access denied");

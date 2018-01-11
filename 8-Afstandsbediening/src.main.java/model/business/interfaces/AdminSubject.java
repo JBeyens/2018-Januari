@@ -1,10 +1,10 @@
 package model.business.interfaces;
 
-import model.business.User;
+import model.business.PersonWrapper;
 import values.UserDeactivationResult;
 import values.UserRegistrationResult;
 
 public interface AdminSubject {
-	UserRegistrationResult registerUser(User observer);
-	UserDeactivationResult deactivateUser(User observer);
+	UserRegistrationResult registerUser(PersonWrapper observer);
+	UserDeactivationResult deactivateUser(PersonWrapper observer);
 }

@@ -17,7 +17,7 @@ public class Administrator implements AdminSubject{
 	/** FIELDS **/
 	private Logger log;
 	private long frequency;
-	private ArrayList<User> users;
+	private ArrayList<PersonWrapper> users;
 	
 	/** CONSTRUCTOR **/
 	public Administrator(){
@@ -33,7 +33,7 @@ public class Administrator implements AdminSubject{
 	/**
 	 * Getter for list of subscribed users
 	 **/
-	public ArrayList<User> getListeners() {
+	public ArrayList<PersonWrapper> getListeners() {
 		log.debug("Getting list of users");
 		return users;
 	}
@@ -54,11 +54,11 @@ public class Administrator implements AdminSubject{
 	/**
 	 * Checks the Id of the inputted user. If it is registered & has valid contract, the user frequency will be correctly updated.
 	 **/
-	public boolean checkIdForUpdate(User unknownUser){
-		User userFromList = findUserInList(unknownUser.getPerson()); // If found in list --> then is ACTIVE
+	public boolean checkIdForUpdate(PersonWrapper unknownUser){
+		PersonWrapper userFromList = findUserInList(unknownUser); // If found in list --> then is ACTIVE
 		//if ( userFromList == null ) // If not found in list --> then is NOT ACTIVE
 			//return false;;
-		if (userFromList != null && isDateInFuture( userFromList.getPerson().getEndOfContract() ) ){
+		if (userFromList != null && isDateInFuture( userFromList.getEndOfContract() ) ){
 			unknownUser.update(frequency);
 			return true;
 		}
@@ -70,9 +70,9 @@ public class Administrator implements AdminSubject{
 	 * @return AddPersonResult - Enum which contains possible outcomes of the situation
 	 **/
 	@Override
-	public UserRegistrationResult registerUser(User user) { 
+	public UserRegistrationResult registerUser(PersonWrapper user) { 
 		// DO NOT return the string of this enum. Playing with MAGIC STRINGS in business code is bad practice!
-		if (findUserInList(user.getPerson()) != null) // Check if person is already in list
+		if (findUserInList(user) != null) // Check if person is already in list
 			return UserRegistrationResult.alreadyInList;
 		
 		if (user.getRemote() == null)
@@ -80,7 +80,7 @@ public class Administrator implements AdminSubject{
 		
 		user.getRemote().setIsActive(true);
 		
-		DataManager.updatePerson(user.getPerson());
+		DataManager.updatePerson(user);
 		//DataManager.updateRemote(user.getRemote()); 
 		
 		users.add( user );
@@ -92,9 +92,9 @@ public class Administrator implements AdminSubject{
 	 * @return AddRemovePersonResult - Enum which contains possible outcomes of the situation
 	 */
 	@Override
-	public UserDeactivationResult deactivateUser(User user) {
+	public UserDeactivationResult deactivateUser(PersonWrapper user) {
 		// DO NOT return the string of this enum. Playing with MAGIC STRINGS in business code is bad practice!
-		User userFromList = findUserInList(user.getPerson());
+		PersonWrapper userFromList = findUserInList(user);
 		
 		if (userFromList == null)
 			return UserDeactivationResult.notFound;
@@ -126,7 +126,7 @@ public class Administrator implements AdminSubject{
 	 * Notify function for observer pattern
 	 **/
 	private void notifyAllObservers() {
-		for (User user : users) {
+		for (PersonWrapper user : users) {
 			user.update(getFrequency());
 		}
 	}
@@ -138,7 +138,7 @@ public class Administrator implements AdminSubject{
 		ArrayList<Person> allPersons = DataManager.getAllPersonsWithActiveRemote();
 		
 		for (Person person : allPersons) 
-			users.add(new User(person, person.getRemote(), this));				
+			users.add(new PersonWrapper(person, this));				
 	}
 	
 	/**
@@ -152,10 +152,10 @@ public class Administrator implements AdminSubject{
 	/**
 	 * @return User - Finds User in list that has the same reference to person as the inputted parameter
 	 **/
-	private User findUserInList(Person person)
+	private PersonWrapper findUserInList(Person person)
 	{	
-		for (User user : users) {
-			if (user.getPerson().getId() != person.getId()) // if (User object does not reference the same person)
+		for (PersonWrapper user : users) {
+			if (user.getId() != person.getId()) // if (User object does not reference the same person)
 				continue;
 			
 			// We found the correct User! 

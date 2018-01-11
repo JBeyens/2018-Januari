@@ -4,7 +4,7 @@ import org.junit.Before;
 import org.junit.Test;
 
 import model.business.Administrator;
-import model.business.User;
+import model.business.PersonWrapper;
 import model.entities.Address;
 import model.entities.EntityDAO;
 import model.entities.Person;
@@ -23,7 +23,7 @@ import java.sql.Date;
  */ 
 public class UserTest {
 	private Person person;
-	private User user;
+	private PersonWrapper user;
 	private Administrator admin;
 	private long newFrequency = 111;
 
@@ -33,7 +33,7 @@ public class UserTest {
 		admin.setFrequency(newFrequency);
 
 		person = createPersonMock();
-		user = new User(person, person.getRemote(), admin);
+		user = new PersonWrapper(person, admin);
 		
 		EntityDAO.PERSON_DAO.create(person);
 	}
@@ -53,11 +53,11 @@ public class UserTest {
 	@Test
 	public void Open_Gate__When_Contract_Has_Expired_Acces_Denied() {
 		admin.registerUser(user);
-		user.getPerson().setEndOfContract(Date.valueOf(LocalDate.of(2000, 1, 1)));
+		user.setEndOfContract(Date.valueOf(LocalDate.of(2000, 1, 1)));
 
 		Boolean bool = user.openGate();
 		
-		assertNotEquals(user.getPerson().getRemote().getFrequency(), admin.getFrequency());
+		assertNotEquals(user.getRemote().getFrequency(), admin.getFrequency());
 		assertFalse(bool);
 	}
 

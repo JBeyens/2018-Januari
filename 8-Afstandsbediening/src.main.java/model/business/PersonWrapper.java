@@ -41,8 +41,7 @@ public class PersonWrapper extends Person implements AdminObserver{
 	}
 	
 	private boolean checkIdForUpdate(){
-		//function parameter in admin nog aanpassen indien ok
-		return false;//gate.checkIdForUpdate(this);
+		return gate.checkIdForUpdate(this);
 	}
 
 	/**

@@ -10,7 +10,7 @@ import org.junit.Before;
 import org.junit.Test;
 
 import model.business.Administrator;
-import model.business.User;
+import model.business.PersonWrapper;
 import model.entities.Address;
 import model.entities.EntityDAO;
 import model.entities.Person;
@@ -25,13 +25,13 @@ import model.entities.Remote;
 public class AdministratorTest {
 	private Administrator admin;
 	private Person person;
-	private User user;
+	private PersonWrapper user;
 	
 	@Before
 	public void setUp(){
 		admin = new Administrator();
 		person = createPersonMock();
-		user = new User(person, person.getRemote(), admin);
+		user = new PersonWrapper(person, admin);
 		
 		EntityDAO.PERSON_DAO.create(person);
 	}
