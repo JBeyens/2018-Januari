@@ -18,10 +18,10 @@ public class TestUser {
 
 	public static void main(String[] args) {
 		System.out.println("Deleting all the data in the database...");
-		DataDeleter.main(args);
+		DataDeleter.performDeletion();
 		System.out.println("--> Done!");
 		System.out.println("Generating data in the database...");
-		DataGenerator.main(args);
+		DataGenerator.performDataGeneration();
 		System.out.println("--> Done!");
 		
 		DataFactory factory = new DataFactory();

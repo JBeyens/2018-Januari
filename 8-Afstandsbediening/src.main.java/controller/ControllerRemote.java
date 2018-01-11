@@ -10,7 +10,7 @@ import org.apache.log4j.Logger;
 
 import model.business.Administrator;
 import model.business.DataManager;
-import model.business.User;
+import model.business.PersonWrapper;
 import model.entities.Address;
 import model.entities.Person;
 import utility.DataDeleter;
@@ -93,9 +93,9 @@ public class ControllerRemote {
 	 */	
 	private void setUsers(){
 		ArrayList<Person> persons = DataManager.getAllPersonsWithRemote();
-		ArrayList<User> users = new ArrayList<>();
+		ArrayList<PersonWrapper> users = new ArrayList<>();
 		for (Person person : persons) {
-			users.add(new User(person, person.getRemote(), gateAdmin));
+			users.add(new PersonWrapper(person, gateAdmin));
 		}
 		
 		view.setEntranceTabUsers( users );
@@ -117,7 +117,7 @@ public class ControllerRemote {
 	
 	private void setUserToEntranceLabels() 
 	{		
-		User user = view.getUserForGate();
+		PersonWrapper user = view.getUserForGate();
 		if (user == null) {
 			resetEntranceTabLabels();
 			return;
@@ -126,12 +126,12 @@ public class ControllerRemote {
 		view.setEntranceTabLblSerialNumberUser(user.getRemote().getSerialNumber());
 		view.setEntranceTabLblFrequencyUser( Double.toString( user.getRemote().getFrequency()));
 		view.setEntranceTabLblRegisteredUser(user.getRemote().getIsActive());
-		view.setEntranceTabLblFirstNameUser(user.getPerson().getFirstname());
-		view.setEntranceTabLblLastNameUser(	user.getPerson().getLastname()); 
-		view.setEntranceTabLblEndOfContractUser(Utility.DATE_FORMAT.format(user.getPerson().getEndOfContract()));
+		view.setEntranceTabLblFirstNameUser(user.getFirstname());
+		view.setEntranceTabLblLastNameUser(	user.getLastname()); 
+		view.setEntranceTabLblEndOfContractUser(Utility.DATE_FORMAT.format(user.getEndOfContract()));
 		view.setEntranceTabLblFrequencyGate(Double.toString(user.getGate().getFrequency()));
 
-		Address a = user.getPerson().getAdress();
+		Address a = user.getAdress();
 		view.setEntranceTablLblAddressStreetUser( a.getStreet() + " " + a.getNumber() + "/" + a.getMailBox());
 		view.setEntranceTablLblAddressCityUser(   a.getPostalCode() + " " + a.getCity());
 		view.setEntranceTablLblAddressCountryUser(a.getCountry());
@@ -142,7 +142,7 @@ public class ControllerRemote {
 	private class RegisterUserListener implements ActionListener{
 		@Override
 		public void actionPerformed(ActionEvent e) {
-			User user = view.getUserForGate();
+			PersonWrapper user = view.getUserForGate();
 			if (user == null)
 				return;
 			
@@ -156,7 +156,7 @@ public class ControllerRemote {
 	private class DeactivateUserListener implements ActionListener{
 		@Override
 		public void actionPerformed(ActionEvent e) {
-			User user = view.getUserForGate();
+			PersonWrapper user = view.getUserForGate();
 			if (user == null)
 				return;
 			UserDeactivationResult result = gateAdmin.deactivateUser(user);
@@ -169,7 +169,7 @@ public class ControllerRemote {
 	private class AskEntranceListener implements ActionListener{
 		@Override
 		public void actionPerformed(ActionEvent e) {
-			User selectedUser = view.getUserForGate();
+			PersonWrapper selectedUser = view.getUserForGate();
 			if (selectedUser == null)
 				return;
 			
