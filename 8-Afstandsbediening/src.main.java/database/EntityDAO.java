@@ -1,6 +1,8 @@
-package model.entities;
+package database;
 
-import database.GenericDAO;
+import model.entities.Address;
+import model.entities.Person;
+import model.entities.Remote;
 
 public final class EntityDAO {
 	public static GenericDAO<Person> PERSON_DAO = new GenericDAO<>(Person.class);

@@ -9,10 +9,10 @@ import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 
+import database.EntityDAO;
 import model.business.Administrator;
 import model.business.PersonWrapper;
 import model.entities.Address;
-import model.entities.EntityDAO;
 import model.entities.Person;
 import model.entities.Remote;
 

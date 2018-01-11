@@ -4,8 +4,8 @@ import java.util.ArrayList;
 
 import org.apache.log4j.Logger;
 
+import database.EntityDAO;
 import model.entities.Address;
-import model.entities.EntityDAO;
 import model.entities.Person;
 import model.entities.Remote;
 import utility.Utility;

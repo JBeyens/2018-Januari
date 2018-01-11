@@ -2,7 +2,7 @@ package utility;
 
 import org.apache.log4j.Logger;
 
-import model.entities.EntityDAO;
+import database.EntityDAO;
 import net.bytebuddy.asm.Advice.This;
 
 /**
