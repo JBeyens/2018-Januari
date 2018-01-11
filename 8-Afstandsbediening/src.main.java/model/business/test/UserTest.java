@@ -1,18 +1,14 @@
 package model.business.test;
-
-import org.apache.log4j.Logger;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 
 import model.business.Administrator;
-import model.business.DataManager;
 import model.business.User;
 import model.entities.Address;
 import model.entities.EntityDAO;
 import model.entities.Person;
 import model.entities.Remote;
-import utility.Utility;
 
 import static org.junit.Assert.*;
 
@@ -23,14 +19,13 @@ import java.sql.Date;
  * @Author Jef Beyens & Ben Vandevorst
  * @Datum 02/01/2018
  * @Project Afstandsbediening
- * @Doel Test of GateModule
+ * @Doel Test of Users
  */ 
 public class UserTest {
 	private Person person;
 	private User user;
 	private Administrator admin;
 	private long newFrequency = 111;
-	private Logger log = Utility.getLogger(getClass().getSimpleName());
 
 	@Before
 	public void setUp() {

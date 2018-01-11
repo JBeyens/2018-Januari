@@ -1,10 +1,12 @@
-package model.business;
+package model.business.test;
 
 import java.sql.Date;
 import java.time.LocalDate;
 
 import org.fluttercode.datafactory.impl.DataFactory;
 
+import model.business.Administrator;
+import model.business.User;
 import model.entities.Address;
 import model.entities.Person;
 import model.entities.Remote;
