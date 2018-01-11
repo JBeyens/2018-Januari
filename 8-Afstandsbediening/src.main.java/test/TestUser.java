@@ -1,4 +1,4 @@
-package model.business.test;
+package test;
 
 import java.sql.Date;
 import java.time.LocalDate;
