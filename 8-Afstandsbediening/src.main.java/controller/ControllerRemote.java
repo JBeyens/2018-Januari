@@ -4,7 +4,6 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.ItemEvent;
 import java.awt.event.ItemListener;
-import java.util.ArrayList;
 
 import org.apache.log4j.Logger;
 
@@ -91,14 +90,8 @@ public class ControllerRemote {
 	/*
 	 * Add all persons to list for simulation
 	 */	
-	private void setUsers(){
-		ArrayList<Person> persons = DataManager.getAllPersonsWithRemote();
-		ArrayList<PersonWrapper> users = new ArrayList<>();
-		for (Person person : persons) {
-			users.add(new PersonWrapper(person, gateAdmin));
-		}
-		
-		view.setEntranceTabUsers( users );
+	private void setUsers(){	
+		view.setEntranceTabUsers( gateAdmin.getListeners() );
 	}
 	
 	/*

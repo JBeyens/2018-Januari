@@ -10,6 +10,7 @@ import java.net.URL;
 import java.sql.Date;
 import java.time.LocalDate;
 import java.util.ArrayList;
+import java.util.HashSet;
 
 import javax.swing.DefaultListModel;
 import javax.swing.ImageIcon;
@@ -31,6 +32,7 @@ import javax.swing.SwingConstants;
 import com.toedter.calendar.JDateChooser;
 
 import model.business.PersonWrapper;
+import model.business.interfaces.AdminObserver;
 import model.entities.Address;
 import model.entities.Person;
 import model.entities.Remote;
@@ -54,7 +56,7 @@ public class View extends JFrame{
 	/** FIELDS FOR 'Entrance' TAB **/
 	private JPanel entranceTab;
 	
-	private JComboBox<PersonWrapper> entranceTabListUsers;
+	private JComboBox<AdminObserver> entranceTabListUsers;
 	private JButton entranceTabBtnRegister;
 	private JButton entranceTabBtnDeactivate;
 	private JButton entranceTabBtnAskEntrance;
@@ -142,9 +144,9 @@ public class View extends JFrame{
 		this.entranceTabLblFrequencyGate.setText(frequencyGate); } 
 
 	// Setter fills combobox with inputted data
-	public void setEntranceTabUsers(ArrayList<PersonWrapper> userList){
+	public void setEntranceTabUsers(HashSet<AdminObserver> hashSet){
 		entranceTabListUsers.removeAllItems();
-		for (PersonWrapper user : userList) {
+		for (AdminObserver user : hashSet) {
 			entranceTabListUsers.addItem(user);
 		}
 	}
@@ -312,7 +314,7 @@ public class View extends JFrame{
 		entranceTabBtnRegister.setBounds(250, 15, 150, 23);
 		entranceTab.add(entranceTabBtnRegister);
 		
-		entranceTabListUsers = new JComboBox<PersonWrapper>();
+		entranceTabListUsers = new JComboBox<AdminObserver>();
 		entranceTabListUsers.setBounds(10, 44, 565, 20);
 		entranceTab.add(entranceTabListUsers);
 		
