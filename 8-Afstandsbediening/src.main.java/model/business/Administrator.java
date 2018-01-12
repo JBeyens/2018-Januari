@@ -1,7 +1,5 @@
 package model.business;
 
-import java.sql.Date;
-import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.HashSet;
 
@@ -59,7 +57,7 @@ public class Administrator implements AdminSubject{
 	 * Checks the Id of the inputted user. If it is registered & has valid contract, the user frequency will be correctly updated.
 	 **/
 	public boolean checkIdForUpdate(AdminObserver o){
-		return observers.stream().anyMatch(x -> x == o);
+		return findUserInList(o);
 	}
 	
 	/**
@@ -132,13 +130,13 @@ public class Administrator implements AdminSubject{
 			observers.add(new PersonWrapper(person, this));				
 	}
 	
-	/**
-	 * @return Boolean - Is the inputted date is in the future
-	 **/
-	private boolean isDateInFuture(Date date){
-		int result = date.compareTo(Date.valueOf(LocalDate.now()));		
-		return result >= 0;
-	}	
+//	/**
+//	 * @return Boolean - Is the inputted date is in the future
+//	 **/
+//	private boolean isDateInFuture(Date date){
+//		int result = date.compareTo(Date.valueOf(LocalDate.now()));		
+//		return result >= 0;
+//	}	
 	
 	private boolean findUserInList(AdminObserver o) {
 		return observers.stream().anyMatch(x -> x == o);
