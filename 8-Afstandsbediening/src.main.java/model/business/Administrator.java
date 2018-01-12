@@ -23,8 +23,8 @@ public class Administrator implements AdminSubject{
 	public Administrator(){
 		log = Utility.getLogger(this.getClass().getSimpleName());
 		this.observers = new HashSet<>();
-		loadUsersFromDB();
 		this.setFrequency(Utility.RANDOM.nextInt(999999));
+		loadUsersFromDB();	
 	}
 
 	
@@ -121,7 +121,7 @@ public class Administrator implements AdminSubject{
 		ArrayList<Person> allPersons = DataManager.getAllPersonsWithActiveRemote();
 		
 		for (Person person : allPersons) 
-			observers.add(new PersonWrapper(person, this));				
+			this.registerUser(new PersonWrapper(person, this));			
 	}
 	
 //	/**
