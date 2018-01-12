@@ -140,8 +140,8 @@ public class Administrator implements AdminSubject{
 		return result >= 0;
 	}	
 	
-	private boolean findUserInList(PersonWrapper user) {
-		return false;
+	private boolean findUserInList(AdminObserver o) {
+		return observers.stream().anyMatch(x -> x == o);
 	}
 
 

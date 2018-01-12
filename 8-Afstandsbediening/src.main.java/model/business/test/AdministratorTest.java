@@ -46,12 +46,22 @@ public class AdministratorTest {
 	}
 	
 	@Test
-	public void Register_Duplica_User_Except_Already_Exists(){
+	public void Register_User_Remote_Null_Expect_Not_Added(){
+		user.setRemote(null);
+		admin.registerUser(user);
+		String result = admin.registerUser(user).toString();
+
+		assertEquals(result, "User could not be registered since no remote is linked to the user!");
+	}
+	
+	@Test
+	public void Register_Duplicate_User_Except_Already_Exists(){
+		admin.registerUser(user);
 		String result = admin.registerUser(user).toString();
 		Remote remote = EntityDAO.REMOTE_DAO.findOne(user.getRemote().getId());
 		
 		assertTrue(remote.getIsActive());
-		assertEquals(result, "User was succesfully registered!");
+		assertEquals(result, "User could not be registered again, since it was already registered!");
 	}
 	
 	@Test
@@ -64,6 +74,12 @@ public class AdministratorTest {
 		assertEquals(result, "User was succesfully deactivated!");
 	}
 	
+	@Test
+	public void UnRegister_User_Not_Registered_Expect_Not_Possible(){
+		String result = admin.deactivateUser(user).toString();
+
+		assertEquals(result, "User could not be deactivated because user was not found as registered user!");
+	}
 
 	
 	@After
