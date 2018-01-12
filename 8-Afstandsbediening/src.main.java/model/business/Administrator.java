@@ -64,7 +64,6 @@ public class Administrator implements AdminSubject{
 	 **/
 	@Override
 	public UserRegistrationResult registerUser(PersonWrapper user) { 
-		// DO NOT return the string of this enum. Playing with MAGIC STRINGS in business code is bad practice!
 		if (findUserInList(user)) // Check if person is already in list
 			return UserRegistrationResult.alreadyInList;
 		
@@ -84,7 +83,6 @@ public class Administrator implements AdminSubject{
 	 */
 	@Override
 	public UserDeactivationResult deactivateUser(PersonWrapper user) {
-		// DO NOT return the string of this enum. Playing with MAGIC STRINGS in business code is bad practice!	
 		if (!findUserInList(user))
 			return UserDeactivationResult.notFound;
 		
