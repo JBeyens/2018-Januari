@@ -44,8 +44,10 @@ public class PersonWrapperTest {
 		admin.registerUser(user);
 
 		Boolean bool = user.openGate();
+		
+		Remote found = EntityDAO.REMOTE_DAO.findOne(user.getRemote().getId());
 
-		assertTrue(user.getRemote().getIsActive());
+		assertTrue(found.getIsActive());
 		assertEquals(user.getRemote().getFrequency(), admin.getFrequency());
 		assertTrue(bool);
 	}
@@ -57,6 +59,9 @@ public class PersonWrapperTest {
 
 		Boolean bool = user.openGate();
 		
+		Remote found = EntityDAO.REMOTE_DAO.findOne(user.getRemote().getId());
+
+		assertTrue(found.getIsActive());
 		assertFalse(bool);
 	}
 
@@ -67,7 +72,9 @@ public class PersonWrapperTest {
 		
 		Boolean bool = user.openGate();
 
-		assertFalse(user.getRemote().getIsActive());
+		Remote found = EntityDAO.REMOTE_DAO.findOne(user.getRemote().getId());
+
+		assertFalse(found.getIsActive());
 		assertFalse(bool);
 	}
 
