@@ -6,9 +6,11 @@ import java.util.ArrayList;
 
 import org.apache.log4j.Logger;
 
+import database.EntityDAO;
 import model.business.interfaces.AdminSubject;
 import model.business.DataManager;
 import model.entities.Person;
+import model.entities.Remote;
 import utility.Utility;
 import values.UserRegistrationResult;
 import values.UserDeactivationResult;
@@ -78,10 +80,9 @@ public class Administrator implements AdminSubject{
 		if (user.getRemote() == null)
 			return UserRegistrationResult.noRemote;
 		
-		user.getRemote().setIsActive(true);
-		
-		DataManager.updatePerson(user);
-		//DataManager.updateRemote(user.getRemote()); 
+		Remote remote = EntityDAO.REMOTE_DAO.findOne(user.getRemote().getId());
+		remote.setIsActive(true);
+		DataManager.updateRemote(remote); 
 		
 		users.add( user );
 		return UserRegistrationResult.succesfull;
@@ -100,12 +101,9 @@ public class Administrator implements AdminSubject{
 			return UserDeactivationResult.notFound;
 		
 		// 2x in case they don't reference the same user instance
-		user.getRemote().setIsActive(false);
-		DataManager.updateRemote(user.getRemote());
-		if (user != userFromList) {
-			userFromList.getRemote().setIsActive(false);
-			DataManager.updateRemote(userFromList.getRemote());
-		}
+		Remote remote = EntityDAO.REMOTE_DAO.findOne(user.getRemote().getId());
+		remote.setIsActive(false);
+		DataManager.updateRemote(remote); 
 		
 		users.remove(userFromList);
 		return UserDeactivationResult.succesfull;

@@ -37,18 +37,31 @@ public class AdministratorTest {
 	}
 	
 	@Test
-	public void Register_User_Succesfull() {
+	public void Register_User_Succesfull_Update_Succesfull() {
 		String result = admin.registerUser(user).toString();
+		Remote remote = EntityDAO.REMOTE_DAO.findOne(user.getRemote().getId());
 		
+		assertTrue(remote.getIsActive());
 		assertEquals(result, "User was succesfully registered!");
 	}
 	
 	@Test
 	public void Register_Duplica_User_Except_Already_Exists(){
-		admin.registerUser(user);
 		String result = admin.registerUser(user).toString();
+		Remote remote = EntityDAO.REMOTE_DAO.findOne(user.getRemote().getId());
 		
-		assertEquals(result, "User could not be registered again, since it was already registered!");
+		assertTrue(remote.getIsActive());
+		assertEquals(result, "User was succesfully registered!");
+	}
+	
+	@Test
+	public void UnRegister_User_Succesfull_Remote_Inactive(){
+		admin.registerUser(user);
+		String result = admin.deactivateUser(user).toString();
+		Remote remote = EntityDAO.REMOTE_DAO.findOne(user.getRemote().getId());
+		
+		assertFalse(remote.getIsActive());
+		assertEquals(result, "User was succesfully deactivated!");
 	}
 	
 
