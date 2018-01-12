@@ -78,6 +78,7 @@ public class Administrator implements AdminSubject{
 		DataManager.updateRemote(remote); 
 		
 		observers.add( user );
+		user.update(frequency);
 		return UserRegistrationResult.succesfull;
 	}
 	
