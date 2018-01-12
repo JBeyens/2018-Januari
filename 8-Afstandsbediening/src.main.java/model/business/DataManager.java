@@ -5,7 +5,6 @@ import java.util.ArrayList;
 import org.apache.log4j.Logger;
 
 import database.EntityDAO;
-import model.business.interfaces.AdminObserver;
 import model.entities.Address;
 import model.entities.Person;
 import model.entities.Remote;
@@ -96,7 +95,16 @@ public final class DataManager {
 	}
 	
 	// ADMIN OPERATIONS
-	public static void activateRemote(AdminObserver o){
+	public static void activateRemote(int id){
+		Remote remote = EntityDAO.REMOTE_DAO.findOne(id);
+		remote.setIsActive(true);
+		updateRemote(remote);
 		
+	}
+	
+	public static void deActivateRemote(int id){
+		Remote remote = EntityDAO.REMOTE_DAO.findOne(id);
+		remote.setIsActive(false);
+		updateRemote(remote);
 	}
 }
