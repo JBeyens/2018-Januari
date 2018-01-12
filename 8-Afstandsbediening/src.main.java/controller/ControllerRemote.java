@@ -226,6 +226,7 @@ public class ControllerRemote {
 				 */
 				setInactiveRemote();
 				setUnusedAddress();
+				gateAdmin.refreshUsersFromDB();
 			}
 		}	
 	}

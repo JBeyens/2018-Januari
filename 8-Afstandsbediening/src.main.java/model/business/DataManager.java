@@ -95,16 +95,17 @@ public final class DataManager {
 	}
 	
 	// ADMIN OPERATIONS
-	public static void activateRemote(int id){
+	public static void activateRemote(int id, long frequency){
 		Remote remote = EntityDAO.REMOTE_DAO.findOne(id);
 		remote.setIsActive(true);
-		updateRemote(remote);
+		remote.setFrequency(frequency);
+		EntityDAO.REMOTE_DAO.update(remote);
 		
 	}
 	
 	public static void deActivateRemote(int id){
 		Remote remote = EntityDAO.REMOTE_DAO.findOne(id);
 		remote.setIsActive(false);
-		updateRemote(remote);
+		EntityDAO.REMOTE_DAO.update(remote);
 	}
 }

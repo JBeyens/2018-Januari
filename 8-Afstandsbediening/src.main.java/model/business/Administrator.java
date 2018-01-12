@@ -71,7 +71,7 @@ public class Administrator implements AdminSubject{
 		if (user.getRemote() == null)
 			return UserRegistrationResult.noRemote;
 		
-		DataManager.activateRemote(user.getRemote().getId()); 
+		DataManager.activateRemote(user.getRemote().getId(), frequency); 
 		
 		observers.add( user );
 		user.update(frequency);
