@@ -11,11 +11,6 @@ public class PersonWrapper extends Person implements AdminObserver{
 	private Administrator gate;
 	
 	public PersonWrapper(Person person, Administrator admin){
-		//can add ctor in person
-		//super(person);
-		
-		//OF
-		
 		setFirstname(person.getFirstname());
 		setLastname(person.getLastname());
 		setAdress(person.getAdress());

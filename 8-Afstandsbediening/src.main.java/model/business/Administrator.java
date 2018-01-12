@@ -3,10 +3,12 @@ package model.business;
 import java.sql.Date;
 import java.time.LocalDate;
 import java.util.ArrayList;
+import java.util.HashSet;
 
 import org.apache.log4j.Logger;
 
 import database.EntityDAO;
+import model.business.interfaces.AdminObserver;
 import model.business.interfaces.AdminSubject;
 import model.business.DataManager;
 import model.entities.Person;
@@ -19,12 +21,12 @@ public class Administrator implements AdminSubject{
 	/** FIELDS **/
 	private Logger log;
 	private long frequency;
-	private ArrayList<PersonWrapper> users;
+	private HashSet<AdminObserver> observers;
 	
 	/** CONSTRUCTOR **/
 	public Administrator(){
 		log = Utility.getLogger(this.getClass().getSimpleName());
-		this.users = new ArrayList<>();
+		this.observers = new HashSet<>();
 		loadUsersFromDB();
 		this.setFrequency(Utility.RANDOM.nextInt(999999));
 	}
@@ -35,9 +37,9 @@ public class Administrator implements AdminSubject{
 	/**
 	 * Getter for list of subscribed users
 	 **/
-	public ArrayList<PersonWrapper> getListeners() {
+	public HashSet<AdminObserver> getListeners() {
 		log.debug("Getting list of users");
-		return users;
+		return observers;
 	}
 	
 	/**
@@ -56,12 +58,8 @@ public class Administrator implements AdminSubject{
 	/**
 	 * Checks the Id of the inputted user. If it is registered & has valid contract, the user frequency will be correctly updated.
 	 **/
-	public boolean checkIdForUpdate(PersonWrapper unknownUser){
-		if (findUserInList(unknownUser) && isDateInFuture( unknownUser.getEndOfContract() ) ){
-			unknownUser.update(frequency);
-			return true;
-		}
-		return false;
+	public boolean checkIdForUpdate(AdminObserver o){
+		return observers.stream().anyMatch(x -> x == o);
 	}
 	
 	/**
@@ -81,7 +79,7 @@ public class Administrator implements AdminSubject{
 		remote.setIsActive(true);
 		DataManager.updateRemote(remote); 
 		
-		users.add( user );
+		observers.add( user );
 		return UserRegistrationResult.succesfull;
 	}
 	
@@ -100,15 +98,15 @@ public class Administrator implements AdminSubject{
 		remote.setIsActive(false);
 		DataManager.updateRemote(remote); 
 		
-		users.remove(user);
+		observers.remove(user);
 		return UserDeactivationResult.succesfull;
 	}	
-	
+
 	/**
 	 * Throws away all registered users and reloads the list of users from database
 	 */
 	public void refreshUsersFromDB() {
-		users.clear();
+		observers.clear();
 		loadUsersFromDB();
 	}
 	
@@ -119,7 +117,7 @@ public class Administrator implements AdminSubject{
 	 * Notify function for observer pattern
 	 **/
 	private void notifyAllObservers() {
-		for (PersonWrapper user : users) {
+		for (AdminObserver user : observers) {
 			user.update(getFrequency());
 		}
 	}
@@ -127,11 +125,11 @@ public class Administrator implements AdminSubject{
 	/**
 	 * Loads all persons from database and adds Users for each person with Remote and with Remote set to active
 	 **/
-	public void loadUsersFromDB() {
+	private void loadUsersFromDB() {
 		ArrayList<Person> allPersons = DataManager.getAllPersonsWithActiveRemote();
 		
 		for (Person person : allPersons) 
-			users.add(new PersonWrapper(person, this));				
+			observers.add(new PersonWrapper(person, this));				
 	}
 	
 	/**
@@ -142,11 +140,10 @@ public class Administrator implements AdminSubject{
 		return result >= 0;
 	}	
 	
-	/**
-	 * @return User - Finds User in list that has the same reference to person as the inputted parameter
-	 **/
-	private boolean findUserInList(Person person)
-	{	
-		return users.stream().anyMatch(x -> x.getId() == person.getId());
+	private boolean findUserInList(PersonWrapper user) {
+		return false;
 	}
+
+
+
 }
