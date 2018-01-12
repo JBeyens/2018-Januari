@@ -36,13 +36,13 @@ public class PersonWrapperTest {
 		user = new PersonWrapper(person, admin);
 		
 		EntityDAO.PERSON_DAO.create(person);
+		
+		admin.registerUser(user);
 	}
 
 
 	@Test
 	public void Open_Gate_When_Remote_Is_Active_Contract_OK_Acces_Granted() {
-		admin.registerUser(user);
-
 		Boolean bool = user.openGate();
 		
 		Remote found = EntityDAO.REMOTE_DAO.findOne(user.getRemote().getId());
@@ -54,7 +54,6 @@ public class PersonWrapperTest {
 
 	@Test
 	public void Open_Gate__When_Contract_Has_Expired_Acces_Denied() {
-		admin.registerUser(user);
 		user.setEndOfContract(Date.valueOf(LocalDate.of(2000, 1, 1)));
 
 		Boolean bool = user.openGate();
@@ -67,7 +66,6 @@ public class PersonWrapperTest {
 
 	@Test
 	public void Open_Gate_When_Remote_Is_Not_Active_Acces_Denied() {
-		admin.registerUser(user);
 		admin.deactivateUser(user);
 		
 		Boolean bool = user.openGate();
