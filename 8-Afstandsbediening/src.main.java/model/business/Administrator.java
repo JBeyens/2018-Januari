@@ -57,10 +57,7 @@ public class Administrator implements AdminSubject{
 	 * Checks the Id of the inputted user. If it is registered & has valid contract, the user frequency will be correctly updated.
 	 **/
 	public boolean checkIdForUpdate(PersonWrapper unknownUser){
-		PersonWrapper userFromList = findUserInList(unknownUser); // If found in list --> then is ACTIVE
-		//if ( userFromList == null ) // If not found in list --> then is NOT ACTIVE
-			//return false;;
-		if (userFromList != null && isDateInFuture( userFromList.getEndOfContract() ) ){
+		if (findUserInList(unknownUser) && isDateInFuture( unknownUser.getEndOfContract() ) ){
 			unknownUser.update(frequency);
 			return true;
 		}
@@ -74,7 +71,7 @@ public class Administrator implements AdminSubject{
 	@Override
 	public UserRegistrationResult registerUser(PersonWrapper user) { 
 		// DO NOT return the string of this enum. Playing with MAGIC STRINGS in business code is bad practice!
-		if (findUserInList(user) != null) // Check if person is already in list
+		if (findUserInList(user)) // Check if person is already in list
 			return UserRegistrationResult.alreadyInList;
 		
 		if (user.getRemote() == null)
@@ -94,10 +91,8 @@ public class Administrator implements AdminSubject{
 	 */
 	@Override
 	public UserDeactivationResult deactivateUser(PersonWrapper user) {
-		// DO NOT return the string of this enum. Playing with MAGIC STRINGS in business code is bad practice!
-		PersonWrapper userFromList = findUserInList(user);
-		
-		if (userFromList == null)
+		// DO NOT return the string of this enum. Playing with MAGIC STRINGS in business code is bad practice!	
+		if (!findUserInList(user))
 			return UserDeactivationResult.notFound;
 		
 		// 2x in case they don't reference the same user instance
@@ -105,7 +100,7 @@ public class Administrator implements AdminSubject{
 		remote.setIsActive(false);
 		DataManager.updateRemote(remote); 
 		
-		users.remove(userFromList);
+		users.remove(user);
 		return UserDeactivationResult.succesfull;
 	}	
 	
@@ -150,16 +145,8 @@ public class Administrator implements AdminSubject{
 	/**
 	 * @return User - Finds User in list that has the same reference to person as the inputted parameter
 	 **/
-	private PersonWrapper findUserInList(Person person)
+	private boolean findUserInList(Person person)
 	{	
-		for (PersonWrapper user : users) {
-			if (user.getId() != person.getId()) // if (User object does not reference the same person)
-				continue;
-			
-			// We found the correct User! 
-			return user;
-		}
-		
-		return null;
+		return users.stream().anyMatch(x -> x.getId() == person.getId());
 	}
 }
