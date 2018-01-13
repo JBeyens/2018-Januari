@@ -426,10 +426,6 @@ public class View extends JFrame{
 		JLabel lblAccessIsGranted = new JLabel("Access is granted to all registered users who have the correct frequency!");
 		lblAccessIsGranted.setBounds(10, 364, 565, 14);
 		entranceTab.add(lblAccessIsGranted);
-		
-		JLabel lblFreqUpdated = new JLabel("Frequency will only be updated for registered users with a valid contract");
-		lblFreqUpdated.setBounds(10, 389, 565, 14);
-		entranceTab.add(lblFreqUpdated);
 	}
 	
 	/*
