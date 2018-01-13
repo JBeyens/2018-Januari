@@ -1,4 +1,4 @@
-package model.business;
+package model.repository;
 
 import java.util.ArrayList;
 

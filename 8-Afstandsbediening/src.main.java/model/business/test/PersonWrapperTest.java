@@ -39,10 +39,17 @@ public class PersonWrapperTest {
 		
 		admin.registerUser(user);
 	}
+	
+	@Test
+	public void Update_Frequency_Should_Be_Set_In_Remote() {
+		user.update(123456);
+
+		assertEquals(123456, user.getRemote().getFrequency());
+	}
 
 
 	@Test
-	public void Open_Gate_When_Remote_Is_Active_Acces_Granted() {
+	public void Open_Gate_When_Remote_Is_Active_Access_Granted() {
 		Boolean bool = user.openGate();
 		
 		Remote found = EntityDAO.REMOTE_DAO.findOne(user.getRemote().getId());
@@ -53,7 +60,7 @@ public class PersonWrapperTest {
 	}
 
 	@Test
-	public void Open_Gate_When_Remote_Is_Not_Active_Acces_Denied() {
+	public void Open_Gate_When_Remote_Is_Not_Active_Access_Denied() {
 		admin.deactivateUser(user);
 		
 		Boolean bool = user.openGate();

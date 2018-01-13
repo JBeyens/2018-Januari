@@ -7,8 +7,8 @@ import org.apache.log4j.Logger;
 
 import model.business.interfaces.AdminObserver;
 import model.business.interfaces.AdminSubject;
-import model.business.DataManager;
 import model.entities.Person;
+import model.repository.DataManager;
 import utility.Utility;
 import values.UserRegistrationResult;
 import values.UserDeactivationResult;
@@ -23,8 +23,9 @@ public class Administrator implements AdminSubject{
 	public Administrator(){
 		log = Utility.getLogger(this.getClass().getSimpleName());
 		this.observers = new HashSet<>();
-		this.setFrequency(Utility.RANDOM.nextInt(999999));
-		loadUsersFromDB();	
+		setRandomFrequency();
+		loadUsersFromDB();
+		notifyAllObservers();
 	}
 
 	
@@ -48,14 +49,20 @@ public class Administrator implements AdminSubject{
 	public void setFrequency(long frequency) {
 		log.debug("Setting frequency");
 		this.frequency = frequency;
-		notifyAllObservers();
+	}
+	public void setRandomFrequency() {
+		this.setFrequency(Utility.RANDOM.nextInt(999999));
 	}
 
 	/**
 	 * Checks the Id of the inputted user. If it is registered & has valid contract, the user frequency will be correctly updated.
 	 **/
-	public boolean checkIdForUpdate(AdminObserver o){
-		return findUserInList(o);
+	public boolean checkIdForUpdate(PersonWrapper user){
+		if (!findUserInList(user))
+			return false;
+		
+		user.update(getFrequency());
+		return true;
 	}
 	
 	/**
@@ -73,7 +80,6 @@ public class Administrator implements AdminSubject{
 		DataManager.activateRemote(user.getRemote().getId(), frequency); 
 		
 		observers.add( user );
-		user.update(frequency);
 		return UserRegistrationResult.succesfull;
 	}
 	
@@ -122,18 +128,10 @@ public class Administrator implements AdminSubject{
 			this.registerUser(new PersonWrapper(person, this));			
 	}
 	
-//	/**
-//	 * @return Boolean - Is the inputted date is in the future
-//	 **/
-//	private boolean isDateInFuture(Date date){
-//		int result = date.compareTo(Date.valueOf(LocalDate.now()));		
-//		return result >= 0;
-//	}	
-	
+	/**
+	 * @return Boolean - Is the inputted AdminObserver found in the list of observers?
+	 **/
 	private boolean findUserInList(AdminObserver o) {
 		return observers.stream().anyMatch(x -> x == o);
 	}
-
-
-
 }

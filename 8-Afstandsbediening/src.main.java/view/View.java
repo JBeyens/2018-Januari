@@ -59,6 +59,7 @@ public class View extends JFrame{
 	private JComboBox<AdminObserver> entranceTabListUsers;
 	private JButton entranceTabBtnRegister;
 	private JButton entranceTabBtnDeactivate;
+	private JButton entranceTabBtnUpdateGate;
 	private JButton entranceTabBtnAskEntrance;
 	
 	private JLabel entranceTabLblSerialNumberUser;
@@ -172,6 +173,9 @@ public class View extends JFrame{
 	// Controller subscribes to this button
 	public void entranceTabAddDeactivateUserListener(ActionListener e){
 		this.entranceTabBtnDeactivate.addActionListener(e); }
+	// Controller subscribes to this button
+	public void entranceTabAddUpdateFrequency(ActionListener e){
+		this.entranceTabBtnUpdateGate.addActionListener(e); }
 	// Controller subscribes to this button
 	public void entranceTabAddAskEntranceListener(ActionListener e){
 		this.entranceTabBtnAskEntrance.addActionListener(e); }
@@ -314,11 +318,15 @@ public class View extends JFrame{
 		entranceTabBtnRegister.setBounds(250, 15, 150, 23);
 		entranceTab.add(entranceTabBtnRegister);
 		
+		entranceTabBtnUpdateGate = new JButton("Update frequency");
+		entranceTabBtnUpdateGate.setBounds(325, 250, 250, 23);
+		entranceTab.add(entranceTabBtnUpdateGate);
+		
 		entranceTabListUsers = new JComboBox<AdminObserver>();
 		entranceTabListUsers.setBounds(10, 44, 565, 20);
 		entranceTab.add(entranceTabListUsers);
 		
-		entranceTabBtnAskEntrance = new JButton("Ask Entrance");
+		entranceTabBtnAskEntrance = new JButton("Ask entrance");
 		entranceTabBtnAskEntrance.setBounds(10, 250, 250, 23);
 		entranceTab.add(entranceTabBtnAskEntrance);
 		
