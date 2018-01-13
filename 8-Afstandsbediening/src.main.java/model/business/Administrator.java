@@ -80,7 +80,6 @@ public class Administrator implements AdminSubject{
 		DataManager.activateRemote(user.getRemote().getId(), frequency); 
 		
 		observers.add( user );
-		user.update(frequency);
 		return UserRegistrationResult.succesfull;
 	}
 	
