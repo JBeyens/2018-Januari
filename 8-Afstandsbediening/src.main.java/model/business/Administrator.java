@@ -25,7 +25,6 @@ public class Administrator implements AdminSubject{
 		this.observers = new HashSet<>();
 		setRandomFrequency();
 		loadUsersFromDB();
-		notifyAllObservers();
 	}
 
 	
@@ -52,6 +51,7 @@ public class Administrator implements AdminSubject{
 	}
 	public void setRandomFrequency() {
 		this.setFrequency(Utility.RANDOM.nextInt(999999));
+		notifyAllObservers();
 	}
 
 	/**

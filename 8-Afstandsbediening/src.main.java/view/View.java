@@ -145,7 +145,7 @@ public class View extends JFrame{
 		this.entranceTabLblFrequencyGate.setText(frequencyGate); } 
 
 	// Setter fills combobox with inputted data
-	public void setEntranceTabUsers(HashSet<AdminObserver> hashSet){
+	public void setEntranceTabUsers(HashSet<PersonWrapper> hashSet){
 		entranceTabListUsers.removeAllItems();
 		for (AdminObserver user : hashSet) {
 			entranceTabListUsers.addItem(user);

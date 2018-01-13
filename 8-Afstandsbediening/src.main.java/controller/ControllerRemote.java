@@ -4,6 +4,8 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.ItemEvent;
 import java.awt.event.ItemListener;
+import java.util.ArrayList;
+import java.util.HashSet;
 
 import org.apache.log4j.Logger;
 
@@ -49,7 +51,7 @@ public class ControllerRemote {
 		view.addPersonTabBtnClearDatabaseListener(new DataDeletionListener());
 		view.addPersonTabBtnGenerateDataListener(new DataGenerationListener());
 		
-		resetEntranceTabLabels();
+		resetEntranceTabAllLabels();
 		loadDataToView();
 		view.setVisible(true);
 	}
@@ -66,20 +68,29 @@ public class ControllerRemote {
 	/**
 	 * Sets the labels in the entrance tab to standard strings
 	 **/
-	private void resetEntranceTabLabels() {
-		view.setEntranceTabLblSerialNumberUser(	"...");
-		view.setEntranceTabLblFrequencyUser(	"...");
-		view.setEntranceTabLblRegisteredUser(	false);
+	private void resetEntranceTabAllLabels() {
 		view.setEntranceTabLblFirstNameUser(	"...");
 		view.setEntranceTabLblLastNameUser(		"...");
 		view.setEntranceTabLblEndOfContractUser("...");
+		view.setEntranceTabLblFrequencyGate(	"...");
+		
+		resetEntranceTabLabelsAddress();
+		resetEntranceTabLabelsRemote();
+		resetEntranceTabLabelsAccessGate();
+	} 
+	private void resetEntranceTabLabelsRemote() {
+		view.setEntranceTabLblSerialNumberUser(	"...");
+		view.setEntranceTabLblFrequencyUser(	"...");
+		view.setEntranceTabLblRegisteredUser(	false);
+	}
+	private void resetEntranceTabLabelsAddress() {
 		view.setEntranceTablLblAddressStreetUser("...");
 		view.setEntranceTablLblAddressCityUser(	"...");
 		view.setEntranceTablLblAddressCountryUser("...");
-		view.setEntranceTabLblFrequencyGate(	"...");
-		
-		view.setEntranceTabRequest(null);
 	} 
+	private void resetEntranceTabLabelsAccessGate() {		
+		view.setEntranceTabRequest(null);
+	}
 	
 	/*
 	 * Creates list of al inactive Remotes => not given to a inhabitant
@@ -92,7 +103,14 @@ public class ControllerRemote {
 	 * Add all persons to list for simulation
 	 */	
 	private void setUsers(){	
-		view.setEntranceTabUsers( gateAdmin.getListeners() );
+		ArrayList<Person> persons = DataManager.getAllPersons();
+		HashSet<PersonWrapper> wrappers = new HashSet<PersonWrapper>();
+		
+		for (Person person : persons) {
+			wrappers.add(new PersonWrapper(person, gateAdmin));
+		}
+		
+		view.setEntranceTabUsers( wrappers );
 	}
 	
 	/*
@@ -113,25 +131,38 @@ public class ControllerRemote {
 	{		
 		PersonWrapper user = view.getUserForGate();
 		if (user == null) {
-			System.out.println("User is null");
-			resetEntranceTabLabels();
+			log.info("User is null");
+			resetEntranceTabAllLabels();
 			return;
 		}
 		
+		// Person labels:
 		Person person = DataManager.getPerson(user.getId());
-		
-		view.setEntranceTabLblSerialNumberUser(person.getRemote().getSerialNumber());
-		view.setEntranceTabLblFrequencyUser( Double.toString( user.getRemote().getFrequency())); // this gets updated on asking the correct frequency
-		view.setEntranceTabLblRegisteredUser(person.getRemote().getIsActive());
 		view.setEntranceTabLblFirstNameUser(person.getFirstname());
 		view.setEntranceTabLblLastNameUser(	person.getLastname()); 
 		view.setEntranceTabLblEndOfContractUser(Utility.DATE_FORMAT.format(person.getEndOfContract()));
-		view.setEntranceTabLblFrequencyGate(Double.toString(user.getGate().getFrequency())); // this is the gate frequency
-
+		
+		// Address labels:
 		Address a = person.getAdress();
-		view.setEntranceTablLblAddressStreetUser( a.getStreet() + " " + a.getNumber() + "/" + a.getMailBox());
-		view.setEntranceTablLblAddressCityUser(   a.getPostalCode() + " " + a.getCity());
-		view.setEntranceTablLblAddressCountryUser(a.getCountry());
+		if (a == null)
+			resetEntranceTabLabelsAddress();
+		else {
+			view.setEntranceTablLblAddressStreetUser( a.getStreet() + " " + a.getNumber() + "/" + a.getMailBox());
+			view.setEntranceTablLblAddressCityUser(   a.getPostalCode() + " " + a.getCity());
+			view.setEntranceTablLblAddressCountryUser(a.getCountry());
+		}
+		
+		// Remote labels:
+		if (person.getRemote() == null)
+			resetEntranceTabLabelsRemote();
+		else {
+			view.setEntranceTabLblSerialNumberUser(person.getRemote().getSerialNumber());
+			view.setEntranceTabLblFrequencyUser( Double.toString( user.getRemote().getFrequency())); // this gets updated on asking the correct frequency
+			view.setEntranceTabLblRegisteredUser(person.getRemote().getIsActive());
+		}
+		
+		// Gate lights:
+		view.setEntranceTabLblFrequencyGate(Double.toString(user.getGate().getFrequency())); // this is the gate frequency
 	}
 
 	
