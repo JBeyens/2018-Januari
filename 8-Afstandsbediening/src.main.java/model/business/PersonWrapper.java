@@ -11,6 +11,7 @@ public class PersonWrapper extends Person implements AdminObserver{
 	private Administrator gate;
 	
 	public PersonWrapper(Person person, Administrator admin){
+		setId(person.getId());
 		setFirstname(person.getFirstname());
 		setLastname(person.getLastname());
 		setAdress(person.getAdress());
