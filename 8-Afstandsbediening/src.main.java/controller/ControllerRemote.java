@@ -246,12 +246,10 @@ public class ControllerRemote {
 				
 				if(view.getAddPersonTabChosenRemote() != null){
 					person.setRemote(view.getAddPersonTabChosenRemote());
-					person.getRemote().setIsActive(true);
 				}
-					
-				
 				
 				DataManager.updatePerson(person);
+				gateAdmin.registerUser(new PersonWrapper(person, gateAdmin));
 				
 				view.setAddPersonTabFirstName("");
 				view.setAddPersonTabLastName("");

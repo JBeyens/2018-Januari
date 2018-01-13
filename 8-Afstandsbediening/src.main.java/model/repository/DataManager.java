@@ -100,7 +100,6 @@ public final class DataManager {
 		remote.setIsActive(true);
 		remote.setFrequency(frequency);
 		EntityDAO.REMOTE_DAO.update(remote);
-		
 	}
 	
 	public static void deActivateRemote(int id){

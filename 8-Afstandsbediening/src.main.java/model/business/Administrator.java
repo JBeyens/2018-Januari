@@ -25,6 +25,7 @@ public class Administrator implements AdminSubject{
 		this.observers = new HashSet<>();
 		setRandomFrequency();
 		loadUsersFromDB();
+		notifyAllObservers();
 	}
 
 	
@@ -51,7 +52,6 @@ public class Administrator implements AdminSubject{
 	}
 	public void setRandomFrequency() {
 		this.setFrequency(Utility.RANDOM.nextInt(999999));
-		notifyAllObservers();
 	}
 
 	/**
@@ -125,13 +125,13 @@ public class Administrator implements AdminSubject{
 		ArrayList<Person> allPersons = DataManager.getAllPersonsWithActiveRemote();
 		
 		for (Person person : allPersons) 
-			this.registerUser(new PersonWrapper(person, this));			
+			this.registerUser(new PersonWrapper(person, this));
 	}
 	
 	/**
 	 * @return Boolean - Is the inputted AdminObserver found in the list of observers?
 	 **/
 	private boolean findUserInList(AdminObserver o) {
-		return observers.stream().anyMatch(x -> x.getId() == o.getId());
+		return observers.stream().anyMatch(x -> x.getSerial().equals(o.getSerial()));
 	}
 }

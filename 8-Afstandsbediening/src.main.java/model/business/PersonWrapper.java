@@ -56,6 +56,14 @@ public class PersonWrapper extends Person implements AdminObserver{
 			getRemote().setFrequency(frequency);
 	}
 
+	/**
+	 * Method for observer pattern where the frequency of the user remote can be updated
+	 **/
+	@Override
+	public String getSerial() {
+		return getRemote() != null ? getRemote().getSerialNumber() : "";
+	}
+
 	@Override
 	public String toString() {
 		if (getRemote() == null)
