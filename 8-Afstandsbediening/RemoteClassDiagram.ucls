@@ -46,16 +46,7 @@
       <operations public="true" package="true" protected="true" private="true" static="true"/>    
     </display>  
   </class>  
-  <class id="6" language="java" name="model.business.DataManager" project="8-Afstandsbediening" 
-    file="/8-Afstandsbediening/src.main.java/model/business/DataManager.java" binary="false" corner="BOTTOM_RIGHT">    
-    <position height="405" width="283" x="284" y="37"/>    
-    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
-      sort-features="false" accessors="true" visibility="true">      
-      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
-      <operations public="true" package="true" protected="true" private="true" static="true"/>    
-    </display>  
-  </class>  
-  <interface id="7" language="java" name="model.business.interfaces.AdminObserver" project="8-Afstandsbediening" 
+  <interface id="6" language="java" name="model.business.interfaces.AdminObserver" project="8-Afstandsbediening" 
     file="/8-Afstandsbediening/src.main.java/model/business/interfaces/AdminObserver.java" binary="false" 
     corner="BOTTOM_RIGHT">    
     <position height="81" width="120" x="855" y="1390"/>    
@@ -65,7 +56,7 @@
       <operations public="true" package="true" protected="true" private="true" static="true"/>    
     </display>  
   </interface>  
-  <interface id="8" language="java" name="model.business.interfaces.AdminSubject" project="8-Afstandsbediening" 
+  <interface id="7" language="java" name="model.business.interfaces.AdminSubject" project="8-Afstandsbediening" 
     file="/8-Afstandsbediening/src.main.java/model/business/interfaces/AdminSubject.java" binary="false" 
     corner="BOTTOM_RIGHT">    
     <position height="99" width="298" x="517" y="1390"/>    
@@ -75,7 +66,7 @@
       <operations public="true" package="true" protected="true" private="true" static="true"/>    
     </display>  
   </interface>  
-  <class id="9" language="java" name="model.entities.Address" project="8-Afstandsbediening" 
+  <class id="8" language="java" name="model.entities.Address" project="8-Afstandsbediening" 
     file="/8-Afstandsbediening/src.main.java/model/entities/Address.java" binary="false" corner="BOTTOM_RIGHT">    
     <position height="513" width="208" x="607" y="500"/>    
     <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
@@ -84,7 +75,7 @@
       <operations public="true" package="true" protected="true" private="true" static="true"/>    
     </display>  
   </class>  
-  <class id="10" language="java" name="model.entities.Person" project="8-Afstandsbediening" 
+  <class id="9" language="java" name="model.entities.Person" project="8-Afstandsbediening" 
     file="/8-Afstandsbediening/src.main.java/model/entities/Person.java" binary="false" corner="BOTTOM_RIGHT">    
     <position height="423" width="165" x="607" y="37"/>    
     <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
@@ -93,7 +84,7 @@
       <operations public="true" package="true" protected="true" private="true" static="true"/>    
     </display>  
   </class>  
-  <class id="11" language="java" name="model.entities.Remote" project="8-Afstandsbediening" 
+  <class id="10" language="java" name="model.entities.Remote" project="8-Afstandsbediening" 
     file="/8-Afstandsbediening/src.main.java/model/entities/Remote.java" binary="false" corner="BOTTOM_RIGHT">    
     <position height="351" width="164" x="403" y="500"/>    
     <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
@@ -102,7 +93,7 @@
       <operations public="true" package="true" protected="true" private="true" static="true"/>    
     </display>  
   </class>  
-  <enumeration id="12" language="java" name="values.UserDeactivationResult" project="8-Afstandsbediening" 
+  <enumeration id="11" language="java" name="values.UserDeactivationResult" project="8-Afstandsbediening" 
     file="/8-Afstandsbediening/src.main.java/values/UserDeactivationResult.java" binary="false" corner="BOTTOM_RIGHT">    
     <position height="153" width="194" x="1046" y="37"/>    
     <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
@@ -111,7 +102,7 @@
       <operations public="true" package="true" protected="true" private="true" static="true"/>    
     </display>  
   </enumeration>  
-  <enumeration id="13" language="java" name="values.UserRegistrationResult" project="8-Afstandsbediening" 
+  <enumeration id="12" language="java" name="values.UserRegistrationResult" project="8-Afstandsbediening" 
     file="/8-Afstandsbediening/src.main.java/values/UserRegistrationResult.java" binary="false" corner="BOTTOM_RIGHT">    
     <position height="171" width="203" x="41" y="37"/>    
     <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
@@ -120,73 +111,73 @@
       <operations public="true" package="true" protected="true" private="true" static="true"/>    
     </display>  
   </enumeration>  
-  <association id="14">    
+  <association id="13">    
     <end type="SOURCE" refId="2" navigable="false">      
-      <attribute id="15" name="PERSON_DAO"/>      
-      <multiplicity id="16" minimum="0" maximum="1"/>    
+      <attribute id="14" name="PERSON_DAO"/>      
+      <multiplicity id="15" minimum="0" maximum="1"/>    
     </end>    
     <end type="TARGET" refId="3" navigable="true"/>    
     <display labels="true" multiplicity="true"/>  
   </association>  
-  <association id="17">    
-    <end type="SOURCE" refId="10" navigable="false">      
-      <attribute id="18" name="address"/>      
-      <multiplicity id="19" minimum="0" maximum="1"/>    
+  <association id="16">    
+    <end type="SOURCE" refId="9" navigable="false">      
+      <attribute id="17" name="address"/>      
+      <multiplicity id="18" minimum="0" maximum="1"/>    
     </end>    
-    <end type="TARGET" refId="9" navigable="true"/>    
+    <end type="TARGET" refId="8" navigable="true"/>    
     <display labels="true" multiplicity="true"/>  
   </association>  
-  <realization id="20">    
+  <realization id="19">    
     <bendpoint x="864" y="1053"/>    
     <end type="SOURCE" refId="5"/>    
-    <end type="TARGET" refId="7"/>  
+    <end type="TARGET" refId="6"/>  
   </realization>  
-  <association id="21">    
+  <association id="20">    
     <end type="SOURCE" refId="2" navigable="false">      
-      <attribute id="22" name="ADDRESS_DAO"/>      
-      <multiplicity id="23" minimum="0" maximum="1"/>    
+      <attribute id="21" name="ADDRESS_DAO"/>      
+      <multiplicity id="22" minimum="0" maximum="1"/>    
     </end>    
     <end type="TARGET" refId="3" navigable="true"/>    
     <display labels="true" multiplicity="true"/>  
   </association>  
-  <association id="24">    
+  <association id="23">    
     <end type="SOURCE" refId="2" navigable="false">      
-      <attribute id="25" name="REMOTE_DAO"/>      
-      <multiplicity id="26" minimum="0" maximum="1"/>    
+      <attribute id="24" name="REMOTE_DAO"/>      
+      <multiplicity id="25" minimum="0" maximum="1"/>    
     </end>    
     <end type="TARGET" refId="3" navigable="true"/>    
     <display labels="true" multiplicity="true"/>  
   </association>  
-  <association id="27">    
+  <association id="26">    
     <end type="SOURCE" refId="4" navigable="false">      
-      <attribute id="28" name="observers"/>      
-      <multiplicity id="29" minimum="0" maximum="2147483647"/>    
+      <attribute id="27" name="observers"/>      
+      <multiplicity id="28" minimum="0" maximum="2147483647"/>    
     </end>    
-    <end type="TARGET" refId="7" navigable="true"/>    
+    <end type="TARGET" refId="6" navigable="true"/>    
     <display labels="true" multiplicity="true"/>  
   </association>  
-  <generalization id="30">    
+  <generalization id="29">    
     <end type="SOURCE" refId="5"/>    
-    <end type="TARGET" refId="10"/>  
+    <end type="TARGET" refId="9"/>  
   </generalization>  
-  <association id="31">    
+  <association id="30">    
     <end type="SOURCE" refId="5" navigable="false">      
-      <attribute id="32" name="gate"/>      
-      <multiplicity id="33" minimum="0" maximum="1"/>    
+      <attribute id="31" name="gate"/>      
+      <multiplicity id="32" minimum="0" maximum="1"/>    
     </end>    
     <end type="TARGET" refId="4" navigable="true"/>    
     <display labels="true" multiplicity="true"/>  
   </association>  
-  <realization id="34">    
+  <realization id="33">    
     <end type="SOURCE" refId="4"/>    
-    <end type="TARGET" refId="8"/>  
+    <end type="TARGET" refId="7"/>  
   </realization>  
-  <association id="35">    
-    <end type="SOURCE" refId="10" navigable="false">      
-      <attribute id="36" name="remote"/>      
-      <multiplicity id="37" minimum="0" maximum="1"/>    
+  <association id="34">    
+    <end type="SOURCE" refId="9" navigable="false">      
+      <attribute id="35" name="remote"/>      
+      <multiplicity id="36" minimum="0" maximum="1"/>    
     </end>    
-    <end type="TARGET" refId="11" navigable="true"/>    
+    <end type="TARGET" refId="10" navigable="true"/>    
     <display labels="true" multiplicity="true"/>  
   </association>  
   <classifier-display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 

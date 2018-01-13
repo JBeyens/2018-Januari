@@ -213,8 +213,12 @@ public class ControllerRemote {
 				if(view.getAddPersonTabChosenAddress() != null)
 					person.setAdress(view.getAddPersonTabChosenAddress());
 				
-				if(view.getAddPersonTabChosenRemote() != null)
+				if(view.getAddPersonTabChosenRemote() != null){
 					person.setRemote(view.getAddPersonTabChosenRemote());
+					person.getRemote().setIsActive(true);
+				}
+					
+				
 				
 				DataManager.updatePerson(person);
 				
@@ -233,7 +237,6 @@ public class ControllerRemote {
 				setInactiveRemote();
 				setUnusedAddress();
 				setUsers();
-				gateAdmin.refreshUsersFromDB();
 			}
 		}	
 	}
