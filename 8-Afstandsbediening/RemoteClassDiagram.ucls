@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<class-diagram version="1.2.2" icons="true" always-add-relationships="false" generalizations="true" realizations="true" 
-  associations="true" dependencies="false" nesting-relationships="true" router="FAN">  
+<class-diagram version="1.2.1" icons="true" always-add-relationships="false" generalizations="true" realizations="true" 
+  associations="true" dependencies="true" nesting-relationships="true" router="FAN">  
   <class id="1" language="java" name="database.EManagerFactory" project="8-Afstandsbediening" 
     file="/8-Afstandsbediening/src.main.java/database/EManagerFactory.java" binary="false" corner="BOTTOM_RIGHT">    
-    <position height="117" width="194" x="812" y="37"/>    
+    <position height="-1" width="-1" x="1262" y="1280"/>    
     <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
       sort-features="false" accessors="true" visibility="true">      
       <attributes public="true" package="true" protected="true" private="true" static="true"/>      
@@ -12,7 +12,7 @@
   </class>  
   <class id="2" language="java" name="database.EntityDAO" project="8-Afstandsbediening" 
     file="/8-Afstandsbediening/src.main.java/database/EntityDAO.java" binary="false" corner="BOTTOM_RIGHT">    
-    <position height="81" width="87" x="1280" y="37"/>    
+    <position height="-1" width="-1" x="932" y="1073"/>    
     <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
       sort-features="false" accessors="true" visibility="true">      
       <attributes public="true" package="true" protected="true" private="true" static="true"/>      
@@ -21,7 +21,7 @@
   </class>  
   <class id="3" language="java" name="database.GenericDAO" project="8-Afstandsbediening" 
     file="/8-Afstandsbediening/src.main.java/database/GenericDAO.java" binary="false" corner="BOTTOM_RIGHT">    
-    <position height="261" width="202" x="1280" y="500"/>    
+    <position height="-1" width="-1" x="934" y="1284"/>    
     <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
       sort-features="false" accessors="true" visibility="true">      
       <attributes public="true" package="true" protected="true" private="true" static="true"/>      
@@ -30,7 +30,7 @@
   </class>  
   <class id="4" language="java" name="model.business.Administrator" project="8-Afstandsbediening" 
     file="/8-Afstandsbediening/src.main.java/model/business/Administrator.java" binary="false" corner="BOTTOM_RIGHT">    
-    <position height="297" width="298" x="536" y="1053"/>    
+    <position height="-1" width="-1" x="936" y="181"/>    
     <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
       sort-features="false" accessors="true" visibility="true">      
       <attributes public="true" package="true" protected="true" private="true" static="true"/>      
@@ -39,7 +39,7 @@
   </class>  
   <class id="5" language="java" name="model.business.PersonWrapper" project="8-Afstandsbediening" 
     file="/8-Afstandsbediening/src.main.java/model/business/PersonWrapper.java" binary="false" corner="BOTTOM_RIGHT">    
-    <position height="189" width="211" x="855" y="500"/>    
+    <position height="-1" width="-1" x="933" y="481"/>    
     <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
       sort-features="false" accessors="true" visibility="true">      
       <attributes public="true" package="true" protected="true" private="true" static="true"/>      
@@ -49,7 +49,7 @@
   <interface id="6" language="java" name="model.business.interfaces.AdminObserver" project="8-Afstandsbediening" 
     file="/8-Afstandsbediening/src.main.java/model/business/interfaces/AdminObserver.java" binary="false" 
     corner="BOTTOM_RIGHT">    
-    <position height="81" width="120" x="855" y="1390"/>    
+    <position height="-1" width="-1" x="1270" y="233"/>    
     <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
       sort-features="false" accessors="true" visibility="true">      
       <attributes public="true" package="true" protected="true" private="true" static="true"/>      
@@ -59,7 +59,7 @@
   <interface id="7" language="java" name="model.business.interfaces.AdminSubject" project="8-Afstandsbediening" 
     file="/8-Afstandsbediening/src.main.java/model/business/interfaces/AdminSubject.java" binary="false" 
     corner="BOTTOM_RIGHT">    
-    <position height="99" width="298" x="517" y="1390"/>    
+    <position height="-1" width="-1" x="1294" y="70"/>    
     <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
       sort-features="false" accessors="true" visibility="true">      
       <attributes public="true" package="true" protected="true" private="true" static="true"/>      
@@ -68,25 +68,25 @@
   </interface>  
   <class id="8" language="java" name="model.entities.Address" project="8-Afstandsbediening" 
     file="/8-Afstandsbediening/src.main.java/model/entities/Address.java" binary="false" corner="BOTTOM_RIGHT">    
-    <position height="513" width="208" x="607" y="500"/>    
+    <position height="-1" width="-1" x="1242" y="700"/>    
     <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
       sort-features="false" accessors="true" visibility="true">      
       <attributes public="true" package="true" protected="true" private="true" static="true"/>      
-      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+      <operations public="true" package="true" protected="true" private="false" static="true"/>    
     </display>  
   </class>  
   <class id="9" language="java" name="model.entities.Person" project="8-Afstandsbediening" 
     file="/8-Afstandsbediening/src.main.java/model/entities/Person.java" binary="false" corner="BOTTOM_RIGHT">    
-    <position height="423" width="165" x="607" y="37"/>    
+    <position height="-1" width="-1" x="933" y="790"/>    
     <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
       sort-features="false" accessors="true" visibility="true">      
-      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
-      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+      <attributes public="true" package="true" protected="true" private="false" static="true"/>      
+      <operations public="true" package="true" protected="true" private="false" static="true"/>    
     </display>  
   </class>  
   <class id="10" language="java" name="model.entities.Remote" project="8-Afstandsbediening" 
     file="/8-Afstandsbediening/src.main.java/model/entities/Remote.java" binary="false" corner="BOTTOM_RIGHT">    
-    <position height="351" width="164" x="403" y="500"/>    
+    <position height="-1" width="-1" x="712" y="783"/>    
     <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
       sort-features="false" accessors="true" visibility="true">      
       <attributes public="true" package="true" protected="true" private="true" static="true"/>      
@@ -95,7 +95,7 @@
   </class>  
   <enumeration id="11" language="java" name="values.UserDeactivationResult" project="8-Afstandsbediening" 
     file="/8-Afstandsbediening/src.main.java/values/UserDeactivationResult.java" binary="false" corner="BOTTOM_RIGHT">    
-    <position height="153" width="194" x="1046" y="37"/>    
+    <position height="-1" width="-1" x="530" y="275"/>    
     <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
       sort-features="false" accessors="true" visibility="true">      
       <attributes public="true" package="true" protected="true" private="true" static="true"/>      
@@ -104,86 +104,145 @@
   </enumeration>  
   <enumeration id="12" language="java" name="values.UserRegistrationResult" project="8-Afstandsbediening" 
     file="/8-Afstandsbediening/src.main.java/values/UserRegistrationResult.java" binary="false" corner="BOTTOM_RIGHT">    
-    <position height="171" width="203" x="41" y="37"/>    
+    <position height="-1" width="-1" x="528" y="101"/>    
     <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
       sort-features="false" accessors="true" visibility="true">      
       <attributes public="true" package="true" protected="true" private="true" static="true"/>      
       <operations public="true" package="true" protected="true" private="true" static="true"/>    
     </display>  
   </enumeration>  
-  <association id="13">    
-    <end type="SOURCE" refId="2" navigable="false">      
-      <attribute id="14" name="PERSON_DAO"/>      
-      <multiplicity id="15" minimum="0" maximum="1"/>    
-    </end>    
-    <end type="TARGET" refId="3" navigable="true"/>    
-    <display labels="true" multiplicity="true"/>  
-  </association>  
-  <association id="16">    
-    <end type="SOURCE" refId="9" navigable="false">      
-      <attribute id="17" name="address"/>      
-      <multiplicity id="18" minimum="0" maximum="1"/>    
-    </end>    
-    <end type="TARGET" refId="8" navigable="true"/>    
-    <display labels="true" multiplicity="true"/>  
-  </association>  
-  <realization id="19">    
-    <bendpoint x="864" y="1053"/>    
+  <realization id="13">    
     <end type="SOURCE" refId="5"/>    
     <end type="TARGET" refId="6"/>  
   </realization>  
-  <association id="20">    
-    <end type="SOURCE" refId="2" navigable="false">      
-      <attribute id="21" name="ADDRESS_DAO"/>      
-      <multiplicity id="22" minimum="0" maximum="1"/>    
-    </end>    
-    <end type="TARGET" refId="3" navigable="true"/>    
-    <display labels="true" multiplicity="true"/>  
-  </association>  
-  <association id="23">    
-    <end type="SOURCE" refId="2" navigable="false">      
-      <attribute id="24" name="REMOTE_DAO"/>      
-      <multiplicity id="25" minimum="0" maximum="1"/>    
-    </end>    
-    <end type="TARGET" refId="3" navigable="true"/>    
-    <display labels="true" multiplicity="true"/>  
-  </association>  
-  <association id="26">    
-    <end type="SOURCE" refId="4" navigable="false">      
-      <attribute id="27" name="observers"/>      
-      <multiplicity id="28" minimum="0" maximum="2147483647"/>    
-    </end>    
-    <end type="TARGET" refId="6" navigable="true"/>    
-    <display labels="true" multiplicity="true"/>  
-  </association>  
-  <generalization id="29">    
-    <end type="SOURCE" refId="5"/>    
+  <dependency id="14">    
+    <end type="SOURCE" refId="4"/>    
+    <end type="TARGET" refId="12"/>  
+  </dependency>  
+  <dependency id="15">    
+    <end type="SOURCE" refId="2"/>    
+    <end type="TARGET" refId="10"/>  
+  </dependency>  
+  <dependency id="16">    
+    <end type="SOURCE" refId="2"/>    
     <end type="TARGET" refId="9"/>  
-  </generalization>  
-  <association id="30">    
+  </dependency>  
+  <association id="17">    
     <end type="SOURCE" refId="5" navigable="false">      
-      <attribute id="31" name="gate"/>      
-      <multiplicity id="32" minimum="0" maximum="1"/>    
+      <attribute id="18" name="gate">        
+        <position height="0" width="0" x="251" y="-1020"/>      
+      </attribute>      
+      <multiplicity id="19" minimum="0" maximum="1">        
+        <position height="0" width="0" x="251" y="-1020"/>      
+      </multiplicity>    
     </end>    
     <end type="TARGET" refId="4" navigable="true"/>    
     <display labels="true" multiplicity="true"/>  
   </association>  
-  <realization id="33">    
+  <association id="20">    
+    <end type="SOURCE" refId="9" navigable="false">      
+      <attribute id="21" name="address">        
+        <position height="0" width="0" x="531" y="-56"/>      
+      </attribute>      
+      <multiplicity id="22" minimum="0" maximum="1">        
+        <position height="0" width="0" x="531" y="-56"/>      
+      </multiplicity>    
+    </end>    
+    <end type="TARGET" refId="8" navigable="true"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <dependency id="23">    
+    <end type="SOURCE" refId="3"/>    
+    <end type="TARGET" refId="1"/>  
+  </dependency>  
+  <generalization id="24">    
+    <end type="SOURCE" refId="5"/>    
+    <end type="TARGET" refId="9"/>  
+  </generalization>  
+  <association id="25">    
+    <end type="SOURCE" refId="9" navigable="false">      
+      <attribute id="26" name="remote">        
+        <position height="0" width="0" x="-929" y="303"/>      
+      </attribute>      
+      <multiplicity id="27" minimum="0" maximum="1">        
+        <position height="0" width="0" x="-929" y="303"/>      
+      </multiplicity>    
+    </end>    
+    <end type="TARGET" refId="10" navigable="true"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <association id="28">    
+    <end type="SOURCE" refId="2" navigable="false">      
+      <attribute id="29" name="PERSON_DAO">        
+        <position height="0" width="0" x="-447" y="654"/>      
+      </attribute>      
+      <multiplicity id="30" minimum="0" maximum="1">        
+        <position height="0" width="0" x="-447" y="654"/>      
+      </multiplicity>    
+    </end>    
+    <end type="TARGET" refId="3" navigable="true"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <association id="31">    
+    <bendpoint x="1060" y="1073"/>    
+    <bendpoint x="1059" y="1139"/>    
+    <end type="SOURCE" refId="2" navigable="false">      
+      <attribute id="32" name="REMOTE_DAO">        
+        <position height="0" width="0" x="-447" y="654"/>      
+      </attribute>      
+      <multiplicity id="33" minimum="0" maximum="1">        
+        <position height="0" width="0" x="-447" y="654"/>      
+      </multiplicity>    
+    </end>    
+    <end type="TARGET" refId="3" navigable="true"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <association id="34">    
+    <end type="SOURCE" refId="4" navigable="false">      
+      <attribute id="35" name="observers">        
+        <position height="0" width="0" x="355" y="-1197"/>      
+      </attribute>      
+      <multiplicity id="36" minimum="0" maximum="2147483647">        
+        <position height="0" width="0" x="355" y="-1197"/>      
+      </multiplicity>    
+    </end>    
+    <end type="TARGET" refId="6" navigable="true"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <realization id="37">    
     <end type="SOURCE" refId="4"/>    
     <end type="TARGET" refId="7"/>  
   </realization>  
-  <association id="34">    
-    <end type="SOURCE" refId="9" navigable="false">      
-      <attribute id="35" name="remote"/>      
-      <multiplicity id="36" minimum="0" maximum="1"/>    
+  <dependency id="38">    
+    <end type="SOURCE" refId="4"/>    
+    <end type="TARGET" refId="11"/>  
+  </dependency>  
+  <dependency id="39">    
+    <end type="SOURCE" refId="2"/>    
+    <end type="TARGET" refId="8"/>  
+  </dependency>  
+  <dependency id="40">    
+    <end type="SOURCE" refId="4"/>    
+    <end type="TARGET" refId="5"/>  
+  </dependency>  
+  <association id="41">    
+    <bendpoint x="813" y="1074"/>    
+    <bendpoint x="813" y="1148"/>    
+    <end type="SOURCE" refId="2" navigable="false">      
+      <attribute id="42" name="ADDRESS_DAO">        
+        <position height="0" width="0" x="-447" y="654"/>      
+      </attribute>      
+      <multiplicity id="43" minimum="0" maximum="1">        
+        <position height="0" width="0" x="-447" y="654"/>      
+      </multiplicity>    
     </end>    
-    <end type="TARGET" refId="10" navigable="true"/>    
+    <end type="TARGET" refId="3" navigable="true"/>    
     <display labels="true" multiplicity="true"/>  
   </association>  
   <classifier-display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
     sort-features="false" accessors="true" visibility="true">    
     <attributes public="true" package="true" protected="true" private="true" static="true"/>    
-    <operations public="true" package="true" protected="true" private="true" static="true"/>  
+    <operations public="true" package="true" protected="true" private="false" static="true"/>  
   </classifier-display>  
   <association-display labels="true" multiplicity="true"/>
 </class-diagram>
