@@ -70,13 +70,13 @@ public final class DataManager {
 
 	
 	// DATABASE UPDATE OPERATIONS
-	public static void updatePerson(Person person) {
+	public static Person updatePerson(Person person) {
 		log.debug("Asking datalayer to update " + Person.class.getSimpleName() + " '" + person.toString() + "'");
-		EntityDAO.PERSON_DAO.update(person);
+		return EntityDAO.PERSON_DAO.update(person);
 	}
-	public static void updateRemote(Remote remote) {
+	public static Remote updateRemote(Remote remote) {
 		log.debug("Asking datalayer to update " + Remote.class.getSimpleName() + " '" + remote.toString() + "'");
-		EntityDAO.REMOTE_DAO.update(remote);
+		return EntityDAO.REMOTE_DAO.update(remote);
 	}	
 
 	
