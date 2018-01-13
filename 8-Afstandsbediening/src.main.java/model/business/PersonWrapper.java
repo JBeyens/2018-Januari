@@ -2,7 +2,6 @@ package model.business;
 
 import model.business.interfaces.AdminObserver;
 import model.entities.Person;
-import net.bytebuddy.agent.builder.AgentBuilder.DescriptionStrategy.SuperTypeLoading;
 
 public class PersonWrapper extends Person implements AdminObserver{
 	/**
