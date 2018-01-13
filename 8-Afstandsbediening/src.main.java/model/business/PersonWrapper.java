@@ -2,6 +2,7 @@ package model.business;
 
 import model.business.interfaces.AdminObserver;
 import model.entities.Person;
+import net.bytebuddy.agent.builder.AgentBuilder.DescriptionStrategy.SuperTypeLoading;
 
 public class PersonWrapper extends Person implements AdminObserver{
 	/**
@@ -52,12 +53,15 @@ public class PersonWrapper extends Person implements AdminObserver{
 	 **/
 	@Override
 	public void update(long frequency) {
-		getRemote().setFrequency(frequency);
+		if (getRemote() != null)
+			getRemote().setFrequency(frequency);
 	}
 
 	@Override
 	public String toString() {
-		return super.toString() + ": remote " + getRemote().getSerialNumber();
+		if (getRemote() == null)
+			return super.toString();
+		
+		return super.toString() + ": remote " + getRemote().getSerialNumber();		
 	}
-
 }
