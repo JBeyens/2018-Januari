@@ -10,6 +10,7 @@ import model.business.PersonWrapper;
 import model.entities.Address;
 import model.entities.Person;
 import model.entities.Remote;
+import model.repository.DataManager;
 import utility.DataDeleter;
 import utility.DataGenerator;
 import utility.Utility;
@@ -38,8 +39,10 @@ public class TestUser {
 		person.setAdress(new Address("Kersenlaan", 10, Utility.RANDOM.nextInt(), 3300, "Leuven", "Ijsland"));
 		person.setRemote(new Remote(Long.toString( Utility.RANDOM.nextLong()), 100));
 		person.setEndOfContract(Date.valueOf(LocalDate.of(2018, 7, 1)));
+		person = DataManager.updatePerson(person);
 
 		System.out.println("Registering this person to administrator... (person will also be saved to database in process)");
+		System.out.println("Person id = " + person.getId());
 		PersonWrapper user = new PersonWrapper(person, admin);
 		System.out.println(admin.registerUser(new PersonWrapper(person, admin)).toString());
 		
@@ -51,22 +54,15 @@ public class TestUser {
 			System.out.println("Access denied");
 
 		
-		user.getRemote().setIsActive(false);
-		System.out.println("Remote set inactive!");
+		admin.deactivateUser(user);
+		System.out.println("Deactivated user (remote set inactive)!");
+		admin.deactivateUser(user);
 		System.out.println("Trying to open gate with this remote...");
 		if (user.openGate())
 			System.out.println("Access granted!");
 		else 
 			System.out.println("Access denied");
 		
-		user.getRemote().setIsActive(true);
-		user.setEndOfContract(Date.valueOf(LocalDate.of(2000, 1, 1)));
-		System.out.println("Contract person has expired!");
-		System.out.println("Trying to open gate with this remote...");
-		if (user.openGate())
-			System.out.println("Access granted!");
-		else 
-			System.out.println("Access denied");
 
 		
 		System.exit(0);
