@@ -14,9 +14,13 @@ public class PersonWrapper extends Person implements AdminObserver{
 		setId(person.getId());
 		setFirstname(person.getFirstname());
 		setLastname(person.getLastname());
-		setAdress(person.getAdress());
-		setRemote(person.getRemote());
 		setEndOfContract(person.getEndOfContract());
+
+		if ( person.getAdress() != null)
+			setAdress(person.getAdress());
+		
+		if (person.getRemote() != null)
+			setRemote(person.getRemote());
 		
 		this.gate = admin;
 	}
@@ -33,6 +37,9 @@ public class PersonWrapper extends Person implements AdminObserver{
 	 * @return Boolean - Is gate opening or not
 	 **/
 	public boolean openGate(){	
+		if (getRemote() == null)
+			return false;
+		
 		return (checkIdForUpdate() && gate.getFrequency() == getRemote().getFrequency());		
 	}
 	
