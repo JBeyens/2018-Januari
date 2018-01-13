@@ -79,7 +79,7 @@ public class Administrator implements AdminSubject{
 		
 		DataManager.activateRemote(user.getRemote().getId(), frequency); 
 		
-		observers.add( user );
+		observers.add( new PersonWrapper(user, this) );
 		return UserRegistrationResult.succesfull;
 	}
 	
@@ -88,14 +88,19 @@ public class Administrator implements AdminSubject{
 	 * @return AddRemovePersonResult - Enum which contains possible outcomes of the situation
 	 */
 	@Override
-	public UserDeactivationResult deactivateUser(PersonWrapper user) {
-		if (!findUserInList(user))
-			return UserDeactivationResult.notFound;
+	public UserDeactivationResult deactivateUser(PersonWrapper userWithRemote) {
+		AdminObserver observerToRemove = null;
+		//observers.remove(user); -> does not work since 'user' has no object reference from list 'observers'
+		for (AdminObserver observer : observers) {
+			if (!observer.getSerial().equals(userWithRemote.getSerial()))
+				continue;
+			
+			observerToRemove = observer;
+			break;
+		}
 		
-		DataManager.deActivateRemote(user.getRemote().getId());
-		
-		observers.remove(user);
-		return UserDeactivationResult.succesfull;
+		DataManager.deActivateRemote(userWithRemote.getRemote().getId());
+		return observers.remove(observerToRemove) ? UserDeactivationResult.succesfull : UserDeactivationResult.notFound;
 	}	
 
 	/**
