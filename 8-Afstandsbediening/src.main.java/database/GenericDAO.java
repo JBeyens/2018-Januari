@@ -114,13 +114,13 @@ public class GenericDAO<T> {
 		}
 	}
 
-	public void update(final T entity) {
+	public T update(T entity) {
 		EntityManager manager = factory.createEntityManager();
 		EntityTransaction transaction = manager.getTransaction();
 	      
 	      try {
 	         transaction.begin();
-			 manager.merge(entity);
+			 entity = manager.merge(entity);
 			 manager.flush();
 	         transaction.commit();
 	      } catch (HibernateException e) {
@@ -130,6 +130,7 @@ public class GenericDAO<T> {
 	      } finally {
 	         manager.clear(); 
 	      }
+	      return entity;
 	}
 
 	public void delete(final T entity) {
