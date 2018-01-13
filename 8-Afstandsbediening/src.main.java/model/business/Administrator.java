@@ -7,8 +7,8 @@ import org.apache.log4j.Logger;
 
 import model.business.interfaces.AdminObserver;
 import model.business.interfaces.AdminSubject;
-import model.business.DataManager;
 import model.entities.Person;
+import model.repository.DataManager;
 import utility.Utility;
 import values.UserRegistrationResult;
 import values.UserDeactivationResult;
