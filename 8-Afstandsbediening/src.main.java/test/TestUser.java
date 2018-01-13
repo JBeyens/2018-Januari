@@ -5,13 +5,13 @@ import java.time.LocalDate;
 
 import org.fluttercode.datafactory.impl.DataFactory;
 
-import database.DataDeleter;
-import database.DataGenerator;
 import model.business.Administrator;
 import model.business.PersonWrapper;
 import model.entities.Address;
 import model.entities.Person;
 import model.entities.Remote;
+import utility.DataDeleter;
+import utility.DataGenerator;
 import utility.Utility;
 
 public class TestUser {

@@ -1,9 +1,9 @@
-package database;
+package utility;
 
 import org.apache.log4j.Logger;
 
+import database.EntityDAO;
 import net.bytebuddy.asm.Advice.This;
-import utility.Utility;
 
 /**
  * @Author Ben Vandevorst & Jef Beyens
