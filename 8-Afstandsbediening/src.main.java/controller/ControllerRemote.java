@@ -199,7 +199,7 @@ public class ControllerRemote {
 		@Override
 		public void actionPerformed(ActionEvent e) {
 			gateAdmin.setRandomFrequency();
-			view.setEntranceTabLblFrequencyGate( Long.toString(gateAdmin.getFrequency()) ); 
+			setUserToEntranceLabels();
 		}		
 	}	
 	// Listener for ask entrance button (Ask Entrance tab)
