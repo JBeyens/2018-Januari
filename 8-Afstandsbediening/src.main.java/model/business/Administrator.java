@@ -57,7 +57,7 @@ public class Administrator implements AdminSubject{
 	/**
 	 * Checks the Id of the inputted user. If it is registered & has valid contract, the user frequency will be correctly updated.
 	 **/
-	public boolean checkIdForUpdate(PersonWrapper user){
+	public boolean checkIdForUpdate(AdminObserver user){
 		if (!findUserInList(user))
 			return false;
 		
