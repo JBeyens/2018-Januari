@@ -39,9 +39,10 @@ public class ControllerRemote {
 	}
 	
 	public void start(){		
-		view.entranceTabAddAskEntranceListener(new AskEntranceListener());
 		view.entranceTabAddRegisterUserListener(new RegisterUserListener());
 		view.entranceTabAddDeactivateUserListener(new DeactivateUserListener());
+		view.entranceTabAddUpdateFrequency(new UpdateGateFrequencyListener());
+		view.entranceTabAddAskEntranceListener(new AskEntranceListener());
 		view.entranceTabAddUserListItemListener(new SetEntranceLabelsToSelectedUser());
 		view.addOverviewUpdateListener(new RefreshOverViewListener());
 		view.addPersonTabBtnAddListener(new AddPersonListener());
@@ -112,19 +113,22 @@ public class ControllerRemote {
 	{		
 		PersonWrapper user = view.getUserForGate();
 		if (user == null) {
+			System.out.println("User is null");
 			resetEntranceTabLabels();
 			return;
 		}
 		
-		view.setEntranceTabLblSerialNumberUser(user.getRemote().getSerialNumber());
-		view.setEntranceTabLblFrequencyUser( Double.toString( user.getRemote().getFrequency()));
-		view.setEntranceTabLblRegisteredUser(user.getRemote().getIsActive());
-		view.setEntranceTabLblFirstNameUser(user.getFirstname());
-		view.setEntranceTabLblLastNameUser(	user.getLastname()); 
-		view.setEntranceTabLblEndOfContractUser(Utility.DATE_FORMAT.format(user.getEndOfContract()));
-		view.setEntranceTabLblFrequencyGate(Double.toString(user.getGate().getFrequency()));
+		Person person = DataManager.getPerson(user.getId());
+		
+		view.setEntranceTabLblSerialNumberUser(person.getRemote().getSerialNumber());
+		view.setEntranceTabLblFrequencyUser( Double.toString( user.getRemote().getFrequency())); // this gets updated on asking the correct frequency
+		view.setEntranceTabLblRegisteredUser(person.getRemote().getIsActive());
+		view.setEntranceTabLblFirstNameUser(person.getFirstname());
+		view.setEntranceTabLblLastNameUser(	person.getLastname()); 
+		view.setEntranceTabLblEndOfContractUser(Utility.DATE_FORMAT.format(person.getEndOfContract()));
+		view.setEntranceTabLblFrequencyGate(Double.toString(user.getGate().getFrequency())); // this is the gate frequency
 
-		Address a = user.getAdress();
+		Address a = person.getAdress();
 		view.setEntranceTablLblAddressStreetUser( a.getStreet() + " " + a.getNumber() + "/" + a.getMailBox());
 		view.setEntranceTablLblAddressCityUser(   a.getPostalCode() + " " + a.getCity());
 		view.setEntranceTablLblAddressCountryUser(a.getCountry());
@@ -152,10 +156,19 @@ public class ControllerRemote {
 			PersonWrapper user = view.getUserForGate();
 			if (user == null)
 				return;
+
 			UserDeactivationResult result = gateAdmin.deactivateUser(user);
 
 			view.showMessage(result.toString());
 			setUserToEntranceLabels();
+		}		
+	}	
+	// Listener for button to update gate frequency (Ask Entrance tab)
+	private class UpdateGateFrequencyListener implements ActionListener{
+		@Override
+		public void actionPerformed(ActionEvent e) {
+			gateAdmin.setRandomFrequency();
+			view.setEntranceTabLblFrequencyGate( Long.toString(gateAdmin.getFrequency()) ); 
 		}		
 	}	
 	// Listener for ask entrance button (Ask Entrance tab)
