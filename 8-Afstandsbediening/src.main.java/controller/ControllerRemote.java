@@ -7,13 +7,13 @@ import java.awt.event.ItemListener;
 
 import org.apache.log4j.Logger;
 
+import database.DataDeleter;
+import database.DataGenerator;
 import model.business.Administrator;
 import model.business.PersonWrapper;
 import model.entities.Address;
 import model.entities.Person;
 import model.repository.DataManager;
-import utility.DataDeleter;
-import utility.DataGenerator;
 import utility.Utility;
 import values.UserDeactivationResult;
 import values.UserRegistrationResult;

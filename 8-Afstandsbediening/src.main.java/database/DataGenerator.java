@@ -1,4 +1,4 @@
-package utility;
+package database;
 
 import java.sql.Date;
 import java.time.LocalDate;
@@ -10,11 +10,11 @@ import java.util.concurrent.ThreadLocalRandom;
 import org.apache.log4j.Logger;
 import org.fluttercode.datafactory.impl.DataFactory;
 
-import database.EntityDAO;
 import model.entities.Address;
 import model.entities.Person;
 import model.entities.Remote;
 import net.bytebuddy.asm.Advice.This;
+import utility.Utility;
 
 
 /**
