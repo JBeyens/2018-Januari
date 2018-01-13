@@ -30,10 +30,10 @@ public class AdministratorTest {
 	@Before
 	public void setUp(){
 		admin = new Administrator();
-		person = createPersonMock();
+		person = EntityDAO.PERSON_DAO.update(createPersonMock());
 		user = new PersonWrapper(person, admin);
 		
-		EntityDAO.PERSON_DAO.create(person);
+		
 	}
 	
 	@Test
