@@ -71,6 +71,7 @@ public class Administrator implements AdminSubject{
 	 **/
 	@Override
 	public UserRegistrationResult registerUser(PersonWrapper user) { 
+		log.debug("Registering user");
 		if (findUserInList(user)) // Check if person is already in list
 			return UserRegistrationResult.alreadyInList;
 		
@@ -89,6 +90,7 @@ public class Administrator implements AdminSubject{
 	 */
 	@Override
 	public UserDeactivationResult deactivateUser(PersonWrapper userWithRemote) {
+		log.debug("Deactivating user");
 		AdminObserver observerToRemove = null;
 		//observers.remove(user); -> does not work since 'user' has no object reference from list 'observers'
 		for (AdminObserver observer : observers) {
