@@ -32,10 +32,8 @@ public class PersonWrapperTest {
 		admin = new Administrator();
 		admin.setFrequency(newFrequency);
 
-		person = createPersonMock();
+		person = EntityDAO.PERSON_DAO.update(createPersonMock());
 		user = new PersonWrapper(person, admin);
-		
-		EntityDAO.PERSON_DAO.create(person);
 		
 		admin.registerUser(user);
 	}
