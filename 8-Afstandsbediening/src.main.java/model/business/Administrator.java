@@ -132,6 +132,6 @@ public class Administrator implements AdminSubject{
 	 * @return Boolean - Is the inputted AdminObserver found in the list of observers?
 	 **/
 	private boolean findUserInList(AdminObserver o) {
-		return observers.stream().anyMatch(x -> x == o);
+		return observers.stream().anyMatch(x -> x.getId() == o.getId());
 	}
 }
