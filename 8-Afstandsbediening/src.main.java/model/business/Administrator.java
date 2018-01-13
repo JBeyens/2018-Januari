@@ -101,7 +101,8 @@ public class Administrator implements AdminSubject{
 			break;
 		}
 		
-		DataManager.deActivateRemote(userWithRemote.getRemote().getId());
+		if (userWithRemote.getRemote() != null)
+			DataManager.deActivateRemote(userWithRemote.getRemote().getId());
 		return observers.remove(observerToRemove) ? UserDeactivationResult.succesfull : UserDeactivationResult.notFound;
 	}	
 
