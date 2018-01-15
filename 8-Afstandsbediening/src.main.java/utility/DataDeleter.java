@@ -3,7 +3,6 @@ package utility;
 import org.apache.log4j.Logger;
 
 import database.EntityDAO;
-import net.bytebuddy.asm.Advice.This;
 
 /**
  * @Author Ben Vandevorst & Jef Beyens
@@ -20,7 +19,7 @@ public final class DataDeleter {
 	}
 	
 	public static boolean performDeletion() {
-		logger = Utility.getLogger(This.class.getSimpleName());
+		logger = Utility.getLogger("DataDeleter");
 		try {
 			logger.info("Starting to delete database... ");
 			removePerson();	

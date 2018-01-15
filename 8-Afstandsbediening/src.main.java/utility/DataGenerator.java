@@ -14,7 +14,6 @@ import database.EntityDAO;
 import model.entities.Address;
 import model.entities.Person;
 import model.entities.Remote;
-import net.bytebuddy.asm.Advice.This;
 
 
 /**
@@ -48,7 +47,7 @@ public class DataGenerator {
 	}
 	
 	public static boolean performDataGeneration() {
-		logger = Utility.getLogger(This.class.getSimpleName());
+		logger = Utility.getLogger("DataGenerator");
 		try {
 			logger.info("Starting to create data... ");
 			createActivePersonsRemotesAddresses();
